@@ -1,0 +1,23 @@
+PRIMERA VEZ QUE INICIA:
+
+git init
+
+git remote add origin "link"
+
+git pull origin master(actualiza mi codigo al original)
+
+SEGUNDA O MAS VECES QUE ENTRA:
+
+git add .
+
+para subir cambios:
+
+git commit -m "comentario"
+
+
+verificar que la copia esta al dia con la original:
+
+git pull origin master
+
+git push origin master (agrega mi codigo al original)
+
