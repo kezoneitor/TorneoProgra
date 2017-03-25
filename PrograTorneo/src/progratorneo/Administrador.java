@@ -5,44 +5,16 @@
  */
 package progratorneo;
 
-/**
- *
- * @author Kezo
- */
+
 public class Administrador {
     String nombre;
     String clave;
     int dinero;
+    Administrador sig;
 
     public Administrador(String nombre, String clave, int dinero) {
         this.nombre = nombre;
         this.clave = clave;
         this.dinero = dinero;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public int getDinero() {
-        return dinero;
-    }
-
-    public void setDinero(int dinero) {
-        this.dinero = dinero;
-    }
-        
-
+    }  
 }
