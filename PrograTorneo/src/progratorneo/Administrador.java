@@ -10,7 +10,6 @@ package progratorneo;
  * @author Kezo
  */
 public class Administrador {
-    String [] listTorneo;
     String nombre;
     String clave;
     int dinero;
