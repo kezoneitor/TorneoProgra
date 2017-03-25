@@ -10,6 +10,7 @@ package progratorneo;
  * @author Kezo
  */
 public class Administrador {
+    String [] listTorneo;
     String nombre;
     String clave;
     int dinero;
@@ -20,4 +21,29 @@ public class Administrador {
         this.dinero = dinero;
     }
     
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public int getDinero() {
+        return dinero;
+    }
+
+    public void setDinero(int dinero) {
+        this.dinero = dinero;
+    }
+        
+
 }
