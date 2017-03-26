@@ -14,8 +14,8 @@ public class Torneo {
     Torneo sig;
 
     public Torneo(String[] GrupoA, String[] GrupoB, int[] Premio) {
-        this.GrupoA = GrupoA;
-        this.GrupoB = GrupoB;
+        this.GrupoA = null;
+        this.GrupoB = null;
         this.Premio = Premio;
         this.sig = null;
         this.SubPartidos= null;

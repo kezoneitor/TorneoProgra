@@ -5,10 +5,7 @@
  */
 package progratorneo;
 
-/**
- *
- * @author Kezo
- */
+
 public class Entrenador {
     String nombre;
     Equipo equipo;
