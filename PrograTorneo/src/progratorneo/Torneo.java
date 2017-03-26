@@ -17,6 +17,8 @@ public class Torneo {
         this.GrupoA = GrupoA;
         this.GrupoB = GrupoB;
         this.Premio = Premio;
+        this.sig = null;
+        this.SubPartidos= null;
     }
     
     
