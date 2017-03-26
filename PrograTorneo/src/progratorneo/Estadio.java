@@ -10,13 +10,15 @@ package progratorneo;
  * @author Kezo
  */
 public class Estadio {
+    String nombre;
     String ubicacion;
     int capacidad;
     Estadio sig;
 
-    public Estadio(String ubicacion, int capacidad) {
+    public Estadio(String nombre, String ubicacion, int capacidad) {
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
         this.sig = null;
+        this.nombre = nombre;
     }
 }

@@ -1,37 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package progratorneo;
 
 import java.awt.Image;
 
-/**
- *
- * @author Kezo
- */
 public class Equipo {
+    String nombre;
     Jugador[] jugadores;
     Entrenador entrenador;
     int dinero;
     Image camisa;
     int posicionTorneo;
     int goles;
-    
+
     //Punteros
     Equipo sig;
     Equipo ant;
 
-    public Equipo(int dinero, Image camisa, int posicionTorneo) {
+    public Equipo(String nombre, Image camisa) {
+        this.nombre= nombre;
         this.jugadores = null;
         this.entrenador = null;
-        this.dinero = dinero;
+        this.dinero = 3000000;
         this.camisa = camisa;
-        this.posicionTorneo = posicionTorneo;
+        this.posicionTorneo = 0;
         this.goles = 0;
         this.sig = null;
         this.ant = null;
     }
-    
+
 }

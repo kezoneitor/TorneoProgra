@@ -1,9 +1,7 @@
-
-
 package progratorneo;
 
-
 public class Administrador {
+
     String nombre;
     String clave;
     int dinero;
@@ -13,6 +11,6 @@ public class Administrador {
         this.nombre = nombre;
         this.clave = clave;
         this.dinero = dinero;
-        this.sig= null;
-    }  
+        this.sig = null;
+    }
 }
