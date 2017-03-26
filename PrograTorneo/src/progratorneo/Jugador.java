@@ -20,8 +20,8 @@ public class Jugador {
     //Punteros
     Jugador sig;
 
-    public Jugador(String nombre, Equipo equipo, int[] habilidades, int precio, String posicion) {
-        this.equipo = equipo;
+    public Jugador(String nombre, int[] habilidades, int precio, String posicion) {
+        this.equipo = null;
         this.nombre = nombre;
         this.habilidades = habilidades;
         this.precio = precio;

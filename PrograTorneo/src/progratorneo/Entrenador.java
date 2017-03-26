@@ -5,16 +5,16 @@
  */
 package progratorneo;
 
-
 public class Entrenador {
+
     String nombre;
     Equipo equipo;
     Entrenador sig;
 
-    public Entrenador(String nombre, Equipo equipo) {
+    public Entrenador(String nombre) {
         this.nombre = nombre;
-        this.equipo = equipo;
+        this.equipo = null;
         this.sig = null;
     }
-    
+
 }

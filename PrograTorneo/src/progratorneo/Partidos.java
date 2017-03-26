@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package progratorneo;
 
-
 public class Partidos {
+
     Partidos sig;
     Estadio estadio;
     Equipo equipoA;
@@ -18,6 +14,5 @@ public class Partidos {
         this.equipoA = equipoA;
         this.equipoB = equipoB;
     }
-   
-    
+
 }
