@@ -5,19 +5,29 @@
  */
 package progratorneo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Kezo
  */
 public class ventanaPrincipal extends javax.swing.JFrame {
 
+    char tipo = 'N';
+    Administrador logeado;
+    Metodos met = new Metodos();
+
     /**
      * Creates new form ventanaPrincipal
      */
     public ventanaPrincipal() {
         initComponents();
+        jTabbedPane1.setEnabledAt(1, false);
+        jTabbedPane1.setEnabledAt(2, false);
+        jTabbedPane1.setEnabledAt(3, false);
     }
 
+    //Metodo para verificar si el valor puede convertirse en numero
     private static boolean esNumero(String texto) {
         try {
             Integer.parseInt(texto);
@@ -27,6 +37,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    //Verificar si alguien esta logueado
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,16 +47,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        buttonGroup5 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        panelLogin = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNLogin = new javax.swing.JTextField();
@@ -54,49 +57,17 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         rbtnAdmin = new javax.swing.JRadioButton();
         rbtnEntrenador = new javax.swing.JRadioButton();
         rbtnJugador = new javax.swing.JRadioButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lblUsuarioActual = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab2", jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab3", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab4", jPanel4);
-
-        jLabel1.setText("Nombre:");
+        jLabel1.setText("Nombre Usuario:");
 
         jLabel2.setText("Contraseña:");
 
@@ -130,77 +101,192 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
+        panelLogin.setLayout(panelLoginLayout);
+        panelLoginLayout.setHorizontalGroup(
+            panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLoginLayout.createSequentialGroup()
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLoginLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLoginLayout.createSequentialGroup()
+                                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtNLogin)
                                     .addComponent(txtCLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(panelLoginLayout.createSequentialGroup()
                                 .addComponent(rbtnAdmin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rbtnEntrenador)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rbtnJugador))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelLoginLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(btnLogin)))
-                .addContainerGap(713, Short.MAX_VALUE))
+                .addContainerGap(715, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelLoginLayout.setVerticalGroup(
+            panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLoginLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnAdmin)
                     .addComponent(rbtnEntrenador)
                     .addComponent(rbtnJugador))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin)
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Login", jPanel1);
+        jTabbedPane1.addTab("Login", panelLogin);
+
+        jPanel4.setEnabled(false);
+        jPanel4.setName(""); // NOI18N
+        jPanel4.setRequestFocusEnabled(false);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 960, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 443, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab4", jPanel4);
+
+        jPanel3.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 960, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 443, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab3", jPanel3);
+
+        jPanel2.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 960, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 443, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel2);
+
+        jLabel3.setText("Usuario actual: ");
+
+        lblUsuarioActual.setText("No hay");
+
+        jLabel5.setText("Estado:");
+
+        lblEstado.setText("Desconectado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuarioActual)
+                .addGap(113, 113, 113)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEstado)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblUsuarioActual)
+                    .addComponent(jLabel5)
+                    .addComponent(lblEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        if (!txtNLogin.getText().isEmpty() & !txtCLogin.getText().isEmpty() & (rbtnAdmin.isEnabled() | rbtnEntrenador.isEnabled() | rbtnJugador.isEnabled())) {
-            
 
+        if (!txtNLogin.getText().isEmpty() & !txtCLogin.getText().isEmpty() & (rbtnAdmin.isEnabled() | rbtnEntrenador.isEnabled() | rbtnJugador.isEnabled())) {
+            if (rbtnAdmin.isSelected()) {
+                Administrador admin = met.buscarAdmin(txtNLogin.getText(), txtCLogin.getText());
+                if (admin != null) {
+                    this.tipo = 'A';
+                    this.logeado = admin;
+                    lblUsuarioActual.setText(this.logeado.nombre);
+                    lblEstado.setText("Conectado");
+                    //Habilitar los paneles para el administrador
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro usuario administrador");
+                }
+            } else if (rbtnEntrenador.isSelected()) {
+                Entrenador admin = met.buscarEntrenador(txtNLogin.getText());
+                if (admin != null) {
+                    this.tipo = 'B';
+                    lblUsuarioActual.setText(this.logeado.nombre);
+                    lblEstado.setText("Conectado");
+                    //Habilitar los paneles para el entrenador
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro usuario entrenador");
+                }
+            } else if (rbtnJugador.isSelected()) {
+                Jugador admin = met.buscarJugador(txtNLogin.getText());
+                if (admin != null) {
+                    this.tipo = 'C';
+                    lblUsuarioActual.setText(this.logeado.nombre);
+                    lblEstado.setText("Conectado");
+                    //Habilitar los paneles para el Jugador
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro usuario jugador");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Se debe marcar una opción.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Los campos que le corresponden deben estar llenos");
         }
+
+        // this.tipo = 'N';
+        // this.logeado = null;
+        // lblUsuarioActual.setText("No hay");
+        //  lblEstado.setText("onectado");
+        //Desabilitar todos los paneles
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void rbtnEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEntrenadorActionPerformed
@@ -208,7 +294,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         txtCLogin.setEnabled(false);
         rbtnJugador.setSelected(false);
         rbtnAdmin.setSelected(false);
-        
+
     }//GEN-LAST:event_rbtnEntrenadorActionPerformed
 
     private void rbtnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAdminActionPerformed
@@ -216,7 +302,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         txtCLogin.setEnabled(true);
         rbtnJugador.setSelected(false);
         rbtnEntrenador.setSelected(false);
-        
+
     }//GEN-LAST:event_rbtnAdminActionPerformed
 
     private void rbtnJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnJugadorActionPerformed
@@ -263,18 +349,17 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblUsuarioActual;
+    private javax.swing.JPanel panelLogin;
     private javax.swing.JRadioButton rbtnAdmin;
     private javax.swing.JRadioButton rbtnEntrenador;
     private javax.swing.JRadioButton rbtnJugador;
