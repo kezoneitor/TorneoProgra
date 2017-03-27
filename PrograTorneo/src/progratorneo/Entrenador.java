@@ -8,11 +8,13 @@ package progratorneo;
 public class Entrenador {
 
     String nombre;
+    String apellido;
     Equipo equipo;
     Entrenador sig;
 
-    public Entrenador(String nombre) {
+    public Entrenador(String nombre, String apellido) {
         this.nombre = nombre;
+        this.apellido = apellido;
         this.equipo = null;
         this.sig = null;
     }

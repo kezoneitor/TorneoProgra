@@ -2,6 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/ventanaPrincipal.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/Administrador.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/Metodos.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/Jugador.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/PrograTorneo.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/Equipo.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/Estadio.java</file>
+            <file>file:/C:/Users/Kezo/Desktop/Progra%20KJ/PrograTorneo/src/progratorneo/Entrenador.java</file>
+        </group>
+>>>>>>> d410a359b8c98e02d97427296e45a38198190b12
     </open-files>
 </project-private>
