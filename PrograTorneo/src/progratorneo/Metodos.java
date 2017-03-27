@@ -33,10 +33,10 @@ public class Metodos {
         return null;
     }
 
-    public Entrenador buscarEntrenador(String nombre) {
+    public Entrenador buscarEntrenador(String nombre, String apellido) {
         Entrenador aux = inicioEn;
         while (aux != null) {
-            if (aux.nombre.equals(nombre)) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
                 return aux;
             }
             if(aux == finalEn){
@@ -47,16 +47,17 @@ public class Metodos {
         return null;
     }
 
-    public Jugador buscarJugador(String nombre) {
+    public Jugador buscarJugador(String nombre, String apellido) {
         Jugador aux = inicioJ;
         while (aux != null) {
-            if (aux.nombre.equals(nombre)) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
                 return aux;
             }
             aux = aux.sig;
         }
         return null;
     }
+    
     // Insercion al final simple
     public boolean InsertarAdmin(String nombre, String clave) {
         Administrador nuevo = new Administrador(nombre, clave, 0);
@@ -77,19 +78,17 @@ public class Metodos {
     }
 
     // Insercion al inicio simple circular
-    public String InsertarEntrenador(String nombre) {
-        Entrenador nuevo = new Entrenador(nombre);
+    public String InsertarEntrenador(String nombre, String apellido) {
+        Entrenador nuevo = new Entrenador(nombre, apellido);
         if (inicioEn == null) {
             inicioEn = nuevo;
             inicioEn.sig = inicioEn;
             finalEn = inicioEn;
             return "Entrenador Insertado";
-
         }
-
         Entrenador aux = inicioEn;
         while (aux != null) {
-            if (aux.nombre.equals(nombre)) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
                 return "Entrenador ya existe";
             }
             if (aux.nombre.equals(finalEq.nombre)) {
@@ -104,15 +103,15 @@ public class Metodos {
     }
 
     //Insertar Inicio Simple
-    public boolean InsertarJugador(String nombre, int[] habilidades, int precio, String posicion) {
-        Jugador nuevo = new Jugador(nombre, habilidades, precio, posicion);
+    public boolean InsertarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
+        Jugador nuevo = new Jugador(nombre, apellido, habilidades, precio, posicion);
         if (inicioJ == null) {
             inicioJ = nuevo;
             return true;
         }
         Jugador aux = inicioJ;
         while (aux != null) {
-            if (aux.nombre.equals(nombre)) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
                 return false;
             }
             aux = aux.sig;
@@ -151,7 +150,7 @@ public class Metodos {
         return "Insertado";
 
     }
-
+    // insertar simple
     public String InsertarEstadio(String nombre, String ubicacion, int capacidad) {
         Estadio nuevo = new Estadio(nombre, ubicacion, capacidad);
         if (inicioEs == null) {

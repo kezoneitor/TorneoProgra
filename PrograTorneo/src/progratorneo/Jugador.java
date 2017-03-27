@@ -14,15 +14,17 @@ public class Jugador {
     //Físico, Defensa, Dribbling Disparo
     int[] habilidades;
     String nombre;
+    String apellido;
     int precio;
     String posicion;
     int goles;
     //Punteros
     Jugador sig;
 
-    public Jugador(String nombre, int[] habilidades, int precio, String posicion) {
+    public Jugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
         this.equipo = null;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.habilidades = habilidades;
         this.precio = precio;
         this.posicion = posicion;
