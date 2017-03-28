@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Metodos {
 
-    ArrayList<ArrayList> Jugadores=  new  ArrayList() ;// matriz 
+    ArrayList<ArrayList> Jugadores = new ArrayList();// matriz 
     ArrayList<String> listNombre = new ArrayList<String>();
     ArrayList<String> listApellido = new ArrayList<String>();
 
@@ -71,19 +71,56 @@ public class Metodos {
     }
 
     public void CrearJugadores() {
+        int[] posiciones = {32, 128, 128, 64, -1};
         for (int i = 0; i < listNombre.size(); i++) {
             for (int j = 0; j < listApellido.size(); j++) {
-                ArrayList<String> jugador = new ArrayList();
-                jugador.add(listApellido.get(j));
-                jugador.add(listNombre.get(i));
-                Jugadores.add(jugador);
 
-                System.out.println(jugador);
-                System.out.println(Jugadores);
-                
+                ArrayList jugador = new ArrayList();
+
+                int[] habilidades = {1, 1, 1, 1};
+
+                jugador.add(listNombre.get(i));
+                jugador.add(listApellido.get(j));
+                jugador.add(generarHabilidades(habilidades));
+                posiciones = generarPosicion(posiciones);
+                switch (posiciones[4]) {
+                    case 0:
+                        jugador.add("portero");
+                        break;
+                    case 1:
+                        jugador.add("defensa");
+                        break;
+                    case 2:
+                        jugador.add("medio");
+                        break;
+                    case 3:
+                        jugador.add("delantero");
+                        break;
+                }
+                Jugadores.add(jugador);
             }
         }
+        System.out.println(Jugadores);
+    }
 
+    public int[] generarHabilidades(int[] habilidades) {
+        int total = 0;
+        while (total != 15) {
+            int pto1 = (int) (Math.random() * 9);
+            int pto2 = (int) (Math.random() * 9);
+            int pto3 = (int) (Math.random() * 9);
+            int pto4 = (int) (Math.random() * 9);
+            habilidades[0] = pto1 + 1;
+            habilidades[1] = pto2 + 1;
+            habilidades[2] = pto3 + 1;
+            habilidades[3] = pto4 + 1;
+            total = habilidades[0] + habilidades[1] + habilidades[2] + habilidades[3];
+        }
+        return habilidades;
+    }
+
+    public int[] generarPosicion(int[] posiciones) {
+        return posiciones;
     }
 
 //Metodos de listas
