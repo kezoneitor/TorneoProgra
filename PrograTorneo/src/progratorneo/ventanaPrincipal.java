@@ -145,6 +145,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 BtnGenerarJMouseClicked(evt);
             }
         });
+        BtnGenerarJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGenerarJActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
@@ -316,7 +321,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("Posición:");
 
-        cmbPosicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Portero", "Defensa", "Medio Campo", "Delantero" }));
+        cmbPosicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "portero", "defensa", "medio", "delantero" }));
 
         jLabel12.setText("Habilidades");
 
@@ -750,9 +755,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     //Sacar Precio y mostrarlo en un label||| final
 
     private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
-        met.AgregarNombreApellido();
-        met.CrearJugadores();
+        //met.AgregarNombreApellido();
+        //met.CrearJugadores();
+        int[] habilidades = {1,1,1,1};
+        met.generarHabilidades(habilidades);
     }//GEN-LAST:event_BtnGenerarJMouseClicked
+
+    private void BtnGenerarJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGenerarJActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnGenerarJActionPerformed
 
     /**
      * @param args the command line arguments

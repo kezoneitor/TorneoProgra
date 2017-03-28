@@ -195,6 +195,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnGenerarJMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnGenerarJActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -566,10 +567,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
-                            <StringItem index="0" value="Portero"/>
-                            <StringItem index="1" value="Defensa"/>
-                            <StringItem index="2" value="Medio Campo"/>
-                            <StringItem index="3" value="Delantero"/>
+                            <StringItem index="0" value="portero"/>
+                            <StringItem index="1" value="defensa"/>
+                            <StringItem index="2" value="medio"/>
+                            <StringItem index="3" value="delantero"/>
                           </StringArray>
                         </Property>
                       </Properties>
