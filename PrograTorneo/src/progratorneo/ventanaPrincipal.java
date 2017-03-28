@@ -30,13 +30,19 @@ public class ventanaPrincipal extends javax.swing.JFrame {
      */
     public ventanaPrincipal() {
         initComponents();
-        //Componentes y sus iniciaciones por defecto
+
+        //Componentes y sus iniciaciones por defecto|||Inicio
         //tbdPrincipal.setEnabledAt(1, false);
         //tbdPrincipal.setEnabledAt(2, false);
         //tbdPrincipal.setEnabledAt(3, false);
         //tbdRegistrar.setEnabledAt(0, true);
         //tbdRegistrar.setEnabledAt(1, false);
         //tbdRegistrar.setEnabledAt(2, false);
+        //Componentes y sus iniciaciones por defecto|||final
+        met.InsertarAdmin("kezo", "123");
+        met.InsertarAdmin("julio", "123");
+        data.AgregarNombreApellido();
+        data.CrearJugadores();
 
     }
 
@@ -68,7 +74,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             datos.addElement(respaldo.get(i).get(3));
             datos.addElement(respaldo.get(i).get(4));
             tabla.addRow(datos);
-            
+
             respaldo.remove(i);
         }
         jTable1.setModel(tabla);
@@ -387,24 +393,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelJugdorLayout.createSequentialGroup()
                         .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelJugdorLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbPosicion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panelJugdorLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
-                            .addGroup(panelJugdorLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAJugador)))
-                        .addGap(489, 489, 489))
-                    .addGroup(panelJugdorLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelJugdorLayout.createSequentialGroup()
-                        .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelJugdorLayout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmbFisico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,7 +413,23 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblPrecio)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelJugdorLayout.createSequentialGroup()
+                        .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNJugador))
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAJugador))
+                            .addComponent(jLabel12))
+                        .addGap(489, 646, Short.MAX_VALUE))))
         );
         panelJugdorLayout.setVerticalGroup(
             panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,24 +613,20 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             //Validar que se allá escrito un nombre y marcado algun campo
             if (!txtNLogin.getText().isEmpty() & (rbtnAdmin.isEnabled() | rbtnEntrenador.isEnabled() | rbtnJugador.isEnabled())) {
                 //Validar que el campo contraseña este lleno
-                if (!txtCLogin.getText().isEmpty()) {
-                    //Realizar este codigo si esta selecionado el radiobutton admin
-                    if (rbtnAdmin.isSelected()) {
-                        Administrador admin = met.buscarAdmin(txtNLogin.getText(), txtCLogin.getText());
-                        //Verificar que exista ese admin
-                        if (admin != null) {
-                            this.tipo = 'A';
-                            this.logeado = admin;
-                            lblUsuarioActual.setText(this.logeado.nombre);
-                            lblEstado.setText("Conectado");
-                            btnLogin.setText("Logout");
-                            //Habilitar los paneles para el administrador
-                            tbdPrincipal.setEnabledAt(1, true);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se encontro usuario administrador");
-                        }
+                //Realizar este codigo si esta selecionado el radiobutton admin
+                if (rbtnAdmin.isSelected()) {
+                    Administrador admin = met.buscarAdmin(txtNLogin.getText(), txtCLogin.getText());
+                    //Verificar que exista ese admin
+                    if (admin != null) {
+                        this.tipo = 'A';
+                        this.logeado = admin;
+                        lblUsuarioActual.setText(this.logeado.nombre);
+                        lblEstado.setText("Conectado");
+                        btnLogin.setText("Logout");
+                        //Habilitar los paneles para el administrador
+                        tbdPrincipal.setEnabledAt(1, true);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Por favor introduzca su contraseña");
+                        JOptionPane.showMessageDialog(null, "No se encontro usuario administrador");
                     }
                     //Realizar este codigo si esta selecionado el radiobutton entrenador
                 } else if (rbtnEntrenador.isSelected()) {
@@ -665,7 +665,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             this.tipo = 'N';
             this.logeado = null;
             lblUsuarioActual.setText("No hay");
-            lblEstado.setText("onectado");
+            lblEstado.setText("Desconectado");
             btnLogin.setText("Login");
             //Desabilitar todos los paneles
             tbdPrincipal.setEnabledAt(1, false);
@@ -722,10 +722,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             case 2:
                 if (!txtNJugador.getText().isEmpty() & !txtAJugador.getText().isEmpty()) {
                     int precio = Integer.parseInt(lblPrecio.getText());
-                    int fisico = (int) cmbFisico.getSelectedItem();
-                    int defensa = (int) cmbDefensa.getSelectedItem();
-                    int dribbling = (int) cmbDribbling.getSelectedItem();
-                    int disparo = (int) cmbDisparo.getSelectedItem();
+                    int fisico = Integer.parseInt((String)cmbFisico.getSelectedItem());
+                    int defensa = Integer.parseInt((String)cmbDefensa.getSelectedItem());
+                    int dribbling = Integer.parseInt((String)cmbDribbling.getSelectedItem());
+                    int disparo = Integer.parseInt((String)cmbDisparo.getSelectedItem());
                     int[] habilidades = {fisico, defensa, dribbling, disparo};
                     met.InsertarJugador(txtNJugador.getText(), txtAJugador.getText(), habilidades, precio, (String) cmbPosicion.getSelectedItem());
                     JOptionPane.showMessageDialog(null, "Jugador insertado exitosamente");
@@ -799,8 +799,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     //Sacar Precio y mostrarlo en un label||| final
 
     private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
-        data.AgregarNombreApellido();
-        data.CrearJugadores();
         llenarTabla();
     }//GEN-LAST:event_BtnGenerarJMouseClicked
 
