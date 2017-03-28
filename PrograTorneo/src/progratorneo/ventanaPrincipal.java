@@ -79,6 +79,24 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         txtNEntrenador = new javax.swing.JTextField();
         txtAEntrenador = new javax.swing.JTextField();
         panelJugdor = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNJugador = new javax.swing.JTextField();
+        txtAJugador = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        cmbPosicion = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        cmbFisico = new javax.swing.JComboBox<>();
+        cmbDefensa = new javax.swing.JComboBox<>();
+        cmbDribbling = new javax.swing.JComboBox<>();
+        cmbDisparo = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -144,12 +162,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addGap(33, 33, 33)))
                         .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtCLogin)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(panelLoginLayout.createSequentialGroup()
-                                    .addComponent(rbtnEntrenador)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rbtnJugador))
-                                .addComponent(txtNLogin)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLoginLayout.createSequentialGroup()
+                                .addComponent(rbtnEntrenador)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rbtnJugador))
+                            .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap(413, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
@@ -279,15 +296,142 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         tbdRegistrar.addTab("Entrenador", panelEntrenador);
 
+        jLabel1.setText("Nombre:");
+
+        jLabel2.setText("Apellido:");
+
+        jLabel11.setText("Posición:");
+
+        cmbPosicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Portero", "Defensa", "Medio Campo", "Delantero" }));
+
+        jLabel12.setText("Habilidades");
+
+        jLabel13.setText("Físico:");
+
+        jLabel14.setText("Defensa:");
+
+        jLabel15.setText("Dribbling:");
+
+        jLabel16.setText("Disparo:");
+
+        cmbFisico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbFisico.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbFisicoItemStateChanged(evt);
+            }
+        });
+
+        cmbDefensa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbDefensa.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDefensaItemStateChanged(evt);
+            }
+        });
+
+        cmbDribbling.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbDribbling.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDribblingItemStateChanged(evt);
+            }
+        });
+
+        cmbDisparo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbDisparo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDisparoItemStateChanged(evt);
+            }
+        });
+
+        jLabel17.setText("Este jugador empezará con 0 goles");
+
+        jLabel18.setText("Precio: $");
+
+        lblPrecio.setText("185000 (Precio mínimo)");
+
         javax.swing.GroupLayout panelJugdorLayout = new javax.swing.GroupLayout(panelJugdor);
         panelJugdor.setLayout(panelJugdorLayout);
         panelJugdorLayout.setHorizontalGroup(
             panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelJugdorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelJugdorLayout.createSequentialGroup()
+                        .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbPosicion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAJugador)))
+                        .addGap(489, 489, 489))
+                    .addGroup(panelJugdorLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelJugdorLayout.createSequentialGroup()
+                        .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbFisico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDefensa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDribbling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDisparo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel17)
+                            .addGroup(panelJugdorLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPrecio)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelJugdorLayout.setVerticalGroup(
             panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelJugdorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtAJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(cmbFisico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDefensa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDribbling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDisparo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelJugdorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(lblPrecio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel17)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Jugador", panelJugdor);
@@ -461,7 +605,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    
 //RadioButtons para que solo este seleccionado 1 de ellos|||Inicio 
     private void rbtnEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEntrenadorActionPerformed
         lblContraApellido.setText("Apellido:");
@@ -486,14 +629,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         rbtnAdmin.setSelected(false);
     }//GEN-LAST:event_rbtnJugadorActionPerformed
 //RadioButtons para que solo este seleccionado 1 de ellos|||Final
-    
-    
+
+
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         int index = cmbRegistro.getSelectedIndex();
         switch (index) {
             case 0:
                 if (!txtNAdmin.getText().isEmpty() & !txtCAdmin.getText().isEmpty()) {
                     met.InsertarAdmin(txtNAdmin.getText(), txtCAdmin.getText());
+                    JOptionPane.showMessageDialog(null, "Administrador insertado exitosamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Los espacios de administrador deben estar llenos");
                 }
@@ -501,11 +645,24 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             case 1:
                 if (!txtNEntrenador.getText().isEmpty() & !txtAEntrenador.getText().isEmpty()) {
                     met.InsertarEntrenador(txtNEntrenador.getText(), txtAEntrenador.getText());
+                    JOptionPane.showMessageDialog(null, "Entrenador insertado exitosamente");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Los espacios de administrador deben estar llenos");
+                    JOptionPane.showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
                 }
                 break;
             case 2:
+                if (!txtNJugador.getText().isEmpty() & !txtAJugador.getText().isEmpty()) {
+                    int precio = Integer.parseInt(lblPrecio.getText());
+                    int fisico = (int) cmbFisico.getSelectedItem();
+                    int defensa = (int) cmbDefensa.getSelectedItem();
+                    int dribbling = (int) cmbDribbling.getSelectedItem();
+                    int disparo = (int) cmbDisparo.getSelectedItem();
+                    int[] habilidades = {fisico, defensa, dribbling, disparo};
+                    met.InsertarJugador(txtNJugador.getText(), txtAJugador.getText(), habilidades, precio, (String) cmbPosicion.getSelectedItem());
+                    JOptionPane.showMessageDialog(null, "Jugador insertado exitosamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Los espacios de jugador deben estar llenos");
+                }
                 break;
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -529,7 +686,55 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tbdRegistrar.setEnabledAt(index, true);
         tbdRegistrar.setSelectedIndex(index);
     }//GEN-LAST:event_cmbRegistroItemStateChanged
+    
+    //Sacar el precio de un jugador
+    private int precio(int fisico, int defensa, int dribbling, int disparo) {
+        int precio = 0;
+        precio+= (fisico*15000);
+        precio+= (defensa*30000);
+        precio+= (dribbling*40000);
+        precio+= (disparo*100000);
+        return precio;
+    }
+    //Sacar Precio y mostrarlo en un label||| inicio
+    private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
+        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
+        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
+        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
+        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
+        int precio = precio(fisico,defensa,dribbling,disparo);
+        lblPrecio.setText(String.valueOf(precio));
+    }//GEN-LAST:event_cmbFisicoItemStateChanged
 
+    private void cmbDefensaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaItemStateChanged
+        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
+        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
+        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
+        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
+        int precio = precio(fisico,defensa,dribbling,disparo);
+        lblPrecio.setText(String.valueOf(precio));
+    }//GEN-LAST:event_cmbDefensaItemStateChanged
+
+    private void cmbDribblingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingItemStateChanged
+        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
+        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
+        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
+        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
+        int precio = precio(fisico,defensa,dribbling,disparo);
+        lblPrecio.setText(String.valueOf(precio));
+    }//GEN-LAST:event_cmbDribblingItemStateChanged
+
+    private void cmbDisparoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoItemStateChanged
+        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
+        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
+        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
+        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
+        int precio = precio(fisico,defensa,dribbling,disparo);
+        lblPrecio.setText(String.valueOf(precio));
+    }//GEN-LAST:event_cmbDisparoItemStateChanged
+    //Sacar Precio y mostrarlo en un label||| final
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -568,8 +773,23 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cmbDefensa;
+    private javax.swing.JComboBox<String> cmbDisparo;
+    private javax.swing.JComboBox<String> cmbDribbling;
+    private javax.swing.JComboBox<String> cmbFisico;
+    private javax.swing.JComboBox<String> cmbPosicion;
     private javax.swing.JComboBox<String> cmbRegistro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -582,6 +802,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblContraApellido;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JPanel panelAdmin;
     private javax.swing.JPanel panelEntrenador;
@@ -594,10 +815,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tbdPrincipal;
     private javax.swing.JTabbedPane tbdRegistrar;
     private javax.swing.JTextField txtAEntrenador;
+    private javax.swing.JTextField txtAJugador;
     private javax.swing.JTextField txtCAdmin;
     private javax.swing.JTextField txtCLogin;
     private javax.swing.JTextField txtNAdmin;
     private javax.swing.JTextField txtNEntrenador;
+    private javax.swing.JTextField txtNJugador;
     private javax.swing.JTextField txtNLogin;
     // End of variables declaration//GEN-END:variables
 }
