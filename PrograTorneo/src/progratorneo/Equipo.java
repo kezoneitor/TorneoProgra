@@ -2,14 +2,12 @@
 
 package progratorneo;
 
-import java.awt.Image;
-
 public class Equipo {
     String nombre;
     Jugador[] jugadores;
     Entrenador entrenador;
     int dinero;
-    Image camisa;
+    String camisa;
     int posicionTorneo;
     int goles;
 
@@ -17,7 +15,7 @@ public class Equipo {
     Equipo sig;
     Equipo ant;
 
-    public Equipo(String nombre, Image camisa) {
+    public Equipo(String nombre, String camisa) {
         this.nombre= nombre;
         this.jugadores = null;
         this.entrenador = null;
