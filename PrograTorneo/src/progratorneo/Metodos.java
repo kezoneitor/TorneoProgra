@@ -4,11 +4,6 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 public class Metodos {
-
-    ArrayList<ArrayList> Jugadores = new ArrayList();// matriz 
-    ArrayList<String> listNombre = new ArrayList();
-    ArrayList<String> listApellido = new ArrayList();
-
     //Punteros de las listas
     public Torneo inicioT;
 
@@ -25,107 +20,7 @@ public class Metodos {
     public Partidos inicioP;
 
     public Jugador inicioJ;
-
-    public void AgregarNombreApellido() {
-
-        listNombre.add("julio");
-        listNombre.add("roberto");
-        listNombre.add("cristal");
-        listNombre.add("pepe");
-        listNombre.add("manolo");
-        listNombre.add("luis");
-        listNombre.add("josue");
-        listNombre.add("acer");
-        listNombre.add("totto");
-        listNombre.add("toshiba");
-        listNombre.add("sibitec");
-        listNombre.add("luz");
-        listNombre.add("yeremi");
-        listNombre.add("antonio");
-        listNombre.add("pancracio");
-        listNombre.add("keslerth");
-        listNombre.add("vineichon");
-        listNombre.add("maicol");
-        listNombre.add("michaelle");
-
-        listApellido.add("manantial");
-        listApellido.add("stuar");
-        listApellido.add("isuzu");
-        listApellido.add("radix");
-        listApellido.add("heap");
-        listApellido.add("marshall");
-        listApellido.add("tiberius");
-        listApellido.add("reca");
-        listApellido.add("abhdull");
-        listApellido.add("innvovair");
-        listApellido.add("ozil");
-        listApellido.add("duda");
-        listApellido.add("manantial");
-        listApellido.add("silva");
-        listApellido.add("diezcinueve");
-        listApellido.add("russbell");
-        listApellido.add("tinker");
-        listApellido.add("moghulkan");
-        listApellido.add("tidehunter");
-
-    }
-
-    public void CrearJugadores() {
-        for (int i = 0; i < listNombre.size(); i++) {
-            for (int j = 0; j < listApellido.size(); j++) {
-                ArrayList jugador = new ArrayList();
-                int[] habilidades = {1, 1, 1, 1};
-                habilidades = generarHabilidades(habilidades);
-                int precio = precio(habilidades);
-                jugador.add(listNombre.get(i));
-                jugador.add(listApellido.get(j));
-                jugador.add(habilidades);
-                jugador.add(precio);
-                Jugadores.add(jugador);
-            }
-        }
-        for (int i = 0; i < (Jugadores.size() / 11); i++) {
-            Jugadores.get(i).add("portero");
-        }
-        for (int i = 0; i < (Jugadores.size() / 11) * 4; i++) {
-            Jugadores.get(i + (Jugadores.size() / 11)).add("defensa");
-        }
-        for (int i = 0; i < (Jugadores.size() / 11) * 4; i++) {
-            Jugadores.get(i + ((Jugadores.size() / 11) * 5)).add("medio");
-        }
-        for (int i = 0; i < (Jugadores.size() / 11) * 2; i++) {
-            Jugadores.get(i + ((Jugadores.size() / 11) * 9)).add("delantero");
-        }
-        for (int i = 0; i < 9; i++) {
-            Jugadores.get(i + ((Jugadores.size() / 11) * 11)).add("otro");
-        }
-        System.out.println(Jugadores);
-    }
-
-    public int[] generarHabilidades(int[] habilidades) {
-        int total = 0;
-        while (total != 11) {
-            int pto1 = (int) (Math.random() * 9);
-            int pto2 = (int) (Math.random() * 9);
-            int pto3 = (int) (Math.random() * 9);
-            int pto4 = (int) (Math.random() * 9);
-            habilidades[0] = pto1 + 1;
-            habilidades[1] = pto2 + 1;
-            habilidades[2] = pto3 + 1;
-            habilidades[3] = pto4 + 1;
-            total = habilidades[0] + habilidades[1] + habilidades[2] + habilidades[3];
-        }
-        return habilidades;
-    }
-
-    private int precio(int[] habilidades) {
-        int precio = 0;
-        precio += (habilidades[0] * 15000);
-        precio += (habilidades[1] * 30000);
-        precio += (habilidades[2] * 40000);
-        precio += (habilidades[3] * 100000);
-        return precio;
-    }
+    
 //Metodos de listas
 
     public Administrador buscarAdmin(String nombre, String clave) {
