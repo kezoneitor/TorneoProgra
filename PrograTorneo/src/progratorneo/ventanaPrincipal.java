@@ -62,6 +62,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         rbtnAdmin = new javax.swing.JRadioButton();
         rbtnEntrenador = new javax.swing.JRadioButton();
         rbtnJugador = new javax.swing.JRadioButton();
+        BtnGenerarJ = new javax.swing.JButton();
         panelRegistrar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cmbRegistro = new javax.swing.JComboBox<>();
@@ -138,6 +139,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        BtnGenerarJ.setText("Generar J");
+        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGenerarJMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
@@ -168,6 +176,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(rbtnJugador))
                             .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap(413, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnGenerarJ)
+                .addGap(206, 206, 206))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +199,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtCLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addComponent(BtnGenerarJ)
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         tbdPrincipal.addTab("Login", panelLogin);
@@ -686,6 +700,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tbdRegistrar.setEnabledAt(index, true);
         tbdRegistrar.setSelectedIndex(index);
     }//GEN-LAST:event_cmbRegistroItemStateChanged
+
     
     //Sacar el precio de un jugador
     private int precio(int fisico, int defensa, int dribbling, int disparo) {
@@ -733,8 +748,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         lblPrecio.setText(String.valueOf(precio));
     }//GEN-LAST:event_cmbDisparoItemStateChanged
     //Sacar Precio y mostrarlo en un label||| final
-    
-    
+
+    private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
+        met.AgregarNombreApellido();
+        met.CrearJugadores();
+    }//GEN-LAST:event_BtnGenerarJMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -771,6 +790,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnGenerarJ;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cmbDefensa;
