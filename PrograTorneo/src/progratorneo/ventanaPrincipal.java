@@ -6,7 +6,9 @@
 package progratorneo;
 
 import java.util.HashSet;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +19,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     char tipo = 'N';
     Administrador logeado;
     Metodos met = new Metodos();
+    DefaultTableModel tabla = new DefaultTableModel();
 
     /**
      * Creates new form ventanaPrincipal
@@ -43,6 +46,26 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void llenarTabla(){
+        tabla.addColumn("Nombre");
+        tabla.addColumn("Apellido");
+        tabla.addColumn("Habilidades");
+        tabla.addColumn("Precio");
+        tabla.addColumn("Posicion");
+        for(int i = 0;i < met.Jugadores.size();i++){
+        Vector datos = new Vector();
+        datos.addElement(met.Jugadores.get(i).get(0));
+        datos.addElement(met.Jugadores.get(i).get(1));
+        int[] habilidades = (int[]) met.Jugadores.get(i).get(2);
+        String habi = "Fis: "+habilidades[0]+"  Def: "+habilidades[1]+"  Dri: "+habilidades[2]+"  Dis: "+habilidades[3];
+        datos.addElement(habi);
+        datos.addElement(met.Jugadores.get(i).get(3));
+        datos.addElement(met.Jugadores.get(i).get(4));
+        tabla.addRow(datos);
+        }
+        jTable1.setModel(tabla);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +85,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         rbtnAdmin = new javax.swing.JRadioButton();
         rbtnEntrenador = new javax.swing.JRadioButton();
         rbtnJugador = new javax.swing.JRadioButton();
-        BtnGenerarJ = new javax.swing.JButton();
         panelRegistrar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         cmbRegistro = new javax.swing.JComboBox<>();
@@ -99,6 +121,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        BtnGenerarJ = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
@@ -139,18 +165,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        BtnGenerarJ.setText("Generar J");
-        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnGenerarJMouseClicked(evt);
-            }
-        });
-        BtnGenerarJ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGenerarJActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
@@ -158,33 +172,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(panelLoginLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                            .addComponent(rbtnAdmin)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGroup(panelLoginLayout.createSequentialGroup()
+                            .addComponent(lblNombre)
+                            .addGap(11, 11, 11)))
+                    .addGroup(panelLoginLayout.createSequentialGroup()
+                        .addComponent(lblContraApellido)
+                        .addGap(33, 33, 33))
                     .addGroup(panelLoginLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(btnLogin))
-                    .addGroup(panelLoginLayout.createSequentialGroup()
-                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                                    .addComponent(rbtnAdmin)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(panelLoginLayout.createSequentialGroup()
-                                    .addComponent(lblNombre)
-                                    .addGap(11, 11, 11)))
-                            .addGroup(panelLoginLayout.createSequentialGroup()
-                                .addComponent(lblContraApellido)
-                                .addGap(33, 33, 33)))
-                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtCLogin)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLoginLayout.createSequentialGroup()
-                                .addComponent(rbtnEntrenador)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbtnJugador))
-                            .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(413, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnGenerarJ)
-                .addGap(206, 206, 206))
+                        .addComponent(btnLogin)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtCLogin)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLoginLayout.createSequentialGroup()
+                        .addComponent(rbtnEntrenador)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbtnJugador))
+                    .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(568, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +213,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtCLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin)
-                .addGap(76, 76, 76)
-                .addComponent(BtnGenerarJ)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
         tbdPrincipal.addTab("Login", panelLogin);
@@ -256,7 +263,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
                             .addComponent(txtNAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(427, Short.MAX_VALUE))
+                .addContainerGap(582, Short.MAX_VALUE))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,7 +304,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtNEntrenador)
                     .addComponent(txtAEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addContainerGap(644, Short.MAX_VALUE))
         );
         panelEntrenadorLayout.setVerticalGroup(
             panelEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +390,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addGroup(panelJugdorLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                                .addComponent(txtNJugador, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
                             .addGroup(panelJugdorLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -485,15 +492,66 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jPanel3.setEnabled(false);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "Habilidades", "Precio", "Posicion"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        BtnGenerarJ.setText("Generar J");
+        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGenerarJMouseClicked(evt);
+            }
+        });
+
+        jButton1.setText("Llenar tabla");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(BtnGenerarJ)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnGenerarJ)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
         );
 
         tbdPrincipal.addTab("tab3", jPanel3);
@@ -504,7 +562,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 815, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,7 +583,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tbdPrincipal)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
@@ -536,6 +593,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblEstado)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(tbdPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -755,15 +813,14 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     //Sacar Precio y mostrarlo en un label||| final
 
     private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
-        //met.AgregarNombreApellido();
-        //met.CrearJugadores();
-        int[] habilidades = {1,1,1,1};
-        met.generarHabilidades(habilidades);
+        met.AgregarNombreApellido();
+        met.CrearJugadores();
     }//GEN-LAST:event_BtnGenerarJMouseClicked
 
-    private void BtnGenerarJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGenerarJActionPerformed
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnGenerarJActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -810,6 +867,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbFisico;
     private javax.swing.JComboBox<String> cmbPosicion;
     private javax.swing.JComboBox<String> cmbRegistro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -830,6 +888,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblContraApellido;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombre;
