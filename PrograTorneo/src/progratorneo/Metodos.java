@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Metodos {
 
     ArrayList<ArrayList> Jugadores=  new  ArrayList() ;// matriz 
-    ArrayList<String> listNombre = new ArrayList<String>();
-    ArrayList<String> listApellido = new ArrayList<String>();
+    ArrayList<String> listNombre = new ArrayList();
+    ArrayList<String> listApellido = new ArrayList();
 
     //Punteros de las listas
     public Torneo inicioT;
