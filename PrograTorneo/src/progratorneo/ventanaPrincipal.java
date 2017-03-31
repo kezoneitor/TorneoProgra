@@ -593,6 +593,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        panelCamisa.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout panelCamisaLayout = new javax.swing.GroupLayout(panelCamisa);
         panelCamisa.setLayout(panelCamisaLayout);
         panelCamisaLayout.setHorizontalGroup(
@@ -951,6 +953,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 }
                 break;
             case 4:
+                if (!txtNEquipo.getText().isEmpty()){
+                    String ubicacionCamisa = "/progratorneo/camisas/color" + this.colores[cmbColorCamisa.getSelectedIndex()];
+                    String[] camisa = {ubicacionCamisa,ubicacionCamisa};
+                    if(cmbEstampado.getSelectedIndex() != 0){
+                        String ubicacionEstampado = "/progratorneo/camisas" + this.estampado[cmbEstampado.getSelectedIndex()-1] + this.colores[cmbEstampadoColor.getSelectedIndex()];
+                        camisa[1] = ubicacionEstampado;
+                        met.InsertarEquipo(txtNEquipo.getText(), camisa);
+                        JOptionPane.showMessageDialog(null, "Equipo insertado exitosamente");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
+                    }
+                }
                 break;
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -993,8 +1007,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tbdRegistrar.setSelectedIndex(index);
     }//GEN-LAST:event_cmbRegistroItemStateChanged
 
-    //Sacar Precio y mostrarlo en un label||| inicio
-    private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
+    private void sacarPrecioJugador(){
         int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
         int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
         int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
@@ -1002,36 +1015,23 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         int[] habilidades = {fisico, defensa, dribbling, disparo};
         int precio = data.precio(habilidades);
         lblPrecio.setText(String.valueOf(precio));
+    }
+    
+    //Sacar Precio y mostrarlo en un label||| inicio
+    private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
+        sacarPrecioJugador();
     }//GEN-LAST:event_cmbFisicoItemStateChanged
 
     private void cmbDefensaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaItemStateChanged
-        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
-        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
-        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
-        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
-        int[] habilidades = {fisico, defensa, dribbling, disparo};
-        int precio = data.precio(habilidades);
-        lblPrecio.setText(String.valueOf(precio));
+        sacarPrecioJugador();
     }//GEN-LAST:event_cmbDefensaItemStateChanged
 
     private void cmbDribblingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingItemStateChanged
-        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
-        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
-        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
-        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
-        int[] habilidades = {fisico, defensa, dribbling, disparo};
-        int precio = data.precio(habilidades);
-        lblPrecio.setText(String.valueOf(precio));
+        sacarPrecioJugador();
     }//GEN-LAST:event_cmbDribblingItemStateChanged
 
     private void cmbDisparoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoItemStateChanged
-        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
-        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
-        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
-        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
-        int[] habilidades = {fisico, defensa, dribbling, disparo};
-        int precio = data.precio(habilidades);
-        lblPrecio.setText(String.valueOf(precio));
+        sacarPrecioJugador();
     }//GEN-LAST:event_cmbDisparoItemStateChanged
     //Sacar Precio y mostrarlo en un label||| final
 

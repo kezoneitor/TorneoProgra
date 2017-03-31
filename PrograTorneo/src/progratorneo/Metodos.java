@@ -123,7 +123,7 @@ public class Metodos {
     }
     //Insertar Doble circular
 
-    public String InsertarEquipo(String nombre, String camisa) {
+    public String InsertarEquipo(String nombre, String[] camisa) {
         Equipo nuevo = new Equipo(nombre, camisa);
         if (inicioEq == null) {
             inicioEq = nuevo;
