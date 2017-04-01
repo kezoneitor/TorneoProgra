@@ -40,8 +40,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         //tbdRegistrar.setEnabledAt(1, false);
         //tbdRegistrar.setEnabledAt(2, false);
         //Componentes y sus iniciaciones por defecto|||final
+        
         met.InsertarAdmin("kezo", "123");
         met.InsertarAdmin("julio", "123");
+        
         data.AgregarNombreApellido();
         data.CrearJugadores();
         insertarJugadores();

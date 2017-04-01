@@ -24,6 +24,7 @@ public class Metodos {
 
 //Metodos de listas
 //-------------------------------------------METODOS ADMINISTRADOR----------------------------------//
+    // metodo buscar
     public Administrador buscarAdmin(String nombre, String clave) {
         Administrador aux = inicioA;
         while (aux != null) {
@@ -127,7 +128,7 @@ public class Metodos {
             if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
                 return "Entrenador ya existe";
             }
-            if (aux.nombre.equals(finalEq.nombre)) {
+            if (aux == finalEn) {
                 break;
             }
             aux = aux.sig;
@@ -139,7 +140,43 @@ public class Metodos {
     }
 
     //-------------------------------------------METODOS JUGADOR----------------------------------//
-    //buscar simple
+    //Insertar Inicio Simple
+    public String InsertarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
+        Jugador nuevo = new Jugador(nombre, apellido, habilidades, precio, posicion);
+        if (inicioJ == null) {
+            inicioJ = nuevo;
+            return "Jugador insertado";
+        }
+        Jugador aux = inicioJ;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
+                return "El jugador ya existe";
+            }
+            aux = aux.sig;
+        }
+        nuevo.sig = inicioJ;
+        inicioJ = nuevo;
+        return "Jugador insertado";
+    }
+    
+    //Modificar 
+    public String modificarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
+        Jugador aux = inicioJ;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
+                aux.nombre = nombre;
+                aux.apellido = apellido;
+                aux.habilidades = habilidades;
+                aux.precio = precio;
+                aux.posicion = posicion;
+            }
+            aux = aux.sig;
+        }
+        return "El jugador no existe";
+    }
+    
+    
+    //buscar simple por nombre y apellido
     public Jugador buscarJugador(String nombre, String apellido) {
         Jugador aux = inicioJ;
         while (aux != null) {
@@ -150,24 +187,54 @@ public class Metodos {
         }
         return null;
     }
-
-    //Insertar Inicio Simple
-    public boolean InsertarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
-        Jugador nuevo = new Jugador(nombre, apellido, habilidades, precio, posicion);
-        if (inicioJ == null) {
-            inicioJ = nuevo;
-            return true;
-        }
+    
+    //buscar simple por precio
+    public ArrayList buscarJugadorPrecio(int precio, String signo) {
+        ArrayList<Jugador> jugadores = new ArrayList();
         Jugador aux = inicioJ;
         while (aux != null) {
-            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
-                return false;
+            switch(signo){
+                case "=":
+                    if(aux.precio == precio){
+                        jugadores.add(aux);
+                    }
+                    break;
+                case "<":
+                    if(aux.precio <= precio){
+                        jugadores.add(aux);
+                    }
+                    break;
+                case ">":
+                    if(aux.precio >= precio){
+                        jugadores.add(aux);
+                    }
+                    break;
             }
             aux = aux.sig;
         }
-        nuevo.sig = inicioJ;
-        inicioJ = nuevo;
-        return true;
+        return jugadores;
+    }
+    
+    //buscar simple por posicion
+    public ArrayList buscarJugadorPosicion(String posicion) {
+        ArrayList<Jugador> jugadores = new ArrayList();
+        Jugador aux = inicioJ;
+        while (aux != null) {
+            if (aux.posicion.equals(posicion)) {
+                jugadores.add(aux);
+            }
+            aux = aux.sig;
+        }
+        return jugadores;
+    }
+    
+    //imprimir jugador
+    public void imprimirJugador(){
+        Jugador aux = inicioJ;
+        while(aux != null){
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
     }
 
     //-------------------------------------------METODOS EQUIPO----------------------------------//
@@ -218,13 +285,5 @@ public class Metodos {
         nuevo.sig = inicioEs;
         inicioEs = nuevo;
         return "";
-    }
-    
-    public void imprimirJugador(){
-        Jugador aux = inicioJ;
-        while(aux != null){
-            System.out.println(aux.toString());
-            aux = aux.sig;
-        }
     }
 }
