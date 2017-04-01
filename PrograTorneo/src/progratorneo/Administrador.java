@@ -13,4 +13,10 @@ public class Administrador {
         this.dinero = dinero;
         this.sig = null;
     }
+
+    @Override
+    public String toString() {
+        return "Administrador{" + "nombre=" + nombre + ", clave=" + clave + ", dinero=" + dinero + '}';
+    }
+    
 }
