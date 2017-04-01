@@ -275,7 +275,6 @@ public class Metodos {
         finalEq.sig = inicioEq;
 
         return "Insertado";
-
     }
 
     //-------------------------------------------METODOS ESTADIO----------------------------------//
@@ -296,5 +295,13 @@ public class Metodos {
         nuevo.sig = inicioEs;
         inicioEs = nuevo;
         return "";
+    }
+    
+    public void imprimirJugador(){
+        Jugador aux = inicioJ;
+        while(aux != null){
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
     }
 }

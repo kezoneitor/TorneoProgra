@@ -17,6 +17,10 @@ public class DataDefecto {
     ArrayList<String> listNombre = new ArrayList();
     ArrayList<String> listApellido = new ArrayList();
 
+    //Ubicacion de la camisa
+    String[] estampado = {"/cruz", "/rayas", "/tresVertical"};
+    String[] colores = {"/camisaAmarilla.png", "/camisaAnaranjada.png", "/camisaAzul.png", "/camisaBlanca.png", "/camisaCeleste.png", "/camisaMorada.png", "/camisaNegra.png", "/camisaRoja.png", "/camisaVerde.png", "/camisaVioleta.png"};
+
     public void AgregarNombreApellido() {
         //Nombres
         listNombre.add("julio");
@@ -41,7 +45,7 @@ public class DataDefecto {
         listNombre.add("Jafeth");
         listNombre.add("Ibrahimovic");
         listNombre.add("Carlos");
-        
+
         //Apellidos
         listApellido.add("manantial");
         listApellido.add("Tevez");
@@ -82,21 +86,53 @@ public class DataDefecto {
             }
         }
         String[] posiciones = {"portero", "defensa", "medio", "delantero"};
-        for (int i = 0; i < (Jugadores.size() / 11); i++) {
-            Jugadores.get(i).add(posiciones[0]);
+        int count = (Jugadores.size() / 11);
+        for (int i = 0; i < Jugadores.size(); i++) {
+            if (count != 0) {
+                boolean flag = true;
+                while (flag) {
+                    int pos = (int) (Math.random() * (Jugadores.size() - 1));
+                    if (Jugadores.get(pos).size() == 4) {
+                        Jugadores.get(pos).add(posiciones[0]);
+                        flag = false;
+                    }
+                }
+                count--;
+            }
         }
-        for (int i = 0; i < (Jugadores.size() / 11) * 4; i++) {
-            Jugadores.get(i + (Jugadores.size() / 11)).add(posiciones[1]);
+        count = (Jugadores.size() / 11) * 4;
+        for (int i = 0; i < Jugadores.size(); i++) {
+            if (count != 0) {
+                boolean flag = true;
+                while (flag) {
+                    int pos = (int) (Math.random() * (Jugadores.size() - 1));
+                    if (Jugadores.get(pos).size() == 4) {
+                        Jugadores.get(pos).add(posiciones[1]);
+                        flag = false;
+                    }
+                }
+                count--;
+            }
         }
-        for (int i = 0; i < (Jugadores.size() / 11) * 4; i++) {
-            Jugadores.get(i + ((Jugadores.size() / 11) * 5)).add(posiciones[2]);
+        count = (Jugadores.size() / 11) * 4;
+        for (int i = 0; i < Jugadores.size(); i++) {
+            if (count != 0 & Jugadores.get(i).size() == 4) {
+                Jugadores.get(i).add(posiciones[2]);
+                count--;
+            }
         }
+        count = (Jugadores.size() / 11) * 2;
         for (int i = 0; i < (Jugadores.size() / 11) * 2; i++) {
-            Jugadores.get(i + ((Jugadores.size() / 11) * 9)).add(posiciones[3]);
+            if (count != 0 & Jugadores.get(i).size() == 4) {
+                Jugadores.get(i).add(posiciones[3]);
+                count--;
+            }
         }
-        for (int i = 0; i < Jugadores.size() - ((Jugadores.size() / 11) * 11); i++) {
+        for (int i = 0; i < Jugadores.size(); i++) {
             int pos = (int) (Math.random() * 3);
-            Jugadores.get(i + ((Jugadores.size() / 11) * 11)).add(posiciones[pos]);
+            if (Jugadores.get(i).size() == 4) {
+                Jugadores.get(i).add(posiciones[pos]);
+            }
         }
     }
 
@@ -105,7 +141,7 @@ public class DataDefecto {
         int pto2 = (int) (Math.random() * 9) + 1;
         int pto3 = (int) (Math.random() * 9) + 1;
         int pto4 = (int) (Math.random() * 9) + 1;
-        int[] habilidades = {pto1,pto2,pto3,pto4};
+        int[] habilidades = {pto1, pto2, pto3, pto4};
         return habilidades;
     }
 

@@ -9,9 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Vector;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,8 +25,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     Metodos met = new Metodos();
     DataDefecto data = new DataDefecto();
     DefaultTableModel tabla = new DefaultTableModel();
-    String[] estampado = {"/cruz", "/rayas", "/tresVertical"};
-    String[] colores = {"/camisaAmarilla.png", "/camisaAnaranjada.png", "/camisaAzul.png", "/camisaBlanca.png", "/camisaCeleste.png", "/camisaMorada.png", "/camisaNegra.png", "/camisaRoja.png", "/camisaVerde.png", "/camisaVioleta.png"};
 
     /**
      * Creates new form ventanaPrincipal
@@ -48,6 +44,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         met.InsertarAdmin("julio", "123");
         data.AgregarNombreApellido();
         data.CrearJugadores();
+        insertarJugadores();
     }
 
     //Metodo para verificar si el valor puede convertirse en numero
@@ -60,6 +57,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    //Pintar una imagen en una ventana
     private void dibujarCamisa(Graphics g, Image camisa, Image estam) {
         super.paint(g);
         g.drawRect(0, 0, 240, 240);
@@ -71,6 +69,20 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    //insertar los jugadores en el puntero de jugadores
+    private void insertarJugadores() {
+        for (int i = 0; i < data.Jugadores.size(); i++) {
+            String nombre = (String) data.Jugadores.get(i).get(0);
+            String apellido = (String) data.Jugadores.get(i).get(1);
+            int[] habilidades = (int[]) data.Jugadores.get(i).get(2);
+            int precio = (int) data.Jugadores.get(i).get(3);
+            String posicion = (String) data.Jugadores.get(i).get(4);
+            met.InsertarJugador(nombre, apellido, habilidades, precio, posicion);
+        }
+        met.imprimirJugador();
+    }
+
+    //LLenar la jTable con informacion
     private void llenarTabla() {
         tabla.addColumn("Nombre");
         tabla.addColumn("Apellido");
@@ -953,15 +965,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 }
                 break;
             case 4:
-                if (!txtNEquipo.getText().isEmpty()){
-                    String ubicacionCamisa = "/progratorneo/camisas/color" + this.colores[cmbColorCamisa.getSelectedIndex()];
-                    String[] camisa = {ubicacionCamisa,ubicacionCamisa};
-                    if(cmbEstampado.getSelectedIndex() != 0){
-                        String ubicacionEstampado = "/progratorneo/camisas" + this.estampado[cmbEstampado.getSelectedIndex()-1] + this.colores[cmbEstampadoColor.getSelectedIndex()];
+                if (!txtNEquipo.getText().isEmpty()) {
+                    String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
+                    String[] camisa = {ubicacionCamisa, ubicacionCamisa};
+                    if (cmbEstampado.getSelectedIndex() != 0) {
+                        String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
                         camisa[1] = ubicacionEstampado;
                         met.InsertarEquipo(txtNEquipo.getText(), camisa);
                         JOptionPane.showMessageDialog(null, "Equipo insertado exitosamente");
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
                     }
                 }
@@ -1007,7 +1019,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tbdRegistrar.setSelectedIndex(index);
     }//GEN-LAST:event_cmbRegistroItemStateChanged
 
-    private void sacarPrecioJugador(){
+    private void sacarPrecioJugador() {
         int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
         int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
         int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
@@ -1016,7 +1028,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         int precio = data.precio(habilidades);
         lblPrecio.setText(String.valueOf(precio));
     }
-    
+
     //Sacar Precio y mostrarlo en un label||| inicio
     private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
         sacarPrecioJugador();
@@ -1039,20 +1051,20 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         llenarTabla();
     }//GEN-LAST:event_BtnGenerarJMouseClicked
 
-    private void imprimirCamisa(){
-        String ubicacionCamisa = "/progratorneo/camisas/color" + this.colores[cmbColorCamisa.getSelectedIndex()];
+    private void imprimirCamisa() {
+        String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
         Image camisa = (new javax.swing.ImageIcon(getClass().getResource(ubicacionCamisa))).getImage();
         Image estam = null;
-        if(cmbEstampado.getSelectedIndex() != 0){
+        if (cmbEstampado.getSelectedIndex() != 0) {
             cmbEstampadoColor.setEnabled(true);
-            String ubicacionEstampado = "/progratorneo/camisas" + this.estampado[cmbEstampado.getSelectedIndex()-1] + this.colores[cmbEstampadoColor.getSelectedIndex()];
+            String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
             estam = (new javax.swing.ImageIcon(getClass().getResource(ubicacionEstampado))).getImage();
-        }else{
+        } else {
             cmbEstampadoColor.setEnabled(false);
         }
         dibujarCamisa(panelCamisa.getGraphics(), camisa, estam);
     }
-    
+
     //Elegir la comida|||Inicio
     private void cmbColorCamisaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaItemStateChanged
         imprimirCamisa();
