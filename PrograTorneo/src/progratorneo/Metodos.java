@@ -24,6 +24,7 @@ public class Metodos {
 
 //Metodos de listas
 //-------------------------------------------METODOS ADMINISTRADOR----------------------------------//
+    //Metodos listas simple
     // metodo buscar
     public Administrador buscarAdmin(String nombre, String clave) {
         Administrador aux = inicioA;
@@ -100,6 +101,7 @@ public class Metodos {
     }
 
 //-------------------------------------------METODOS ENTRENADOR----------------------------------//
+    // Metodos simples Circular
     public Entrenador buscarEntrenador(String nombre, String apellido) {
         Entrenador aux = inicioEn;
         while (aux != null) {
@@ -139,6 +141,64 @@ public class Metodos {
         return "Entrenador Insertado";
     }
 
+    public String modificarEntrenador(String nombre, String apellido, String nombreN, String apellidoA) {
+        Entrenador aux = inicioEn;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellidoA)) {
+                aux.nombre = nombreN;
+
+                aux.apellido = apellidoA;
+
+                return " Datos del Entrenador modificados. ";
+
+            }
+            if (aux.nombre.equals(finalEn.nombre) & aux.apellido.equals(finalEn.apellido)) {
+                break;
+            }
+            aux = aux.sig;
+        }
+        return " El Entrenador no existe.";
+
+    }
+
+    public String eliminarEntrenador(String nombre, String apellido) {
+        Entrenador auxAnt = inicioEn;
+        Entrenador aux = inicioEn.sig;
+        Entrenador auxF = finalEn;
+        if (inicioA.nombre.equals(nombre) & inicioA.clave.equals(apellido)) {//inicio
+            inicioEn = aux;
+            finalEn.sig = aux;
+            return " Entrenador Eliminado. ";
+        }
+        while (aux != null) {
+            if (aux.nombre.equals(finalEn.nombre) & aux.apellido.equals(finalEn.apellido)) {
+                break;
+            }
+
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
+                auxAnt.sig = aux.sig;
+                return " Entrenador Eliminado. ";
+            }
+
+            auxAnt = aux;
+            aux = aux.sig;
+
+        }
+        if (aux.nombre.equals(finalEn.nombre) & aux.apellido.equals(finalEn.apellido)) {
+            auxAnt.sig = inicioEn;
+            aux.sig = null;
+            return " Entrenador Eliminado. ";
+        }
+        return " El Entrenador no existe.";
+    }
+
+    public void imprimirEntrenador() {
+        Entrenador aux = inicioEn;
+        while (aux != null) {
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
+    }
     //-------------------------------------------METODOS JUGADOR----------------------------------//
     //Insertar Inicio Simple
     public String InsertarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
@@ -158,7 +218,7 @@ public class Metodos {
         inicioJ = nuevo;
         return "Jugador insertado";
     }
-    
+
     //Modificar 
     public String modificarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
         Jugador aux = inicioJ;
@@ -174,8 +234,7 @@ public class Metodos {
         }
         return "El jugador no existe";
     }
-    
-    
+
     //buscar simple por nombre y apellido
     public Jugador buscarJugador(String nombre, String apellido) {
         Jugador aux = inicioJ;
@@ -187,25 +246,25 @@ public class Metodos {
         }
         return null;
     }
-    
+
     //buscar simple por precio
     public ArrayList buscarJugadorPrecio(int precio, String signo) {
         ArrayList<Jugador> jugadores = new ArrayList();
         Jugador aux = inicioJ;
         while (aux != null) {
-            switch(signo){
+            switch (signo) {
                 case "=":
-                    if(aux.precio == precio){
+                    if (aux.precio == precio) {
                         jugadores.add(aux);
                     }
                     break;
                 case "<":
-                    if(aux.precio <= precio){
+                    if (aux.precio <= precio) {
                         jugadores.add(aux);
                     }
                     break;
                 case ">":
-                    if(aux.precio >= precio){
+                    if (aux.precio >= precio) {
                         jugadores.add(aux);
                     }
                     break;
@@ -214,7 +273,7 @@ public class Metodos {
         }
         return jugadores;
     }
-    
+
     //buscar simple por posicion
     public ArrayList buscarJugadorPosicion(String posicion) {
         ArrayList<Jugador> jugadores = new ArrayList();
@@ -227,11 +286,11 @@ public class Metodos {
         }
         return jugadores;
     }
-    
+
     //imprimir jugador
-    public void imprimirJugador(){
+    public void imprimirJugador() {
         Jugador aux = inicioJ;
-        while(aux != null){
+        while (aux != null) {
             System.out.println(aux.toString());
             aux = aux.sig;
         }
@@ -239,6 +298,22 @@ public class Metodos {
 
     //-------------------------------------------METODOS EQUIPO----------------------------------//
     //Insertar Doble circular
+    public Equipo buscarEquipo(String nombre) {
+        Equipo aux = inicioEq;
+        while (aux != null) {
+
+            if (aux.nombre.equals(nombre)) {
+                return aux;
+
+            }
+            if (aux.nombre.equals(finalEq.nombre)) {
+                break;
+            }
+            aux = aux.sig;
+        }
+        return null;
+    }
+
     public String InsertarEquipo(String nombre, String[] camisa) {
         Equipo nuevo = new Equipo(nombre, camisa);
         if (inicioEq == null) {
