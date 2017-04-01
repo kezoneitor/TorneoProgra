@@ -149,7 +149,6 @@ public class Metodos {
         finalEq.sig = inicioEq;
 
         return "Insertado";
-
     }
 
     // insertar simple
@@ -169,5 +168,13 @@ public class Metodos {
         nuevo.sig = inicioEs;
         inicioEs = nuevo;
         return "";
+    }
+    
+    public void imprimirJugador(){
+        Jugador aux = inicioJ;
+        while(aux != null){
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
     }
 }

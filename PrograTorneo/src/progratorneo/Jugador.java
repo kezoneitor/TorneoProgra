@@ -5,6 +5,8 @@
  */
 package progratorneo;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Kezo
@@ -31,5 +33,9 @@ public class Jugador {
         this.goles = 0;
         this.sig = null;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Jugador{" + "equipo=" + equipo + ", habilidades=" + Arrays.toString(habilidades) + ", nombre=" + nombre + ", apellido=" + apellido + ", precio=" + precio + ", posicion=" + posicion + ", goles=" + goles + '}';
+    }
 }
