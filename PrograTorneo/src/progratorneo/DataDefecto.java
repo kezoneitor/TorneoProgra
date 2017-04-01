@@ -91,8 +91,8 @@ public class DataDefecto {
             if (count != 0) {
                 boolean flag = true;
                 while (flag) {
-                    int pos = (int) (Math.random() * Jugadores.size());
-                    if (Jugadores.get(pos).size() != 4) {
+                    int pos = (int) (Math.random() * (Jugadores.size() - 1));
+                    if (Jugadores.get(pos).size() == 4) {
                         Jugadores.get(pos).add(posiciones[0]);
                         flag = false;
                     }
@@ -105,8 +105,8 @@ public class DataDefecto {
             if (count != 0) {
                 boolean flag = true;
                 while (flag) {
-                    int pos = (int) (Math.random() * Jugadores.size());
-                    if (Jugadores.get(pos).size() != 4) {
+                    int pos = (int) (Math.random() * (Jugadores.size() - 1));
+                    if (Jugadores.get(pos).size() == 4) {
                         Jugadores.get(pos).add(posiciones[1]);
                         flag = false;
                     }
@@ -116,20 +116,23 @@ public class DataDefecto {
         }
         count = (Jugadores.size() / 11) * 4;
         for (int i = 0; i < Jugadores.size(); i++) {
-            if (count != 0 & Jugadores.get(i).size() != 4) {
+            if (count != 0 & Jugadores.get(i).size() == 4) {
                 Jugadores.get(i).add(posiciones[2]);
                 count--;
             }
         }
+        count = (Jugadores.size() / 11) * 2;
         for (int i = 0; i < (Jugadores.size() / 11) * 2; i++) {
-            if (count != 0 & Jugadores.get(i).size() != 4) {
+            if (count != 0 & Jugadores.get(i).size() == 4) {
                 Jugadores.get(i).add(posiciones[3]);
                 count--;
             }
         }
         for (int i = 0; i < Jugadores.size(); i++) {
             int pos = (int) (Math.random() * 3);
-            Jugadores.get(i).add(posiciones[pos]);
+            if (Jugadores.get(i).size() == 4) {
+                Jugadores.get(i).add(posiciones[pos]);
+            }
         }
     }
 
