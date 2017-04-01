@@ -24,6 +24,7 @@ public class Metodos {
 
 //Metodos de listas
 //-------------------------------------------METODOS ADMINISTRADOR----------------------------------//
+    //Metodos listas simple
     public Administrador buscarAdmin(String nombre, String clave) {
         Administrador aux = inicioA;
         while (aux != null) {
@@ -99,6 +100,7 @@ public class Metodos {
     }
 
 //-------------------------------------------METODOS ENTRENADOR----------------------------------//
+    // Metodos simples Circular
     public Entrenador buscarEntrenador(String nombre, String apellido) {
         Entrenador aux = inicioEn;
         while (aux != null) {
@@ -138,8 +140,67 @@ public class Metodos {
         return "Entrenador Insertado";
     }
 
+    public String modificarEntrenador(String nombre, String apellido, String nombreN, String apellidoA) {
+        Entrenador aux = inicioEn;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellidoA)) {
+                aux.nombre = nombreN;
+
+                aux.apellido = apellidoA;
+
+                return " Datos del Entrenador modificados. ";
+
+            }
+            if (aux.nombre.equals(finalEn.nombre) & aux.apellido.equals(finalEn.apellido)) {
+                break;
+            }
+            aux = aux.sig;
+        }
+        return " El Entrenador no existe.";
+
+    }
+
+    public String eliminarEntrenador(String nombre, String apellido) {
+        Entrenador auxAnt = inicioEn;
+        Entrenador aux = inicioEn.sig;
+        Entrenador auxF = finalEn;
+        if (inicioA.nombre.equals(nombre) & inicioA.clave.equals(apellido)) {//inicio
+            inicioEn = aux;
+            finalEn.sig = aux;
+            return " Entrenador Eliminado. ";
+        }
+        while (aux != null) {
+            if (aux.nombre.equals(finalEn.nombre) & aux.apellido.equals(finalEn.apellido)) {
+                break;
+            }
+
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
+                auxAnt.sig = aux.sig;
+                return " Entrenador Eliminado. ";
+            }
+
+            auxAnt = aux;
+            aux = aux.sig;
+
+        }
+        if (aux.nombre.equals(finalEn.nombre) & aux.apellido.equals(finalEn.apellido)) {
+            auxAnt.sig = inicioEn;
+            aux.sig = null;
+            return " Entrenador Eliminado. ";
+        }
+        return " El Entrenador no existe.";
+    }
+
+    public void imprimirEntrenador() {
+        Entrenador aux = inicioEn;
+        while (aux != null) {
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
+    }
     //-------------------------------------------METODOS JUGADOR----------------------------------//
     //buscar simple
+
     public Jugador buscarJugador(String nombre, String apellido) {
         Jugador aux = inicioJ;
         while (aux != null) {
@@ -172,6 +233,22 @@ public class Metodos {
 
     //-------------------------------------------METODOS EQUIPO----------------------------------//
     //Insertar Doble circular
+    public Equipo buscarEquipo(String nombre) {
+        Equipo aux = inicioEq;
+        while (aux != null) {
+
+            if (aux.nombre.equals(nombre)) {
+                return aux;
+
+            }
+            if (aux.nombre.equals(finalEq.nombre)) {
+                break;
+            }
+            aux = aux.sig;
+        }
+        return null;
+    }
+
     public String InsertarEquipo(String nombre, String[] camisa) {
         Equipo nuevo = new Equipo(nombre, camisa);
         if (inicioEq == null) {

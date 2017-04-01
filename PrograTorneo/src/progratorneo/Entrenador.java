@@ -19,4 +19,9 @@ public class Entrenador {
         this.sig = null;
     }
 
+    @Override
+    public String toString() {
+        return "Entrenador{" + "nombre=" + nombre + ", apellido=" + apellido + ", equipo=" + equipo + '}';
+    }
+
 }
