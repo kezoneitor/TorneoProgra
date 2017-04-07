@@ -229,6 +229,7 @@ public class Metodos {
                 aux.habilidades = habilidades;
                 aux.precio = precio;
                 aux.posicion = posicion;
+                return "Jugador Modificado.";
             }
             aux = aux.sig;
         }
@@ -287,6 +288,26 @@ public class Metodos {
         return jugadores;
     }
 
+    public String eliminarJugador(String nombre, String apellido){
+        if(inicioJ == null){
+            return "Lista vacía";
+        }
+        if(inicioJ.nombre.equals(nombre) & inicioJ.apellido.equals(apellido) ){
+            inicioJ = inicioJ.sig;
+            return "Jugador eliminado";
+        }
+        Jugador aux = inicioJ.sig;
+        Jugador auxAnt = inicioJ;
+        while(aux != null){
+            if(aux.nombre.equals(nombre) & aux.apellido.equals(apellido)){
+                auxAnt.sig = aux.sig;
+                return "Jugador eliminado";
+            }
+            aux = aux.sig;
+        }
+        return "No existe el jugador";
+    }
+    
     //imprimir jugador
     public void imprimirJugador() {
         Jugador aux = inicioJ;

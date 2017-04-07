@@ -40,10 +40,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         //tbdRegistrar.setEnabledAt(1, false);
         //tbdRegistrar.setEnabledAt(2, false);
         //Componentes y sus iniciaciones por defecto|||final
-        
         met.InsertarAdmin("kezo", "123");
         met.InsertarAdmin("julio", "123");
-        
+
         data.AgregarNombreApellido();
         data.CrearJugadores();
         insertarJugadores();
@@ -183,6 +182,61 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         panelCamisa = new javax.swing.JPanel();
+        panelModificar = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        cmbModificar = new javax.swing.JComboBox<>();
+        btnModificar = new javax.swing.JButton();
+        tbdModificar = new javax.swing.JTabbedPane();
+        panelAdminModi = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        txtNAdminModi = new javax.swing.JTextField();
+        txtCAdminModi = new javax.swing.JTextField();
+        panelEntrenadorModi = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        txtNEntrenadorModi = new javax.swing.JTextField();
+        txtAEntrenadorModi = new javax.swing.JTextField();
+        panelJugdorModi = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        txtNJugadorModi = new javax.swing.JTextField();
+        txtAJugadorModi = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        cmbPosicionModi = new javax.swing.JComboBox<>();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        cmbFisicoModi = new javax.swing.JComboBox<>();
+        cmbDefensaModi = new javax.swing.JComboBox<>();
+        cmbDribblingModi = new javax.swing.JComboBox<>();
+        cmbDisparoModi = new javax.swing.JComboBox<>();
+        jLabel43 = new javax.swing.JLabel();
+        lblPrecioModi = new javax.swing.JLabel();
+        panelEstadioModi = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        txtNEstadioModi = new javax.swing.JTextField();
+        txtUEstadioModi = new javax.swing.JTextField();
+        txtCEstadioModi = new javax.swing.JTextField();
+        panelEquipoModi = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        cmbColorCamisaModi = new javax.swing.JComboBox<>();
+        jLabel49 = new javax.swing.JLabel();
+        cmbEstampadoColorModi = new javax.swing.JComboBox<>();
+        jLabel50 = new javax.swing.JLabel();
+        cmbEstampadoModi = new javax.swing.JComboBox<>();
+        jLabel51 = new javax.swing.JLabel();
+        txtNEquipoModi = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        panelCamisaModi = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        txtDineroEquipo = new javax.swing.JTextField();
+        lblBuscarModi = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -717,6 +771,457 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         tbdPrincipal.addTab("Registrar", panelRegistrar);
 
+        panelModificar.setEnabled(false);
+        panelModificar.setName(""); // NOI18N
+        panelModificar.setRequestFocusEnabled(false);
+
+        jLabel28.setText("Tipo a modificar:");
+
+        cmbModificar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador", "Jugador", "Estadio", "Equipo" }));
+        cmbModificar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbModificarItemStateChanged(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        panelAdminModi.setEnabled(false);
+
+        jLabel29.setText("Nombre de usuario:");
+
+        jLabel30.setText("Contraseña:");
+
+        javax.swing.GroupLayout panelAdminModiLayout = new javax.swing.GroupLayout(panelAdminModi);
+        panelAdminModi.setLayout(panelAdminModiLayout);
+        panelAdminModiLayout.setHorizontalGroup(
+            panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelAdminModiLayout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAdminModiLayout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(805, Short.MAX_VALUE))
+        );
+        panelAdminModiLayout.setVerticalGroup(
+            panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(txtNAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(txtCAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(313, Short.MAX_VALUE))
+        );
+
+        tbdModificar.addTab("Administrador", panelAdminModi);
+
+        jLabel32.setText("Nombre: ");
+
+        jLabel33.setText("Apellido:");
+
+        javax.swing.GroupLayout panelEntrenadorModiLayout = new javax.swing.GroupLayout(panelEntrenadorModi);
+        panelEntrenadorModi.setLayout(panelEntrenadorModiLayout);
+        panelEntrenadorModiLayout.setHorizontalGroup(
+            panelEntrenadorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEntrenadorModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEntrenadorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEntrenadorModiLayout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(panelEntrenadorModiLayout.createSequentialGroup()
+                        .addComponent(jLabel32)
+                        .addGap(1, 1, 1)))
+                .addGroup(panelEntrenadorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtNEntrenadorModi)
+                    .addComponent(txtAEntrenadorModi, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelEntrenadorModiLayout.setVerticalGroup(
+            panelEntrenadorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEntrenadorModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEntrenadorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(txtNEntrenadorModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEntrenadorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(txtAEntrenadorModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tbdModificar.addTab("Entrenador", panelEntrenadorModi);
+
+        jLabel34.setText("Nombre:");
+
+        jLabel35.setText("Apellido:");
+
+        jLabel36.setText("Posición:");
+
+        cmbPosicionModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "portero", "defensa", "medio", "delantero" }));
+
+        jLabel37.setText("Habilidades");
+
+        jLabel38.setText("Físico:");
+
+        jLabel39.setText("Defensa:");
+
+        jLabel40.setText("Dribbling:");
+
+        jLabel41.setText("Disparo:");
+
+        cmbFisicoModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbFisicoModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbFisicoModiItemStateChanged(evt);
+            }
+        });
+
+        cmbDefensaModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbDefensaModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDefensaModiItemStateChanged(evt);
+            }
+        });
+
+        cmbDribblingModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbDribblingModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDribblingModiItemStateChanged(evt);
+            }
+        });
+
+        cmbDisparoModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        cmbDisparoModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDisparoModiItemStateChanged(evt);
+            }
+        });
+
+        jLabel43.setText("Precio: $");
+
+        lblPrecioModi.setText("0");
+
+        javax.swing.GroupLayout panelJugdorModiLayout = new javax.swing.GroupLayout(panelJugdorModi);
+        panelJugdorModi.setLayout(panelJugdorModiLayout);
+        panelJugdorModiLayout.setHorizontalGroup(
+            panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                        .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                                .addComponent(jLabel38)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbFisicoModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDefensaModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel40)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDribblingModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel41)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbDisparoModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                                .addComponent(jLabel43)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPrecioModi)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                        .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                                .addComponent(jLabel34)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNJugadorModi))
+                            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbPosicionModi, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                                .addComponent(jLabel35)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAJugadorModi))
+                            .addComponent(jLabel37))
+                        .addGap(489, 863, Short.MAX_VALUE))))
+        );
+        panelJugdorModiLayout.setVerticalGroup(
+            panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelJugdorModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(txtNJugadorModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(txtAJugadorModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbPosicionModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel36))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel40)
+                    .addComponent(jLabel41)
+                    .addComponent(cmbFisicoModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDefensaModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDribblingModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDisparoModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel43)
+                    .addComponent(lblPrecioModi))
+                .addContainerGap(209, Short.MAX_VALUE))
+        );
+
+        tbdModificar.addTab("Jugador", panelJugdorModi);
+
+        jLabel44.setText("Nombre:");
+
+        jLabel45.setText("Ubicación:");
+
+        jLabel46.setText("capacidad:");
+
+        javax.swing.GroupLayout panelEstadioModiLayout = new javax.swing.GroupLayout(panelEstadioModi);
+        panelEstadioModi.setLayout(panelEstadioModiLayout);
+        panelEstadioModiLayout.setHorizontalGroup(
+            panelEstadioModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadioModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEstadioModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelEstadioModiLayout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNEstadioModi))
+                    .addGroup(panelEstadioModiLayout.createSequentialGroup()
+                        .addComponent(jLabel45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtUEstadioModi))
+                    .addGroup(panelEstadioModiLayout.createSequentialGroup()
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCEstadioModi, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelEstadioModiLayout.setVerticalGroup(
+            panelEstadioModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEstadioModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEstadioModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel44)
+                    .addComponent(txtNEstadioModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEstadioModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(txtUEstadioModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEstadioModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(txtCEstadioModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tbdModificar.addTab("Estadio", panelEstadioModi);
+
+        panelEquipoModi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLabel47.setText("Camisa");
+
+        jLabel48.setText("Color");
+
+        cmbColorCamisaModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Amarilla", "Anaranjada", "Azul", "Blanca", "Celeste", "Morada", "Negra", "Roja", "Verde", "Violeta" }));
+        cmbColorCamisaModi.setSelectedIndex(3);
+        cmbColorCamisaModi.setToolTipText("");
+        cmbColorCamisaModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbColorCamisaModiItemStateChanged(evt);
+            }
+        });
+
+        jLabel49.setText("Estampado");
+
+        cmbEstampadoColorModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Amarilla", "Anaranjada", "Azul", "Blanca", "Celeste", "Morada", "Negra", "Roja", "Verde", "Violeta" }));
+        cmbEstampadoColorModi.setSelectedIndex(6);
+        cmbEstampadoColorModi.setToolTipText("");
+        cmbEstampadoColorModi.setEnabled(false);
+        cmbEstampadoColorModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEstampadoColorModiItemStateChanged(evt);
+            }
+        });
+
+        jLabel50.setText("Color");
+
+        cmbEstampadoModi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Cruz", "Rayada", "Tres Lineas" }));
+        cmbEstampadoModi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEstampadoModiItemStateChanged(evt);
+            }
+        });
+
+        jLabel51.setText("Nombre:");
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        panelCamisaModi.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelCamisaModiLayout = new javax.swing.GroupLayout(panelCamisaModi);
+        panelCamisaModi.setLayout(panelCamisaModiLayout);
+        panelCamisaModiLayout.setHorizontalGroup(
+            panelCamisaModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 191, Short.MAX_VALUE)
+        );
+        panelCamisaModiLayout.setVerticalGroup(
+            panelCamisaModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 170, Short.MAX_VALUE)
+        );
+
+        jLabel52.setText("Dinero:");
+
+        javax.swing.GroupLayout panelEquipoModiLayout = new javax.swing.GroupLayout(panelEquipoModi);
+        panelEquipoModi.setLayout(panelEquipoModiLayout);
+        panelEquipoModiLayout.setHorizontalGroup(
+            panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                        .addComponent(jLabel51)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNEquipoModi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                        .addComponent(jLabel52)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDineroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel50)
+                    .addComponent(jLabel49)
+                    .addComponent(jLabel47)
+                    .addComponent(jLabel48))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbEstampadoColorModi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbEstampadoModi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbColorCamisaModi, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58)
+                .addComponent(panelCamisaModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(365, 365, 365))
+        );
+        panelEquipoModiLayout.setVerticalGroup(
+            panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                        .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel51)
+                            .addComponent(txtNEquipoModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel52)
+                            .addComponent(txtDineroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addContainerGap())))
+            .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbColorCamisaModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel48))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel49)
+                            .addComponent(cmbEstampadoModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelEquipoModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel50)
+                            .addComponent(cmbEstampadoColorModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelEquipoModiLayout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(panelCamisaModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 117, Short.MAX_VALUE))
+        );
+
+        tbdModificar.addTab("Equipo", panelEquipoModi);
+
+        lblBuscarModi.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        lblBuscarModi.setText("Buscar Administrador para modificar");
+        lblBuscarModi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBuscarModiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblBuscarModiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblBuscarModiMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelModificarLayout = new javax.swing.GroupLayout(panelModificar);
+        panelModificar.setLayout(panelModificarLayout);
+        panelModificarLayout.setHorizontalGroup(
+            panelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addComponent(lblBuscarModi)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnModificar)
+                .addGap(44, 44, 44))
+            .addComponent(tbdModificar)
+        );
+        panelModificarLayout.setVerticalGroup(
+            panelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(cmbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar)
+                    .addComponent(lblBuscarModi))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tbdModificar))
+        );
+
+        tbdPrincipal.addTab("Modificar", panelModificar);
+
         jPanel3.setEnabled(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -1079,6 +1584,185 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void cmbEstampadoColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorItemStateChanged
         imprimirCamisa();
     }//GEN-LAST:event_cmbEstampadoColorItemStateChanged
+
+    private void cmbModificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbModificarItemStateChanged
+        int index = cmbModificar.getSelectedIndex();
+        switch (index) {
+            case 0:
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(3, false);
+                tbdModificar.setEnabledAt(4, false);
+                break;
+            case 1:
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(3, false);
+                tbdModificar.setEnabledAt(4, false);
+                break;
+            case 2:
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(3, false);
+                tbdModificar.setEnabledAt(4, false);
+                break;
+            case 3:
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(4, false);
+                break;
+            case 4:
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(3, false);
+                break;
+        }
+        tbdModificar.setEnabledAt(index, true);
+        tbdModificar.setSelectedIndex(index);
+        lblBuscarModi.setText("Buscar " + cmbModificar.getSelectedItem() + " para modificar");
+    }//GEN-LAST:event_cmbModificarItemStateChanged
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void cmbFisicoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbFisicoModiItemStateChanged
+
+    private void cmbDefensaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDefensaModiItemStateChanged
+
+    private void cmbDribblingModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDribblingModiItemStateChanged
+
+    private void cmbDisparoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbDisparoModiItemStateChanged
+
+    private void cmbColorCamisaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbColorCamisaModiItemStateChanged
+
+    private void cmbEstampadoColorModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstampadoColorModiItemStateChanged
+
+    private void cmbEstampadoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoModiItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEstampadoModiItemStateChanged
+
+    private void lblBuscarModiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseClicked
+        lblBuscarModi.setForeground(Color.blue);
+        switch (cmbModificar.getSelectedIndex()) {
+            case 0:
+                //pedir datos
+                String nombreAdmin = JOptionPane.showInputDialog(null, "Introduzca el nombre de usuario.");
+                String clave = JOptionPane.showInputDialog(null, "Introduzca el nombre la clave.");
+                Administrador admin = met.buscarAdmin(nombreAdmin, clave);
+                //Mostrar datos
+                if (admin != null) {
+                    txtNAdminModi.setText(admin.nombre);
+                    txtCAdminModi.setText(admin.clave);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro administrador");
+                }
+                break;
+            case 1:
+                //pedir datos
+                String nombreEntre = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
+                String apellidoEntre = JOptionPane.showInputDialog(null, "Introduzca el apellido.");
+                Entrenador entrenador = met.buscarEntrenador(nombreEntre, apellidoEntre);
+                //Mostrar datos
+                if (entrenador != null) {
+                    txtNEntrenadorModi.setText(entrenador.nombre);
+                    txtAEntrenadorModi.setText(entrenador.apellido);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro entrenador");
+                }
+                break;
+            case 2:
+                //pedir datos
+                String nombreJuga = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
+                String ApellidoJuga = JOptionPane.showInputDialog(null, "Introduzca el apellido.");
+                Jugador jugador = met.buscarJugador(nombreJuga, ApellidoJuga);
+                //Mostrar datos
+                if (jugador != null) {
+                    txtNEntrenadorModi.setText(jugador.nombre);
+                    txtAEntrenadorModi.setText(jugador.apellido);
+                    int i = 0;
+                    switch (jugador.posicion) {
+                        case "defensa":
+                            i = 1;
+                            break;
+                        case "medio":
+                            i = 2;
+                            break;
+                        case "delantero":
+                            i = 3;
+                            break;
+                    }
+                    cmbPosicionModi.setSelectedIndex(i);
+                    cmbFisico.setSelectedIndex(jugador.habilidades[0] - 1);
+                    cmbDefensa.setSelectedIndex(jugador.habilidades[1] - 1);
+                    cmbDribbling.setSelectedIndex(jugador.habilidades[2] - 1);
+                    cmbDisparo.setSelectedIndex(jugador.habilidades[3] - 1);
+                    lblPrecioModi.setText(String.valueOf(jugador.precio));
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro jugador");
+                }
+                break;
+            case 3:
+                //pedir datos
+                String nombreEstadio = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
+                Estadio estadio = met.buscarEstadio(nombreEstadio);
+                //Mostrar datos
+                if (estadio != null) {
+                    txtNEstadioModi.setText(estadio.nombre);
+                    txtUEstadioModi.setText(estadio.ubicacion);
+                    txtCEstadioModi.setText(String.valueOf(estadio.capacidad));
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro estadio");
+                }
+                break;
+            case 4:
+                //pedir datos
+                String nombreEquipo = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
+                Equipo equipo = met.buscarEquipo(nombreEquipo);
+                //Mostrar datos
+                if (equipo != null) {
+                    txtNEntrenadorModi.setText(equipo.nombre);
+                    txtAEntrenadorModi.setText(String.valueOf(equipo.dinero));
+                    String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
+                    Image camisa = (new javax.swing.ImageIcon(getClass().getResource(ubicacionCamisa))).getImage();
+                    Image estam = null;
+                    if (cmbEstampado.getSelectedIndex() != 0) {
+                        cmbEstampadoColor.setEnabled(true);
+                        String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
+                        estam = (new javax.swing.ImageIcon(getClass().getResource(ubicacionEstampado))).getImage();
+                    } else {
+                        cmbEstampadoColor.setEnabled(false);
+                    }
+                    dibujarCamisa(panelCamisaModi.getGraphics(), camisa, estam);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro equipo");
+                }
+                break;
+        }
+        lblBuscarModi.setForeground(Color.blue);
+    }//GEN-LAST:event_lblBuscarModiMouseClicked
+
+    private void lblBuscarModiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseEntered
+        lblBuscarModi.setForeground(Color.red);
+    }//GEN-LAST:event_lblBuscarModiMouseEntered
+
+    private void lblBuscarModiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseExited
+        lblBuscarModi.setForeground(Color.black);
+    }//GEN-LAST:event_lblBuscarModiMouseExited
     //Elegir la comida|||Final
 
     /**
@@ -1119,15 +1803,25 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGenerarJ;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cmbColorCamisa;
+    private javax.swing.JComboBox<String> cmbColorCamisaModi;
     private javax.swing.JComboBox<String> cmbDefensa;
+    private javax.swing.JComboBox<String> cmbDefensaModi;
     private javax.swing.JComboBox<String> cmbDisparo;
+    private javax.swing.JComboBox<String> cmbDisparoModi;
     private javax.swing.JComboBox<String> cmbDribbling;
+    private javax.swing.JComboBox<String> cmbDribblingModi;
     private javax.swing.JComboBox<String> cmbEstampado;
     private javax.swing.JComboBox<String> cmbEstampadoColor;
+    private javax.swing.JComboBox<String> cmbEstampadoColorModi;
+    private javax.swing.JComboBox<String> cmbEstampadoModi;
     private javax.swing.JComboBox<String> cmbFisico;
+    private javax.swing.JComboBox<String> cmbFisicoModi;
+    private javax.swing.JComboBox<String> cmbModificar;
     private javax.swing.JComboBox<String> cmbPosicion;
+    private javax.swing.JComboBox<String> cmbPosicionModi;
     private javax.swing.JComboBox<String> cmbRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1149,9 +1843,32 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1160,36 +1877,58 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblBuscarModi;
     private javax.swing.JLabel lblContraApellido;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblPrecioModi;
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JPanel panelAdmin;
+    private javax.swing.JPanel panelAdminModi;
     private javax.swing.JPanel panelCamisa;
+    private javax.swing.JPanel panelCamisaModi;
     private javax.swing.JPanel panelEntrenador;
+    private javax.swing.JPanel panelEntrenadorModi;
     private javax.swing.JPanel panelEquipo;
+    private javax.swing.JPanel panelEquipoModi;
     private javax.swing.JPanel panelEstadio;
+    private javax.swing.JPanel panelEstadioModi;
     private javax.swing.JPanel panelJugdor;
+    private javax.swing.JPanel panelJugdorModi;
     private javax.swing.JPanel panelLogin;
+    private javax.swing.JPanel panelModificar;
     private javax.swing.JPanel panelRegistrar;
     private javax.swing.JRadioButton rbtnAdmin;
     private javax.swing.JRadioButton rbtnEntrenador;
     private javax.swing.JRadioButton rbtnJugador;
+    private javax.swing.JTabbedPane tbdModificar;
     private javax.swing.JTabbedPane tbdPrincipal;
     private javax.swing.JTabbedPane tbdRegistrar;
     private javax.swing.JTextField txtAEntrenador;
+    private javax.swing.JTextField txtAEntrenadorModi;
     private javax.swing.JTextField txtAJugador;
+    private javax.swing.JTextField txtAJugadorModi;
     private javax.swing.JTextField txtCAdmin;
+    private javax.swing.JTextField txtCAdminModi;
     private javax.swing.JTextField txtCEstadio;
+    private javax.swing.JTextField txtCEstadioModi;
     private javax.swing.JTextField txtCLogin;
+    private javax.swing.JTextField txtDineroEquipo;
     private javax.swing.JTextField txtNAdmin;
+    private javax.swing.JTextField txtNAdminModi;
     private javax.swing.JTextField txtNEntrenador;
+    private javax.swing.JTextField txtNEntrenadorModi;
     private javax.swing.JTextField txtNEquipo;
+    private javax.swing.JTextField txtNEquipoModi;
     private javax.swing.JTextField txtNEstadio;
+    private javax.swing.JTextField txtNEstadioModi;
     private javax.swing.JTextField txtNJugador;
+    private javax.swing.JTextField txtNJugadorModi;
     private javax.swing.JTextField txtNLogin;
     private javax.swing.JTextField txtUEstadio;
+    private javax.swing.JTextField txtUEstadioModi;
     // End of variables declaration//GEN-END:variables
 }
