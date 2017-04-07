@@ -165,7 +165,7 @@ public class Metodos {
         Entrenador auxAnt = inicioEn;
         Entrenador aux = inicioEn.sig;
         Entrenador auxF = finalEn;
-        if (inicioA.nombre.equals(nombre) & inicioA.clave.equals(apellido)) {//inicio
+        if (inicioEn.nombre.equals(nombre) & inicioEn.apellido.equals(apellido)) {//inicio
             inicioEn = aux;
             finalEn.sig = aux;
             return " Entrenador Eliminado. ";
@@ -199,6 +199,7 @@ public class Metodos {
             aux = aux.sig;
         }
     }
+
     //-------------------------------------------METODOS JUGADOR----------------------------------//
     //Insertar Inicio Simple
     public String InsertarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
@@ -342,7 +343,72 @@ public class Metodos {
         return "Insertado";
     }
 
+    public String modificarEquipo(String nombre, int dinero, String[] camisa, String NuevoNombre) {
+        Equipo aux = inicioEq;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre)) {
+                aux.nombre = NuevoNombre;
+                aux.dinero = dinero;
+                aux.camisa = camisa;
+
+            }
+            if (aux.nombre.equals(finalEq.nombre)) {
+                return "El Equipo no Existe";
+            }
+            aux = aux.sig;
+        }
+        return "Lista vacia";
+    }
+
+    public String EliminarEquipo(String nombre) {
+        Equipo auxAnt = inicioEq;
+        Equipo aux = inicioEq.sig;
+        Equipo auxF = finalEq;
+        if (inicioEq.nombre.equals(nombre)) {
+            inicioEq = aux;
+            finalEq.sig = aux;
+            return "Equipo eliminado";
+        }
+        while (aux != null) {
+            if (aux.nombre.equals(finalEq.nombre)) {
+                break;
+            }
+            if (aux.nombre.equals(nombre)) {
+                auxAnt.sig = aux.sig;
+                aux.sig.ant = auxAnt;
+                return "Equipo eliminado";
+            }
+            auxAnt = aux;
+            aux = aux.sig;
+        }
+        if (aux.nombre.equals(finalEq.nombre)) {
+            auxAnt.sig = inicioEq;
+            inicioEq.ant = auxAnt;
+            return "Equipo eliminado";
+        }
+        return " El equipo no existe. ";
+    }
+
+    public void imprimirEquipo() {
+        Equipo aux = inicioEq;
+        while (aux != null) {
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
+    }
+
     //-------------------------------------------METODOS ESTADIO----------------------------------//
+    public Estadio buscarEstadio(String nombre) {
+        Estadio aux = inicioEs;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre)) {
+                return aux;
+            }
+            aux = aux.sig;
+        }
+        return null;
+    }
+
     // insertar simple
     public String InsertarEstadio(String nombre, String ubicacion, int capacidad) {
         Estadio nuevo = new Estadio(nombre, ubicacion, capacidad);
@@ -360,5 +426,22 @@ public class Metodos {
         nuevo.sig = inicioEs;
         inicioEs = nuevo;
         return "";
+    }
+
+    public String modificarEstadio(String nombre, String ubicacion, String nombreN, int capacidad) {
+        Estadio aux = inicioEs;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre)) {
+                aux.nombre = nombreN;
+                aux.ubicacion = ubicacion;
+                aux.capacidad = capacidad;
+
+                return " Datos del Estadio modificados. ";
+
+            }
+            aux = aux.sig;
+        }
+        return " El Estadio no existe.";
+
     }
 }

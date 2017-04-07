@@ -27,4 +27,11 @@ public class Equipo {
         this.ant = null;
     }
 
+    @Override
+    public String toString() {
+        return "Equipo{" + "nombre=" + nombre + ", jugadores=" + jugadores + ", entrenador=" + entrenador + ", dinero=" + dinero + ", camisa=" + camisa + ", posicionTorneo=" + posicionTorneo + ", goles=" + goles +'}';
+    }
+    
+    
+
 }
