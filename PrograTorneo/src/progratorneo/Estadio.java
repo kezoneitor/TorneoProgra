@@ -21,4 +21,10 @@ public class Estadio {
         this.sig = null;
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "Estadio{" + "nombre=" + nombre + ", ubicacion=" + ubicacion + ", capacidad=" + capacidad + ", sig=" + sig + '}';
+    }
+    
 }

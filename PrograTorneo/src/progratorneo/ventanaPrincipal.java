@@ -6,12 +6,46 @@
 package progratorneo;
 
 import java.awt.Color;
+import static java.awt.Color.black;
+import static java.awt.Color.blue;
+import static java.awt.Color.red;
+import static java.awt.Color.white;
+import static java.awt.EventQueue.invokeLater;
 import java.awt.Graphics;
 import java.awt.Image;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Math.random;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
+import static java.lang.String.valueOf;
 import java.util.ArrayList;
 import java.util.Vector;
+import static java.util.logging.Level.SEVERE;
+import static java.util.logging.Logger.getLogger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showInputDialog;
+import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.UIManager.getInstalledLookAndFeels;
+import static javax.swing.UIManager.setLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -51,7 +85,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     //Metodo para verificar si el valor puede convertirse en numero
     private static boolean esNumero(String texto) {
         try {
-            Integer.parseInt(texto);
+            parseInt(texto);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
@@ -62,7 +96,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void dibujarCamisa(Graphics g, Image camisa, Image estam) {
         super.paint(g);
         g.drawRect(0, 0, 240, 240);
-        g.setColor(Color.white);
+        g.setColor(white);
         g.fillRect(0, 0, 240, 240);
         g.drawImage(camisa, 0, 0, null);
         if (estam != null) {
@@ -93,7 +127,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         ArrayList<ArrayList> respaldo = data.Jugadores;
         while (respaldo.size() != 0) {
             Vector datos = new Vector();
-            int i = (int) (Math.random() * (respaldo.size() - 1));
+            int i = (int) (random() * (respaldo.size() - 1));
             datos.addElement(respaldo.get(i).get(0));
             datos.addElement(respaldo.get(i).get(1));
             int[] habilidades = (int[]) respaldo.get(i).get(2);
@@ -1351,7 +1385,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         //Habilitar los paneles para el administrador
                         tbdPrincipal.setEnabledAt(1, true);
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontro usuario administrador");
+                        showMessageDialog(null, "No se encontro usuario administrador");
                     }
                     //Realizar este codigo si esta selecionado el radiobutton entrenador
                 } else if (rbtnEntrenador.isSelected()) {
@@ -1364,7 +1398,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         btnLogin.setText("Logout");
                         //Habilitar los paneles para el entrenador
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontro usuario entrenador");
+                        showMessageDialog(null, "No se encontro usuario entrenador");
                     }
                     //Realizar este codigo si esta selecionado el radiobutton jugador
                 } else if (rbtnJugador.isSelected()) {
@@ -1377,13 +1411,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         btnLogin.setText("Logout");
                         //Habilitar los paneles para el Jugador
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se encontro usuario jugador");
+                        showMessageDialog(null, "No se encontro usuario jugador");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Se debe marcar una opción.");
+                    showMessageDialog(null, "Se debe marcar una opción.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Los campos que le corresponden deben estar llenos");
+                showMessageDialog(null, "Los campos que le corresponden deben estar llenos");
             }
             //Validar que el boton diga logout y realizar el codigo
         } else if (btnLogin.getText().equals("Logout")) {
@@ -1431,44 +1465,44 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             case 0:
                 if (!txtNAdmin.getText().isEmpty() & !txtCAdmin.getText().isEmpty()) {
                     met.InsertarAdmin(txtNAdmin.getText(), txtCAdmin.getText());
-                    JOptionPane.showMessageDialog(null, "Administrador insertado exitosamente");
+                    showMessageDialog(null, "Administrador insertado exitosamente");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Los espacios de administrador deben estar llenos");
+                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
                 }
                 break;
             case 1:
                 if (!txtNEntrenador.getText().isEmpty() & !txtAEntrenador.getText().isEmpty()) {
                     met.InsertarEntrenador(txtNEntrenador.getText(), txtAEntrenador.getText());
-                    JOptionPane.showMessageDialog(null, "Entrenador insertado exitosamente");
+                    showMessageDialog(null, "Entrenador insertado exitosamente");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
+                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
                 }
                 break;
             case 2:
                 if (!txtNJugador.getText().isEmpty() & !txtAJugador.getText().isEmpty()) {
-                    int precio = Integer.parseInt(lblPrecio.getText());
-                    int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
-                    int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
-                    int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
-                    int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
+                    int precio = parseInt(lblPrecio.getText());
+                    int fisico = parseInt((String) cmbFisico.getSelectedItem());
+                    int defensa = parseInt((String) cmbDefensa.getSelectedItem());
+                    int dribbling = parseInt((String) cmbDribbling.getSelectedItem());
+                    int disparo = parseInt((String) cmbDisparo.getSelectedItem());
                     int[] habilidades = {fisico, defensa, dribbling, disparo};
                     met.InsertarJugador(txtNJugador.getText(), txtAJugador.getText(), habilidades, precio, (String) cmbPosicion.getSelectedItem());
-                    JOptionPane.showMessageDialog(null, "Jugador insertado exitosamente");
+                    showMessageDialog(null, "Jugador insertado exitosamente");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Los espacios de jugador deben estar llenos");
+                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
                 }
                 break;
             case 3:
                 if (!txtNEstadio.getText().isEmpty() & !txtUEstadio.getText().isEmpty() & !txtCEstadio.getText().isEmpty()) {
                     if (esNumero(txtCEstadio.getText())) {
-                        int capacidad = Integer.parseInt(txtCEstadio.getText());
+                        int capacidad = parseInt(txtCEstadio.getText());
                         met.InsertarEstadio(txtNEstadio.getText(), txtUEstadio.getText(), capacidad);
-                        JOptionPane.showMessageDialog(null, "Estadio insertado exitosamente");
+                        showMessageDialog(null, "Estadio insertado exitosamente");
                     } else {
-                        JOptionPane.showMessageDialog(null, "El espacio capacidad deben ser números");
+                        showMessageDialog(null, "El espacio capacidad deben ser números");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Los espacios de estadio deben estar llenos");
+                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
                 }
                 break;
             case 4:
@@ -1479,9 +1513,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
                         camisa[1] = ubicacionEstampado;
                         met.InsertarEquipo(txtNEquipo.getText(), camisa);
-                        JOptionPane.showMessageDialog(null, "Equipo insertado exitosamente");
+                        showMessageDialog(null, "Equipo insertado exitosamente");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
+                        showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
                     }
                 }
                 break;
@@ -1527,13 +1561,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbRegistroItemStateChanged
 
     private void sacarPrecioJugador() {
-        int fisico = Integer.parseInt((String) cmbFisico.getSelectedItem());
-        int defensa = Integer.parseInt((String) cmbDefensa.getSelectedItem());
-        int dribbling = Integer.parseInt((String) cmbDribbling.getSelectedItem());
-        int disparo = Integer.parseInt((String) cmbDisparo.getSelectedItem());
+        int fisico = parseInt((String) cmbFisico.getSelectedItem());
+        int defensa = parseInt((String) cmbDefensa.getSelectedItem());
+        int dribbling = parseInt((String) cmbDribbling.getSelectedItem());
+        int disparo = parseInt((String) cmbDisparo.getSelectedItem());
         int[] habilidades = {fisico, defensa, dribbling, disparo};
         int precio = data.precio(habilidades);
-        lblPrecio.setText(String.valueOf(precio));
+        lblPrecio.setText(valueOf(precio));
     }
 
     //Sacar Precio y mostrarlo en un label||| inicio
@@ -1655,45 +1689,49 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void cmbEstampadoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoModiItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEstampadoModiItemStateChanged
-
+    
+    boolean mostrarMsj = true;
     private void lblBuscarModiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseClicked
-        lblBuscarModi.setForeground(Color.blue);
+        lblBuscarModi.setForeground(blue);
         switch (cmbModificar.getSelectedIndex()) {
+            //Si es el administrador
             case 0:
                 //pedir datos
-                String nombreAdmin = JOptionPane.showInputDialog(null, "Introduzca el nombre de usuario.");
-                String clave = JOptionPane.showInputDialog(null, "Introduzca el nombre la clave.");
+                String nombreAdmin = showInputDialog(null, "Introduzca el nombre de usuario.");
+                String clave = showInputDialog(null, "Introduzca el nombre la clave.");
                 Administrador admin = met.buscarAdmin(nombreAdmin, clave);
                 //Mostrar datos
                 if (admin != null) {
                     txtNAdminModi.setText(admin.nombre);
                     txtCAdminModi.setText(admin.clave);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro administrador");
+                    showMessageDialog(null, "No se encontro administrador");
                 }
                 break;
+            //Si es el entrenador
             case 1:
                 //pedir datos
-                String nombreEntre = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
-                String apellidoEntre = JOptionPane.showInputDialog(null, "Introduzca el apellido.");
+                String nombreEntre = showInputDialog(null, "Introduzca el nombre.");
+                String apellidoEntre = showInputDialog(null, "Introduzca el apellido.");
                 Entrenador entrenador = met.buscarEntrenador(nombreEntre, apellidoEntre);
                 //Mostrar datos
                 if (entrenador != null) {
                     txtNEntrenadorModi.setText(entrenador.nombre);
                     txtAEntrenadorModi.setText(entrenador.apellido);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro entrenador");
+                    showMessageDialog(null, "No se encontro entrenador");
                 }
                 break;
+            //Si es un jugador
             case 2:
                 //pedir datos
-                String nombreJuga = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
-                String ApellidoJuga = JOptionPane.showInputDialog(null, "Introduzca el apellido.");
+                String nombreJuga = showInputDialog(null, "Introduzca el nombre.");
+                String ApellidoJuga = showInputDialog(null, "Introduzca el apellido.");
                 Jugador jugador = met.buscarJugador(nombreJuga, ApellidoJuga);
                 //Mostrar datos
                 if (jugador != null) {
-                    txtNEntrenadorModi.setText(jugador.nombre);
-                    txtAEntrenadorModi.setText(jugador.apellido);
+                    txtNJugadorModi.setText(jugador.nombre);
+                    txtAJugadorModi.setText(jugador.apellido);
                     int i = 0;
                     switch (jugador.posicion) {
                         case "defensa":
@@ -1707,36 +1745,36 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             break;
                     }
                     cmbPosicionModi.setSelectedIndex(i);
-                    cmbFisico.setSelectedIndex(jugador.habilidades[0] - 1);
-                    cmbDefensa.setSelectedIndex(jugador.habilidades[1] - 1);
-                    cmbDribbling.setSelectedIndex(jugador.habilidades[2] - 1);
-                    cmbDisparo.setSelectedIndex(jugador.habilidades[3] - 1);
-                    lblPrecioModi.setText(String.valueOf(jugador.precio));
+                    cmbFisicoModi.setSelectedIndex(jugador.habilidades[0] - 1);
+                    cmbDefensaModi.setSelectedIndex(jugador.habilidades[1] - 1);
+                    cmbDribblingModi.setSelectedIndex(jugador.habilidades[2] - 1);
+                    cmbDisparoModi.setSelectedIndex(jugador.habilidades[3] - 1);
+                    lblPrecioModi.setText(valueOf(jugador.precio));
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro jugador");
+                    showMessageDialog(null, "No se encontro jugador");
                 }
                 break;
             case 3:
                 //pedir datos
-                String nombreEstadio = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
+                String nombreEstadio = showInputDialog(null, "Introduzca el nombre.");
                 Estadio estadio = met.buscarEstadio(nombreEstadio);
                 //Mostrar datos
                 if (estadio != null) {
                     txtNEstadioModi.setText(estadio.nombre);
                     txtUEstadioModi.setText(estadio.ubicacion);
-                    txtCEstadioModi.setText(String.valueOf(estadio.capacidad));
+                    txtCEstadioModi.setText(valueOf(estadio.capacidad));
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro estadio");
+                    showMessageDialog(null, "No se encontro estadio");
                 }
                 break;
             case 4:
                 //pedir datos
-                String nombreEquipo = JOptionPane.showInputDialog(null, "Introduzca el nombre.");
+                String nombreEquipo = showInputDialog(null, "Introduzca el nombre.");
                 Equipo equipo = met.buscarEquipo(nombreEquipo);
                 //Mostrar datos
                 if (equipo != null) {
                     txtNEntrenadorModi.setText(equipo.nombre);
-                    txtAEntrenadorModi.setText(String.valueOf(equipo.dinero));
+                    txtAEntrenadorModi.setText(valueOf(equipo.dinero));
                     String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
                     Image camisa = (new javax.swing.ImageIcon(getClass().getResource(ubicacionCamisa))).getImage();
                     Image estam = null;
@@ -1749,19 +1787,26 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     }
                     dibujarCamisa(panelCamisaModi.getGraphics(), camisa, estam);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro equipo");
+                    showMessageDialog(null, "No se encontro equipo");
                 }
                 break;
         }
-        lblBuscarModi.setForeground(Color.blue);
+        if(mostrarMsj){
+            int value = JOptionPane.showConfirmDialog(null, "Al encontrar lo que buscaba aparecerán los campos llenos.\n"
+                                              + "Solo debe cambiar los que desea modificar y presionar el botón modificar\n"
+                                              + "¿Quiere dejar de ver este mensaje?");
+            if(value == 0)
+                mostrarMsj = false;
+        }
+        lblBuscarModi.setForeground(black);
     }//GEN-LAST:event_lblBuscarModiMouseClicked
 
     private void lblBuscarModiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseEntered
-        lblBuscarModi.setForeground(Color.red);
+        lblBuscarModi.setForeground(red);
     }//GEN-LAST:event_lblBuscarModiMouseEntered
 
     private void lblBuscarModiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseExited
-        lblBuscarModi.setForeground(Color.black);
+        lblBuscarModi.setForeground(black);
     }//GEN-LAST:event_lblBuscarModiMouseExited
     //Elegir la comida|||Final
 
@@ -1775,25 +1820,21 @@ public class ventanaPrincipal extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info : getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            getLogger(ventanaPrincipal.class.getName()).log(SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        invokeLater(new Runnable() {
             public void run() {
                 new ventanaPrincipal().setVisible(true);
             }

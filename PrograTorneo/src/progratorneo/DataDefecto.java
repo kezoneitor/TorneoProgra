@@ -5,6 +5,7 @@
  */
 package progratorneo;
 
+import static java.lang.Math.random;
 import java.util.ArrayList;
 
 /**
@@ -87,11 +88,11 @@ public class DataDefecto {
         }
         String[] posiciones = {"portero", "defensa", "medio", "delantero"};
         int count = (Jugadores.size() / 11);
-        for (int i = 0; i < Jugadores.size(); i++) {
+        for (ArrayList Jugadore : Jugadores) {
             if (count != 0) {
                 boolean flag = true;
                 while (flag) {
-                    int pos = (int) (Math.random() * (Jugadores.size() - 1));
+                    int pos = (int) (random() * (Jugadores.size() - 1));
                     if (Jugadores.get(pos).size() == 4) {
                         Jugadores.get(pos).add(posiciones[0]);
                         flag = false;
@@ -101,11 +102,11 @@ public class DataDefecto {
             }
         }
         count = (Jugadores.size() / 11) * 4;
-        for (int i = 0; i < Jugadores.size(); i++) {
+        for (ArrayList Jugadore : Jugadores) {
             if (count != 0) {
                 boolean flag = true;
                 while (flag) {
-                    int pos = (int) (Math.random() * (Jugadores.size() - 1));
+                    int pos = (int) (random() * (Jugadores.size() - 1));
                     if (Jugadores.get(pos).size() == 4) {
                         Jugadores.get(pos).add(posiciones[1]);
                         flag = false;
@@ -129,7 +130,7 @@ public class DataDefecto {
             }
         }
         for (int i = 0; i < Jugadores.size(); i++) {
-            int pos = (int) (Math.random() * 3);
+            int pos = (int) (random() * 3);
             if (Jugadores.get(i).size() == 4) {
                 Jugadores.get(i).add(posiciones[pos]);
             }
@@ -137,10 +138,10 @@ public class DataDefecto {
     }
 
     public int[] generarHabilidades() {
-        int pto1 = (int) (Math.random() * 9) + 1;
-        int pto2 = (int) (Math.random() * 9) + 1;
-        int pto3 = (int) (Math.random() * 9) + 1;
-        int pto4 = (int) (Math.random() * 9) + 1;
+        int pto1 = (int) (random() * 9) + 1;
+        int pto2 = (int) (random() * 9) + 1;
+        int pto3 = (int) (random() * 9) + 1;
+        int pto4 = (int) (random() * 9) + 1;
         int[] habilidades = {pto1, pto2, pto3, pto4};
         return habilidades;
     }
