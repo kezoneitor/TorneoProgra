@@ -36,6 +36,7 @@ import static java.util.logging.Logger.getLogger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
@@ -1722,7 +1723,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         } else {
                             showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
                         }
-                        int dinero = Integer.parseInt(txtDineroEquipo.getText());
+                        int dinero = parseInt(txtDineroEquipo.getText());
                         met.modificarEquipo(this.equiModi.nombre, dinero, camisa, txtNEquipoModi.getText());
                         showMessageDialog(null, "Equipo modificado exitosamente");
                         this.equiModi = null;
@@ -1879,7 +1880,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 break;
         }
         if (mostrarMsj) {
-            int value = JOptionPane.showConfirmDialog(null, "Al encontrar lo que buscaba aparecerán los campos llenos.\n"
+            int value = showConfirmDialog(null, "Al encontrar lo que buscaba aparecerán los campos llenos.\n"
                     + "Solo debe cambiar los que desea modificar y presionar el botón modificar\n"
                     + "¿Quiere dejar de ver este mensaje?");
             if (value == 0) {
