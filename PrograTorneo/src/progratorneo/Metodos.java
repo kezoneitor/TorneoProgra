@@ -466,4 +466,34 @@ public class Metodos {
         return " El Estadio no existe.";
 
     }
+
+    public String EliminarEstadio(String nombre) {
+        Estadio aux = inicioEs.sig;
+        Estadio auxAnt = inicioEs;
+        if (auxAnt == null) {
+            return " Lista vacia. ";
+        }
+        if (auxAnt.nombre.equals(inicioEs.nombre)) {
+            inicioEs = aux;
+            return "Estadio Eliminado. ";
+        }
+        while (aux != null) {
+            if (aux.nombre.equals(nombre)) {
+                auxAnt.sig = aux.sig;
+                return "Estadio Eliminado. ";
+
+            }
+            auxAnt = aux;
+            aux = aux.sig;
+        }
+        return "El Estadio no existe. ";
+    }
+
+    public void imprimirEstadio() {
+        Estadio aux = inicioEs;
+        while (aux != null) {
+            System.out.println(aux.toString());
+            aux = aux.sig;
+        }
+    }
 }
