@@ -1514,11 +1514,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     if (cmbEstampado.getSelectedIndex() != 0) {
                         String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
                         camisa[1] = ubicacionEstampado;
-                        met.InsertarEquipo(txtNEquipo.getText(), camisa);
-                        showMessageDialog(null, "Equipo insertado exitosamente");
                     } else {
                         showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
                     }
+                    met.InsertarEquipo(txtNEquipo.getText(), camisa);
+                    showMessageDialog(null, "Equipo insertado exitosamente");
                 }
                 break;
         }
@@ -1661,23 +1661,103 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbModificarItemStateChanged
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        int index = cmbModificar.getSelectedIndex();
+        switch (index) {
+            case 0:
+                if (!txtNAdminModi.getText().isEmpty() & !txtCAdminModi.getText().isEmpty()) {
+                    met.modificarAdmin(this.adminModi.nombre, this.adminModi.clave, txtNAdminModi.getText(), txtCAdminModi.getText());
+                    showMessageDialog(null, "Administrador modificado exitosamente");
+                    this.adminModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
+                }
+                break;
+            case 1:
+                if (!txtNEntrenadorModi.getText().isEmpty() & !txtAEntrenadorModi.getText().isEmpty()) {
+                    met.modificarEntrenador(this.entreModi.nombre, this.entreModi.nombre, txtNEntrenadorModi.getText(), txtAEntrenadorModi.getText());
+                    showMessageDialog(null, "Entrenador modificado exitosamente");
+                    this.entreModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
+                }
+                break;
+            case 2:
+                if (!txtNJugadorModi.getText().isEmpty() & !txtAJugadorModi.getText().isEmpty()) {
+                    int precio = parseInt(lblPrecioModi.getText());
+                    int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
+                    int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
+                    int dribbling = parseInt((String) cmbDribblingModi.getSelectedItem());
+                    int disparo = parseInt((String) cmbDisparoModi.getSelectedItem());
+                    int[] habilidades = {fisico, defensa, dribbling, disparo};
+                    met.modificarJugador(this.jugaModi.nombre, txtNJugadorModi.getText(), txtAJugadorModi.getText(), habilidades, precio, (String) cmbPosicionModi.getSelectedItem());
+                    showMessageDialog(null, "Jugador modificado exitosamente");
+                    this.jugaModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
+                }
+
+                break;
+            case 3:
+                if (!txtNEstadioModi.getText().isEmpty() & !txtUEstadioModi.getText().isEmpty() & !txtCEstadioModi.getText().isEmpty()) {
+                    if (esNumero(txtCEstadioModi.getText())) {
+                        int capacidad = parseInt(txtCEstadioModi.getText());
+                        met.modificarEstadio(this.estaModi.nombre, txtUEstadioModi.getText(), txtNEstadioModi.getText(), capacidad);
+                        showMessageDialog(null, "Estadio modificado exitosamente");
+                        this.estaModi = null;
+                    } else {
+                        showMessageDialog(null, "El espacio capacidad deben ser números");
+                    }
+                } else {
+                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
+                }
+                break;
+            case 4:
+                if (!txtNEquipoModi.getText().isEmpty()) {
+                    if (esNumero(txtDineroEquipo.getText())) {
+                        String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisaModi.getSelectedIndex()];
+                        String[] camisa = {ubicacionCamisa, ubicacionCamisa};
+                        if (cmbEstampadoModi.getSelectedIndex() != 0) {
+                            String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampadoModi.getSelectedIndex() - 1] + data.colores[cmbEstampadoColorModi.getSelectedIndex()];
+                            camisa[1] = ubicacionEstampado;
+                        } else {
+                            showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
+                        }
+                        int dinero = Integer.parseInt(txtDineroEquipo.getText());
+                        met.modificarEquipo(this.equiModi.nombre, dinero, camisa, txtNEquipoModi.getText());
+                        showMessageDialog(null, "Equipo modificado exitosamente");
+                        this.equiModi = null;
+                    } else {
+                        showMessageDialog(null, "En el espacio dinero deben ir solo números");
+                    }
+                }
+                break;
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void sacarPrecioJugadorModi(JLabel label) {
+        int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
+        int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
+        int dribbling = parseInt((String) cmbDribblingModi.getSelectedItem());
+        int disparo = parseInt((String) cmbDisparoModi.getSelectedItem());
+        int[] habilidades = {fisico, defensa, dribbling, disparo};
+        int precio = data.precio(habilidades);
+        label.setText(valueOf(precio));
+    }
+    
     private void cmbFisicoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbFisicoModiItemStateChanged
 
     private void cmbDefensaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbDefensaModiItemStateChanged
 
     private void cmbDribblingModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbDribblingModiItemStateChanged
 
     private void cmbDisparoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbDisparoModiItemStateChanged
 
     private void cmbColorCamisaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaModiItemStateChanged

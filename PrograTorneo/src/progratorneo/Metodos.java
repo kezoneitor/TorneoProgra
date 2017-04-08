@@ -222,11 +222,11 @@ public class Metodos {
     }
 
     //Modificar 
-    public String modificarJugador(String nombre, String apellido, int[] habilidades, int precio, String posicion) {
+    public String modificarJugador(String nombre, String nombreN,  String apellido, int[] habilidades, int precio, String posicion) {
         Jugador aux = inicioJ;
         while (aux != null) {
             if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
-                aux.nombre = nombre;
+                aux.nombre = nombreN;
                 aux.apellido = apellido;
                 aux.habilidades = habilidades;
                 aux.precio = precio;
