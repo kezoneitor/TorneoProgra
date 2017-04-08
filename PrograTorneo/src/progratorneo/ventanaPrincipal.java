@@ -34,6 +34,7 @@ import java.util.Vector;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
@@ -44,6 +45,7 @@ import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JPanel;
 import static javax.swing.UIManager.getInstalledLookAndFeels;
 import static javax.swing.UIManager.setLookAndFeel;
 import javax.swing.table.DefaultTableModel;
@@ -1560,31 +1562,31 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tbdRegistrar.setSelectedIndex(index);
     }//GEN-LAST:event_cmbRegistroItemStateChanged
 
-    private void sacarPrecioJugador() {
+    private void sacarPrecioJugador(JLabel label) {
         int fisico = parseInt((String) cmbFisico.getSelectedItem());
         int defensa = parseInt((String) cmbDefensa.getSelectedItem());
         int dribbling = parseInt((String) cmbDribbling.getSelectedItem());
         int disparo = parseInt((String) cmbDisparo.getSelectedItem());
         int[] habilidades = {fisico, defensa, dribbling, disparo};
         int precio = data.precio(habilidades);
-        lblPrecio.setText(valueOf(precio));
+        label.setText(valueOf(precio));
     }
 
     //Sacar Precio y mostrarlo en un label||| inicio
     private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
-        sacarPrecioJugador();
+        sacarPrecioJugador(lblPrecio);
     }//GEN-LAST:event_cmbFisicoItemStateChanged
 
     private void cmbDefensaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaItemStateChanged
-        sacarPrecioJugador();
+        sacarPrecioJugador(lblPrecio);
     }//GEN-LAST:event_cmbDefensaItemStateChanged
 
     private void cmbDribblingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingItemStateChanged
-        sacarPrecioJugador();
+        sacarPrecioJugador(lblPrecio);
     }//GEN-LAST:event_cmbDribblingItemStateChanged
 
     private void cmbDisparoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoItemStateChanged
-        sacarPrecioJugador();
+        sacarPrecioJugador(lblPrecio);
     }//GEN-LAST:event_cmbDisparoItemStateChanged
     //Sacar Precio y mostrarlo en un label||| final
 
@@ -1592,7 +1594,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         llenarTabla();
     }//GEN-LAST:event_BtnGenerarJMouseClicked
 
-    private void imprimirCamisa() {
+    private void imprimirCamisa(JPanel panel) {
         String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
         Image camisa = (new javax.swing.ImageIcon(getClass().getResource(ubicacionCamisa))).getImage();
         Image estam = null;
@@ -1603,20 +1605,20 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         } else {
             cmbEstampadoColor.setEnabled(false);
         }
-        dibujarCamisa(panelCamisa.getGraphics(), camisa, estam);
+        dibujarCamisa(panel.getGraphics(), camisa, estam);
     }
 
     //Elegir la comida|||Inicio
     private void cmbColorCamisaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaItemStateChanged
-        imprimirCamisa();
+        imprimirCamisa(panelCamisa);
     }//GEN-LAST:event_cmbColorCamisaItemStateChanged
 
     private void cmbEstampadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoItemStateChanged
-        imprimirCamisa();
+        imprimirCamisa(panelCamisa);
     }//GEN-LAST:event_cmbEstampadoItemStateChanged
 
     private void cmbEstampadoColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorItemStateChanged
-        imprimirCamisa();
+        imprimirCamisa(panelCamisa);
     }//GEN-LAST:event_cmbEstampadoColorItemStateChanged
 
     private void cmbModificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbModificarItemStateChanged
@@ -1663,34 +1665,39 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void cmbFisicoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoModiItemStateChanged
-        // TODO add your handling code here:
+        sacarPrecioJugador(lblPrecioModi);
     }//GEN-LAST:event_cmbFisicoModiItemStateChanged
 
     private void cmbDefensaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaModiItemStateChanged
-        // TODO add your handling code here:
+        sacarPrecioJugador(lblPrecioModi);
     }//GEN-LAST:event_cmbDefensaModiItemStateChanged
 
     private void cmbDribblingModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingModiItemStateChanged
-        // TODO add your handling code here:
+        sacarPrecioJugador(lblPrecioModi);
     }//GEN-LAST:event_cmbDribblingModiItemStateChanged
 
     private void cmbDisparoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoModiItemStateChanged
-        // TODO add your handling code here:
+        sacarPrecioJugador(lblPrecioModi);
     }//GEN-LAST:event_cmbDisparoModiItemStateChanged
 
     private void cmbColorCamisaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaModiItemStateChanged
-        // TODO add your handling code here:
+        imprimirCamisa(panelCamisaModi);
     }//GEN-LAST:event_cmbColorCamisaModiItemStateChanged
 
     private void cmbEstampadoColorModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorModiItemStateChanged
-        // TODO add your handling code here:
+        imprimirCamisa(panelCamisaModi);
     }//GEN-LAST:event_cmbEstampadoColorModiItemStateChanged
 
     private void cmbEstampadoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoModiItemStateChanged
-        // TODO add your handling code here:
+        imprimirCamisa(panelCamisaModi);
     }//GEN-LAST:event_cmbEstampadoModiItemStateChanged
-    
+
     boolean mostrarMsj = true;
+    Administrador adminModi = null;
+    Entrenador entreModi = null;
+    Jugador jugaModi = null;
+    Estadio estaModi = null;
+    Equipo equiModi = null;
     private void lblBuscarModiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseClicked
         lblBuscarModi.setForeground(blue);
         switch (cmbModificar.getSelectedIndex()) {
@@ -1699,11 +1706,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 //pedir datos
                 String nombreAdmin = showInputDialog(null, "Introduzca el nombre de usuario.");
                 String clave = showInputDialog(null, "Introduzca el nombre la clave.");
-                Administrador admin = met.buscarAdmin(nombreAdmin, clave);
+                this.adminModi = met.buscarAdmin(nombreAdmin, clave);
                 //Mostrar datos
-                if (admin != null) {
-                    txtNAdminModi.setText(admin.nombre);
-                    txtCAdminModi.setText(admin.clave);
+                if (this.adminModi != null) {
+                    txtNAdminModi.setText(this.adminModi.nombre);
+                    txtCAdminModi.setText(this.adminModi.clave);
                 } else {
                     showMessageDialog(null, "No se encontro administrador");
                 }
@@ -1713,11 +1720,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 //pedir datos
                 String nombreEntre = showInputDialog(null, "Introduzca el nombre.");
                 String apellidoEntre = showInputDialog(null, "Introduzca el apellido.");
-                Entrenador entrenador = met.buscarEntrenador(nombreEntre, apellidoEntre);
+                this.entreModi = met.buscarEntrenador(nombreEntre, apellidoEntre);
                 //Mostrar datos
-                if (entrenador != null) {
-                    txtNEntrenadorModi.setText(entrenador.nombre);
-                    txtAEntrenadorModi.setText(entrenador.apellido);
+                if (this.entreModi != null) {
+                    txtNEntrenadorModi.setText(this.entreModi.nombre);
+                    txtAEntrenadorModi.setText(this.entreModi.apellido);
                 } else {
                     showMessageDialog(null, "No se encontro entrenador");
                 }
@@ -1727,13 +1734,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 //pedir datos
                 String nombreJuga = showInputDialog(null, "Introduzca el nombre.");
                 String ApellidoJuga = showInputDialog(null, "Introduzca el apellido.");
-                Jugador jugador = met.buscarJugador(nombreJuga, ApellidoJuga);
+                this.jugaModi = met.buscarJugador(nombreJuga, ApellidoJuga);
                 //Mostrar datos
-                if (jugador != null) {
-                    txtNJugadorModi.setText(jugador.nombre);
-                    txtAJugadorModi.setText(jugador.apellido);
+                if (this.jugaModi != null) {
+                    txtNJugadorModi.setText(this.jugaModi.nombre);
+                    txtAJugadorModi.setText(this.jugaModi.apellido);
                     int i = 0;
-                    switch (jugador.posicion) {
+                    switch (this.jugaModi.posicion) {
                         case "defensa":
                             i = 1;
                             break;
@@ -1745,11 +1752,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             break;
                     }
                     cmbPosicionModi.setSelectedIndex(i);
-                    cmbFisicoModi.setSelectedIndex(jugador.habilidades[0] - 1);
-                    cmbDefensaModi.setSelectedIndex(jugador.habilidades[1] - 1);
-                    cmbDribblingModi.setSelectedIndex(jugador.habilidades[2] - 1);
-                    cmbDisparoModi.setSelectedIndex(jugador.habilidades[3] - 1);
-                    lblPrecioModi.setText(valueOf(jugador.precio));
+                    cmbFisicoModi.setSelectedIndex(this.jugaModi.habilidades[0] - 1);
+                    cmbDefensaModi.setSelectedIndex(this.jugaModi.habilidades[1] - 1);
+                    cmbDribblingModi.setSelectedIndex(this.jugaModi.habilidades[2] - 1);
+                    cmbDisparoModi.setSelectedIndex(this.jugaModi.habilidades[3] - 1);
+                    lblPrecioModi.setText(valueOf(this.jugaModi.precio));
                 } else {
                     showMessageDialog(null, "No se encontro jugador");
                 }
@@ -1757,12 +1764,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             case 3:
                 //pedir datos
                 String nombreEstadio = showInputDialog(null, "Introduzca el nombre.");
-                Estadio estadio = met.buscarEstadio(nombreEstadio);
+                this.estaModi = met.buscarEstadio(nombreEstadio);
                 //Mostrar datos
-                if (estadio != null) {
-                    txtNEstadioModi.setText(estadio.nombre);
-                    txtUEstadioModi.setText(estadio.ubicacion);
-                    txtCEstadioModi.setText(valueOf(estadio.capacidad));
+                if (this.estaModi != null) {
+                    txtNEstadioModi.setText(this.estaModi.nombre);
+                    txtUEstadioModi.setText(this.estaModi.ubicacion);
+                    txtCEstadioModi.setText(valueOf(this.estaModi.capacidad));
                 } else {
                     showMessageDialog(null, "No se encontro estadio");
                 }
@@ -1770,11 +1777,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             case 4:
                 //pedir datos
                 String nombreEquipo = showInputDialog(null, "Introduzca el nombre.");
-                Equipo equipo = met.buscarEquipo(nombreEquipo);
+                this.equiModi = met.buscarEquipo(nombreEquipo);
                 //Mostrar datos
-                if (equipo != null) {
-                    txtNEntrenadorModi.setText(equipo.nombre);
-                    txtAEntrenadorModi.setText(valueOf(equipo.dinero));
+                if (this.equiModi != null) {
+                    txtNEquipoModi.setText(this.equiModi.nombre);
+                    txtDineroEquipo.setText(valueOf(this.equiModi.dinero));
                     String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
                     Image camisa = (new javax.swing.ImageIcon(getClass().getResource(ubicacionCamisa))).getImage();
                     Image estam = null;
@@ -1791,12 +1798,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 }
                 break;
         }
-        if(mostrarMsj){
+        if (mostrarMsj) {
             int value = JOptionPane.showConfirmDialog(null, "Al encontrar lo que buscaba aparecerán los campos llenos.\n"
-                                              + "Solo debe cambiar los que desea modificar y presionar el botón modificar\n"
-                                              + "¿Quiere dejar de ver este mensaje?");
-            if(value == 0)
+                    + "Solo debe cambiar los que desea modificar y presionar el botón modificar\n"
+                    + "¿Quiere dejar de ver este mensaje?");
+            if (value == 0) {
                 mostrarMsj = false;
+            }
         }
         lblBuscarModi.setForeground(black);
     }//GEN-LAST:event_lblBuscarModiMouseClicked
@@ -1830,7 +1838,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             getLogger(ventanaPrincipal.class.getName()).log(SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
