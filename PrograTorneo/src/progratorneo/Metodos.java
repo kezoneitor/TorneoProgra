@@ -222,7 +222,7 @@ public class Metodos {
     }
 
     //Modificar 
-    public String modificarJugador(String nombre, String nombreN,  String apellido, int[] habilidades, int precio, String posicion) {
+    public String modificarJugador(String nombre, String nombreN, String apellido, int[] habilidades, int precio, String posicion) {
         Jugador aux = inicioJ;
         while (aux != null) {
             if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
@@ -290,18 +290,18 @@ public class Metodos {
         return jugadores;
     }
 
-    public String eliminarJugador(String nombre, String apellido){
-        if(inicioJ == null){
+    public String eliminarJugador(String nombre, String apellido) {
+        if (inicioJ == null) {
             return "Lista vacía";
         }
-        if(inicioJ.nombre.equals(nombre) & inicioJ.apellido.equals(apellido) ){
+        if (inicioJ.nombre.equals(nombre) & inicioJ.apellido.equals(apellido)) {
             inicioJ = inicioJ.sig;
             return "Jugador eliminado";
         }
         Jugador aux = inicioJ.sig;
         Jugador auxAnt = inicioJ;
-        while(aux != null){
-            if(aux.nombre.equals(nombre) & aux.apellido.equals(apellido)){
+        while (aux != null) {
+            if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
                 auxAnt.sig = aux.sig;
                 return "Jugador eliminado";
             }
@@ -309,7 +309,7 @@ public class Metodos {
         }
         return "No existe el jugador";
     }
-    
+
     //imprimir jugador
     public void imprimirJugador() {
         Jugador aux = inicioJ;
@@ -496,4 +496,101 @@ public class Metodos {
             aux = aux.sig;
         }
     }
+//-------------------------------------------METODOS TORNEOS----------------------------------//
+    //Metodos listas simple
+    // metodo buscar
+
+    public Torneo buscarTorneo(String nombreAdmin, String nombreTorneo) {
+        Torneo aux = inicioT;
+        while (aux != null) {
+            if (aux.nombre.equals(nombreTorneo) & aux.admin.nombre.equals(nombreAdmin)) {
+                return aux;
+            }
+            aux = aux.sig;
+        }
+        return null;
+    }
+
+    // Insercion al final simple
+    public String InsertarTorneo(Administrador admin, String nombre, int[] premios) {
+        Torneo nuevo = new Torneo(admin, nombre, premios);
+        if (inicioT == null) {
+            inicioT = nuevo;
+            return "Torneo insertado";
+        }
+        Torneo aux = inicioT;
+        while (aux.sig != null) {
+            if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
+                return "Ya existe este torneo.";
+            }
+            aux = aux.sig;
+        }
+        aux.sig = nuevo;
+        nuevo.ant = aux;
+        return "Toneo insertado";
+    }
+
+    public String modificarAdmin(Administrador admin, String nombre, String nombreN, int[] premios) {
+        Torneo aux = inicioT;
+        while (aux != null) {
+            if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
+                aux.nombre = nombreN;
+                aux.Premio = premios;
+                return " Datos del Administrador modificados. ";
+
+            }
+            aux = aux.sig;
+        }
+        return " El Torneo no existe.";
+
+    }
+
+    public String eliminarTorneo(Administrador admin, String nombre) {
+        if (inicioT.nombre.equals(nombre) & inicioT.admin.nombre.equals(admin.nombre)) {
+            inicioT = inicioT.sig;
+            inicioT.ant = null;
+            return " Torneo Eliminado. ";
+        }
+        Torneo aux = inicioT.sig;
+        while (aux.sig != null) {
+            if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
+                aux.ant.sig = aux.sig;
+                aux.sig.ant = aux.ant;
+                return " Torneo Eliminado. ";
+            }
+            aux = aux.sig;
+        }
+        if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
+            aux.ant.sig = null;
+            return " Torneo Eliminado. ";
+        }
+        return " El torneo no existe.";
+
+    }
+
+    public void imprimirTorneo() {
+        Torneo aux = inicioT;
+        while (aux != null) {
+            out.println(aux.toString());
+            
+            Partidos auxPA = aux.SubPartidosA;
+            System.out.print("Grupo A ");
+            while(auxPA != null){
+                System.out.print("/ "+ auxPA.toString());
+                auxPA = auxPA.sig;
+            }
+            System.out.println(" /");
+            
+            Partidos auxPB = aux.SubPartidosB;
+            System.out.print("Grupo B ");
+            while(auxPB != null){
+                System.out.print("/ "+ auxPB.toString());
+                auxPB = auxPB.sig;
+            }
+            System.out.print(" /");
+            
+            aux = aux.sig;
+        }
+    }
+
 }

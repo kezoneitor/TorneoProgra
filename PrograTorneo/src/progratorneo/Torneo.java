@@ -2,19 +2,27 @@
 package progratorneo;
 
 public class Torneo {
-
-    String[] GrupoA;
-    String[] GrupoB;
+    String nombre;
     int[] Premio;
-    Partidos SubPartidos;
+    Administrador admin;
+    Partidos SubPartidosA;
+    Partidos SubPartidosB;
     Torneo sig;
+    Torneo ant;
 
-    public Torneo(String[] GrupoA, String[] GrupoB, int[] Premio) {
-        this.GrupoA = null;
-        this.GrupoB = null;
+    public Torneo(Administrador admin, String nombre, int[] Premio) {
+        this.nombre = nombre;
+        this.admin = admin;
         this.Premio = Premio;
         this.sig = null;
-        this.SubPartidos = null;
+        this.ant = null;
+        this.SubPartidosA = null;
+        this.SubPartidosB = null;
+    }
+
+    @Override
+    public String toString() {
+        return "Torneo{" + "nombre=" + nombre + ", Premio=" + Premio + ", admin=" + admin + '}';
     }
 
 }
