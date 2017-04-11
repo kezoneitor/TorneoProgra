@@ -1,7 +1,7 @@
-
 package progratorneo;
 
 public class Torneo {
+
     String nombre;
     int[] Premio;
     Administrador admin;
@@ -9,6 +9,8 @@ public class Torneo {
     Partidos SubPartidosB;
     Torneo sig;
     Torneo ant;
+    int cantPA;
+    int cantPB;
 
     public Torneo(Administrador admin, String nombre, int[] Premio) {
         this.nombre = nombre;
@@ -18,6 +20,8 @@ public class Torneo {
         this.ant = null;
         this.SubPartidosA = null;
         this.SubPartidosB = null;
+        this.cantPA = 0;
+        this.cantPB = 0;
     }
 
     @Override

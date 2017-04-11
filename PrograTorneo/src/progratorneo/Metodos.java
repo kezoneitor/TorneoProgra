@@ -585,25 +585,67 @@ public class Metodos {
         Torneo aux = inicioT;
         while (aux != null) {
             out.println(aux.toString());
-            
+
             Partidos auxPA = aux.SubPartidosA;
             System.out.print("Grupo A ");
-            while(auxPA != null){
-                System.out.print("/ "+ auxPA.toString());
+            while (auxPA != null) {
+                System.out.print("/ " + auxPA.toString());
                 auxPA = auxPA.sig;
             }
             System.out.println(" /");
-            
+
             Partidos auxPB = aux.SubPartidosB;
             System.out.print("Grupo B ");
-            while(auxPB != null){
-                System.out.print("/ "+ auxPB.toString());
+            while (auxPB != null) {
+                System.out.print("/ " + auxPB.toString());
                 auxPB = auxPB.sig;
             }
             System.out.print(" /");
-            
+
             aux = aux.sig;
         }
+    }
+
+    public String insertarPartidoTorneo(String nombre, Equipo equipoA, Equipo equipoB, Estadio estadio) {
+        Torneo auxT = inicioT;
+        Partidos nuevo = new Partidos(estadio, equipoA, equipoB);
+
+        while (auxT != null) {
+
+            if (auxT.nombre.equals(nombre)) {
+
+                if (auxT.cantPA < 16) {
+                    if (auxT.SubPartidosA == null) {
+                        auxT.SubPartidosA = nuevo;
+                        auxT.cantPA++;
+                        return "Torneo insertado";
+                    }
+                    nuevo.sig = auxT.SubPartidosA;//
+                    auxT.SubPartidosA = nuevo;
+                    auxT.cantPA++;
+                    return "Torneo insertado";
+
+                }
+
+                if (auxT.cantPB < 16) {
+                    if (auxT.SubPartidosB == null) {
+                        auxT.SubPartidosB = nuevo;
+                        auxT.cantPB++;
+                        return "Torneo insertado";
+                    }
+                    nuevo.sig = auxT.SubPartidosB;//
+                    auxT.SubPartidosB = nuevo;
+                    auxT.cantPB++;
+                    return "Torneo insertado";
+
+                }
+                
+
+            }
+            auxT = auxT.sig;
+
+        }
+        return " NO existe nigun torneo. ";
     }
 
 }

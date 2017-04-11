@@ -108,7 +108,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             g.drawImage(estam, 0, 0, null);
         }
     }
-
+    
     //insertar los jugadores en el puntero de jugadores
     private void insertarJugadores() {
         for (int i = 0; i < data.Jugadores.size(); i++) {
@@ -1899,7 +1899,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
                             met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
                             for(int i = 0;i < equipos.size();i+=2){
-                                met.in
+                                
                             }
                         } else if (rBtnManual.isEnabled()) {
 
