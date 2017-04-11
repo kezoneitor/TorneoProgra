@@ -83,6 +83,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         data.AgregarNombreApellido();
         data.CrearJugadores();
         insertarJugadores();
+        insertarEquipos();
     }
 
     //Metodo para verificar si el valor puede convertirse en numero
@@ -118,6 +119,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             met.InsertarJugador(nombre, apellido, habilidades, precio, posicion);
         }
         met.imprimirJugador();
+    }
+    
+    private void insertarEquipos(){
+        for (int i = 0; i < data.listaEquiposG.size(); i++) {
+            met.InsertarEquipo(data.listaEquiposG.get(i).nombre,data.listaEquiposG.get(i).camisa);
+            
+        }
     }
 
     //LLenar la jTable con informacion
