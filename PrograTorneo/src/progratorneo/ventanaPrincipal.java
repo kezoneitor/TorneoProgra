@@ -36,6 +36,7 @@ import static java.util.logging.Logger.getLogger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showInputDialog;
@@ -273,11 +274,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel52 = new javax.swing.JLabel();
         txtDineroEquipo = new javax.swing.JTextField();
         lblBuscarModi = new javax.swing.JLabel();
+        panelEliminar = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        cmbEliminar = new javax.swing.JComboBox<>();
+        lblNombreEliminar = new javax.swing.JLabel();
+        lblClaveEliminar = new javax.swing.JLabel();
+        txtClaveEliminar = new javax.swing.JTextField();
+        txtNombreEliminar = new javax.swing.JTextField();
+        btnEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         BtnGenerarJ = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -1258,6 +1266,76 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         tbdPrincipal.addTab("Modificar", panelModificar);
 
+        panelEliminar.setEnabled(false);
+
+        jLabel31.setText("Tipo a Eliminar:");
+
+        cmbEliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador", "Jugador", "Estadio", "Equipo" }));
+        cmbEliminar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEliminarItemStateChanged(evt);
+            }
+        });
+
+        lblNombreEliminar.setText("Nombre Usuario: ");
+
+        lblClaveEliminar.setText("Clave:");
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelEliminarLayout = new javax.swing.GroupLayout(panelEliminar);
+        panelEliminar.setLayout(panelEliminarLayout);
+        panelEliminarLayout.setHorizontalGroup(
+            panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEliminarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelEliminarLayout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelEliminarLayout.createSequentialGroup()
+                        .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreEliminar)
+                            .addComponent(lblClaveEliminar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtClaveEliminar)
+                            .addGroup(panelEliminarLayout.createSequentialGroup()
+                                .addComponent(txtNombreEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(panelEliminarLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(btnEliminar)))
+                .addContainerGap(824, Short.MAX_VALUE))
+        );
+        panelEliminarLayout.setVerticalGroup(
+            panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEliminarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(cmbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreEliminar)
+                    .addComponent(txtNombreEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblClaveEliminar)
+                    .addComponent(txtClaveEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminar)
+                .addContainerGap(321, Short.MAX_VALUE))
+        );
+
+        tbdPrincipal.addTab("Eliminar", panelEliminar);
+
         jPanel3.setEnabled(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -1312,21 +1390,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         );
 
         tbdPrincipal.addTab("tab3", jPanel3);
-
-        jPanel2.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1038, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 443, Short.MAX_VALUE)
-        );
-
-        tbdPrincipal.addTab("tab2", jPanel2);
 
         jLabel3.setText("Usuario actual: ");
 
@@ -1514,11 +1577,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     if (cmbEstampado.getSelectedIndex() != 0) {
                         String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
                         camisa[1] = ubicacionEstampado;
-                        met.InsertarEquipo(txtNEquipo.getText(), camisa);
-                        showMessageDialog(null, "Equipo insertado exitosamente");
                     } else {
                         showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
                     }
+                    met.InsertarEquipo(txtNEquipo.getText(), camisa);
+                    showMessageDialog(null, "Equipo insertado exitosamente");
                 }
                 break;
         }
@@ -1661,23 +1724,103 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbModificarItemStateChanged
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        int index = cmbModificar.getSelectedIndex();
+        switch (index) {
+            case 0:
+                if (!txtNAdminModi.getText().isEmpty() & !txtCAdminModi.getText().isEmpty()) {
+                    met.modificarAdmin(this.adminModi.nombre, this.adminModi.clave, txtNAdminModi.getText(), txtCAdminModi.getText());
+                    showMessageDialog(null, "Administrador modificado exitosamente");
+                    this.adminModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
+                }
+                break;
+            case 1:
+                if (!txtNEntrenadorModi.getText().isEmpty() & !txtAEntrenadorModi.getText().isEmpty()) {
+                    met.modificarEntrenador(this.entreModi.nombre, this.entreModi.nombre, txtNEntrenadorModi.getText(), txtAEntrenadorModi.getText());
+                    showMessageDialog(null, "Entrenador modificado exitosamente");
+                    this.entreModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
+                }
+                break;
+            case 2:
+                if (!txtNJugadorModi.getText().isEmpty() & !txtAJugadorModi.getText().isEmpty()) {
+                    int precio = parseInt(lblPrecioModi.getText());
+                    int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
+                    int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
+                    int dribbling = parseInt((String) cmbDribblingModi.getSelectedItem());
+                    int disparo = parseInt((String) cmbDisparoModi.getSelectedItem());
+                    int[] habilidades = {fisico, defensa, dribbling, disparo};
+                    met.modificarJugador(this.jugaModi.nombre, txtNJugadorModi.getText(), txtAJugadorModi.getText(), habilidades, precio, (String) cmbPosicionModi.getSelectedItem());
+                    showMessageDialog(null, "Jugador modificado exitosamente");
+                    this.jugaModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
+                }
+
+                break;
+            case 3:
+                if (!txtNEstadioModi.getText().isEmpty() & !txtUEstadioModi.getText().isEmpty() & !txtCEstadioModi.getText().isEmpty()) {
+                    if (esNumero(txtCEstadioModi.getText())) {
+                        int capacidad = parseInt(txtCEstadioModi.getText());
+                        met.modificarEstadio(this.estaModi.nombre, txtUEstadioModi.getText(), txtNEstadioModi.getText(), capacidad);
+                        showMessageDialog(null, "Estadio modificado exitosamente");
+                        this.estaModi = null;
+                    } else {
+                        showMessageDialog(null, "El espacio capacidad deben ser números");
+                    }
+                } else {
+                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
+                }
+                break;
+            case 4:
+                if (!txtNEquipoModi.getText().isEmpty()) {
+                    if (esNumero(txtDineroEquipo.getText())) {
+                        String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisaModi.getSelectedIndex()];
+                        String[] camisa = {ubicacionCamisa, ubicacionCamisa};
+                        if (cmbEstampadoModi.getSelectedIndex() != 0) {
+                            String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampadoModi.getSelectedIndex() - 1] + data.colores[cmbEstampadoColorModi.getSelectedIndex()];
+                            camisa[1] = ubicacionEstampado;
+                        } else {
+                            showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
+                        }
+                        int dinero = parseInt(txtDineroEquipo.getText());
+                        met.modificarEquipo(this.equiModi.nombre, dinero, camisa, txtNEquipoModi.getText());
+                        showMessageDialog(null, "Equipo modificado exitosamente");
+                        this.equiModi = null;
+                    } else {
+                        showMessageDialog(null, "En el espacio dinero deben ir solo números");
+                    }
+                }
+                break;
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void sacarPrecioJugadorModi(JLabel label) {
+        int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
+        int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
+        int dribbling = parseInt((String) cmbDribblingModi.getSelectedItem());
+        int disparo = parseInt((String) cmbDisparoModi.getSelectedItem());
+        int[] habilidades = {fisico, defensa, dribbling, disparo};
+        int precio = data.precio(habilidades);
+        label.setText(valueOf(precio));
+    }
+
     private void cmbFisicoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbFisicoModiItemStateChanged
 
     private void cmbDefensaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbDefensaModiItemStateChanged
 
     private void cmbDribblingModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbDribblingModiItemStateChanged
 
     private void cmbDisparoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoModiItemStateChanged
-        sacarPrecioJugador(lblPrecioModi);
+        sacarPrecioJugadorModi(lblPrecioModi);
     }//GEN-LAST:event_cmbDisparoModiItemStateChanged
 
     private void cmbColorCamisaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaModiItemStateChanged
@@ -1799,7 +1942,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 break;
         }
         if (mostrarMsj) {
-            int value = JOptionPane.showConfirmDialog(null, "Al encontrar lo que buscaba aparecerán los campos llenos.\n"
+            int value = showConfirmDialog(null, "Al encontrar lo que buscaba aparecerán los campos llenos.\n"
                     + "Solo debe cambiar los que desea modificar y presionar el botón modificar\n"
                     + "¿Quiere dejar de ver este mensaje?");
             if (value == 0) {
@@ -1816,6 +1959,54 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void lblBuscarModiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseExited
         lblBuscarModi.setForeground(black);
     }//GEN-LAST:event_lblBuscarModiMouseExited
+
+    private void cmbEliminarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEliminarItemStateChanged
+        int index = cmbEliminar.getSelectedIndex();
+        if (index == 0) {
+            lblNombreEliminar.setText("Nombre Usuario: ");
+            lblClaveEliminar.setText("Clave: ");
+            lblClaveEliminar.setVisible(true);
+            txtNombreEliminar.setVisible(true);
+        } else if (index == 1 & index == 2) {
+            lblNombreEliminar.setText("Nombre: ");
+            lblClaveEliminar.setText("Apellido: ");
+            lblClaveEliminar.setVisible(true);
+            txtNombreEliminar.setVisible(true);
+        } else if (index == 3 & index == 4) {
+            lblNombreEliminar.setText("Nombre: ");
+            lblClaveEliminar.setVisible(false);
+            txtNombreEliminar.setVisible(false);
+        }
+    }//GEN-LAST:event_cmbEliminarItemStateChanged
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int index = cmbEliminar.getSelectedIndex();
+        String msj = "";
+        int value = JOptionPane.showConfirmDialog(null, "Esta seguro de que desea eliminarlo");
+        if (value == 0) {
+            switch (index) {
+                case 0:
+                    msj = met.eliminarAdmin(txtNombreEliminar.getText(), txtClaveEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 1:
+                    msj = met.eliminarEntrenador(txtNombreEliminar.getText(), txtClaveEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 2:
+                    msj = met.eliminarJugador(txtNombreEliminar.getText(), txtClaveEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 3:
+                    msj = met.EliminarEstadio(txtNombreEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 4:
+                    msj = met.EliminarEquipo(txtNombreEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
     //Elegir la comida|||Final
 
     /**
@@ -1851,6 +2042,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGenerarJ;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
@@ -1862,6 +2054,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbDisparoModi;
     private javax.swing.JComboBox<String> cmbDribbling;
     private javax.swing.JComboBox<String> cmbDribblingModi;
+    private javax.swing.JComboBox<String> cmbEliminar;
     private javax.swing.JComboBox<String> cmbEstampado;
     private javax.swing.JComboBox<String> cmbEstampadoColor;
     private javax.swing.JComboBox<String> cmbEstampadoColorModi;
@@ -1896,6 +2089,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -1922,16 +2116,17 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblBuscarModi;
+    private javax.swing.JLabel lblClaveEliminar;
     private javax.swing.JLabel lblContraApellido;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombreEliminar;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblPrecioModi;
     private javax.swing.JLabel lblUsuarioActual;
@@ -1939,6 +2134,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelAdminModi;
     private javax.swing.JPanel panelCamisa;
     private javax.swing.JPanel panelCamisaModi;
+    private javax.swing.JPanel panelEliminar;
     private javax.swing.JPanel panelEntrenador;
     private javax.swing.JPanel panelEntrenadorModi;
     private javax.swing.JPanel panelEquipo;
@@ -1965,6 +2161,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtCEstadio;
     private javax.swing.JTextField txtCEstadioModi;
     private javax.swing.JTextField txtCLogin;
+    private javax.swing.JTextField txtClaveEliminar;
     private javax.swing.JTextField txtDineroEquipo;
     private javax.swing.JTextField txtNAdmin;
     private javax.swing.JTextField txtNAdminModi;
@@ -1977,6 +2174,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNJugador;
     private javax.swing.JTextField txtNJugadorModi;
     private javax.swing.JTextField txtNLogin;
+    private javax.swing.JTextField txtNombreEliminar;
     private javax.swing.JTextField txtUEstadio;
     private javax.swing.JTextField txtUEstadioModi;
     // End of variables declaration//GEN-END:variables
