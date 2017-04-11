@@ -50,6 +50,7 @@ import javax.swing.JPanel;
 import static javax.swing.UIManager.getInstalledLookAndFeels;
 import static javax.swing.UIManager.setLookAndFeel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -79,6 +80,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         //Componentes y sus iniciaciones por defecto|||final
         met.InsertarAdmin("kezo", "123");
         met.InsertarAdmin("julio", "123");
+        llenarTablaEquipos();
 
         data.AgregarNombreApellido();
         data.CrearJugadores();
@@ -121,7 +123,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }
 
     //LLenar la jTable con informacion
-    private void llenarTabla() {
+    private void llenarTablaJugadores() {
         tabla.addColumn("Nombre");
         tabla.addColumn("Apellido");
         tabla.addColumn("Habilidades");
@@ -143,6 +145,26 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             respaldo.remove(i);
         }
         jTable1.setModel(tabla);
+    }
+
+    private void llenarTablaEquipos() {
+        TableModel tabla = tablaEquipos.getModel();
+        Equipo auxEq = met.inicioEq;
+        int i = 0;
+        while (auxEq != null) {
+            tabla.setValueAt(auxEq.nombre, i, 0);
+            tabla.setValueAt(auxEq.jugadores.size(), i, 1);
+            //Para saber si esta en un torneo
+            if (auxEq.posicionTorneo != 0) {
+                tabla.setValueAt(true, i, 2);
+            } else {
+                tabla.setValueAt(false, i, 2);
+            }
+            if (auxEq == met.finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
+        }
     }
 
     /**
@@ -219,6 +241,25 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         panelCamisa = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
+        txtNombreTorneo = new javax.swing.JTextField();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        txtPremioCu = new javax.swing.JTextField();
+        txtPremioSe = new javax.swing.JTextField();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        txtPremioFi = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel57 = new javax.swing.JLabel();
+        rBtnAleatorio = new javax.swing.JRadioButton();
+        rBtnManual = new javax.swing.JRadioButton();
+        jLabel58 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaEquipos = new javax.swing.JTable();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
         panelModificar = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         cmbModificar = new javax.swing.JComboBox<>();
@@ -380,7 +421,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo a registrar:");
 
-        cmbRegistro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador", "Jugador", "Estadio", "Equipo" }));
+        cmbRegistro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador", "Jugador", "Estadio", "Equipo", "Torneo" }));
         cmbRegistro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbRegistroItemStateChanged(evt);
@@ -419,7 +460,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
                             .addComponent(txtNAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(805, Short.MAX_VALUE))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,7 +475,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtCAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(298, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Administrador", panelAdmin);
@@ -782,10 +823,250 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEquipoLayout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(panelCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 117, Short.MAX_VALUE))
+                .addGap(0, 127, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Equipo", panelEquipo);
+
+        jLabel42.setText("Nombre: ");
+
+        jLabel53.setText("Premios");
+
+        jLabel54.setText("Cuartos:");
+
+        jLabel55.setText("Semifinales:");
+
+        jLabel56.setText("Finales:");
+
+        jLabel57.setText("Generar partidos");
+
+        rBtnAleatorio.setText("aleatoriamente");
+        rBtnAleatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnAleatorioActionPerformed(evt);
+            }
+        });
+
+        rBtnManual.setText("manualmente");
+        rBtnManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnManualActionPerformed(evt);
+            }
+        });
+
+        jLabel58.setText("Escoger equipos");
+
+        tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "cantidad Jugadores", "En torneo", "Agregar"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaEquipos.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(tablaEquipos);
+        tablaEquipos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        jLabel59.setText("Un equipo en torneo no puede entrar");
+
+        jLabel60.setText(" a otro torneo.");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel55)
+                            .addComponent(jLabel56)
+                            .addComponent(jLabel54))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPremioCu, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rBtnAleatorio)
+                            .addComponent(jLabel57)
+                            .addComponent(rBtnManual)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel42)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel53)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel58)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel59)
+                            .addComponent(jLabel60))))
+                .addGap(78, 78, 78))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel42)
+                    .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel53)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel54)
+                            .addComponent(txtPremioCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel55)
+                            .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel56))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel57)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rBtnAleatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rBtnManual))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel59)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel60)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tbdRegistrar.addTab("Torneo", jPanel1);
 
         javax.swing.GroupLayout panelRegistrarLayout = new javax.swing.GroupLayout(panelRegistrar);
         panelRegistrar.setLayout(panelRegistrarLayout);
@@ -810,7 +1091,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(cmbRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbdRegistrar))
+                .addComponent(tbdRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 413, Short.MAX_VALUE))
         );
 
         tbdPrincipal.addTab("Registrar", panelRegistrar);
@@ -1523,6 +1804,32 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnJugadorActionPerformed
 //RadioButtons para que solo este seleccionado 1 de ellos|||Final
 
+    private ArrayList<Equipo> sacarPartidosRandom() {
+        ArrayList<Equipo> equipos = new ArrayList();
+        for (int i = 0; i < 32; i++) {
+            boolean flag = true;
+            while (flag) {
+                int add = (int) (Math.random() * met.lenEquipo()) + 1;
+                Equipo auxEq = met.inicioEq;
+                while (auxEq != null) {
+                    if (add == 0) {
+                        if (auxEq.posicionTorneo == 0) {
+                            auxEq.posicionTorneo = 16;
+                            equipos.add(auxEq);
+                        }
+                        flag = false;
+                        break;
+                    }
+                    add--;
+                    if (auxEq == met.finalEq) {
+                        break;
+                    }
+                    auxEq = auxEq.sig;
+                }
+            }
+        }
+        return equipos;
+    }
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         int index = cmbRegistro.getSelectedIndex();
@@ -1584,6 +1891,27 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     showMessageDialog(null, "Equipo insertado exitosamente");
                 }
                 break;
+            case 5:
+                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
+                    if (esNumero(txtPremioCu.getText()) & esNumero(txtPremioFi.getText()) & esNumero(txtPremioSe.getText())) {
+                        if (rBtnAleatorio.isEnabled()) {
+                            ArrayList<Equipo> equipos = sacarPartidosRandom();
+                            int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                            met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
+                            for(int i = 0;i < equipos.size();i+=2){
+                                met.in
+                            }
+                        } else if (rBtnManual.isEnabled()) {
+
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Los espacios de premios deben ser números");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor llene los campos vacios.");
+                }
+                break;
+
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -1595,30 +1923,42 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(3, false);
                 tbdRegistrar.setEnabledAt(4, false);
+                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 1:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(3, false);
                 tbdRegistrar.setEnabledAt(4, false);
+                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 2:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(1, false);
                 tbdRegistrar.setEnabledAt(3, false);
                 tbdRegistrar.setEnabledAt(4, false);
+                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 3:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(1, false);
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(4, false);
+                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 4:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(1, false);
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(3, false);
+                tbdRegistrar.setEnabledAt(5, false);
+                break;
+            case 5:
+                tbdRegistrar.setEnabledAt(0, false);
+                tbdRegistrar.setEnabledAt(1, false);
+                tbdRegistrar.setEnabledAt(2, false);
+                tbdRegistrar.setEnabledAt(3, false);
+                tbdRegistrar.setEnabledAt(4, false);
                 break;
         }
         tbdRegistrar.setEnabledAt(index, true);
@@ -1654,7 +1994,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     //Sacar Precio y mostrarlo en un label||| final
 
     private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
-        llenarTabla();
+        llenarTablaJugadores();
     }//GEN-LAST:event_BtnGenerarJMouseClicked
 
     private void imprimirCamisa(JPanel panel) {
@@ -2007,7 +2347,16 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-    //Elegir la comida|||Final
+
+    private void rBtnAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnAleatorioActionPerformed
+        rBtnManual.setSelected(false);
+        tablaEquipos.setEnabled(false);
+    }//GEN-LAST:event_rBtnAleatorioActionPerformed
+
+    private void rBtnManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnManualActionPerformed
+        rBtnAleatorio.setSelected(false);
+        tablaEquipos.setEnabled(true);
+    }//GEN-LAST:event_rBtnManualActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2101,6 +2450,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
@@ -2112,14 +2462,25 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblBuscarModi;
     private javax.swing.JLabel lblClaveEliminar;
@@ -2146,9 +2507,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPanel panelModificar;
     private javax.swing.JPanel panelRegistrar;
+    private javax.swing.JRadioButton rBtnAleatorio;
+    private javax.swing.JRadioButton rBtnManual;
     private javax.swing.JRadioButton rbtnAdmin;
     private javax.swing.JRadioButton rbtnEntrenador;
     private javax.swing.JRadioButton rbtnJugador;
+    private javax.swing.JTable tablaEquipos;
     private javax.swing.JTabbedPane tbdModificar;
     private javax.swing.JTabbedPane tbdPrincipal;
     private javax.swing.JTabbedPane tbdRegistrar;
@@ -2175,6 +2539,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNJugadorModi;
     private javax.swing.JTextField txtNLogin;
     private javax.swing.JTextField txtNombreEliminar;
+    private javax.swing.JTextField txtNombreTorneo;
+    private javax.swing.JTextField txtPremioCu;
+    private javax.swing.JTextField txtPremioFi;
+    private javax.swing.JTextField txtPremioSe;
     private javax.swing.JTextField txtUEstadio;
     private javax.swing.JTextField txtUEstadioModi;
     // End of variables declaration//GEN-END:variables

@@ -418,6 +418,19 @@ public class Metodos {
             aux = aux.sig;
         }
     }
+    
+    public int lenEquipo(){
+        Equipo auxEq = inicioEq;
+        int lenEq = 0;
+        while (auxEq != null) {
+            lenEq++;
+            if (auxEq == finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
+        }
+        return lenEq;
+    }
 
     //-------------------------------------------METODOS ESTADIO----------------------------------//
     public Estadio buscarEstadio(String nombre) {
