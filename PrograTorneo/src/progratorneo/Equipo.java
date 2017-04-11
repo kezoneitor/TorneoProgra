@@ -2,9 +2,11 @@
 
 package progratorneo;
 
+import java.util.ArrayList;
+
 public class Equipo {
     String nombre;
-    Jugador[] jugadores;
+    ArrayList<Jugador> jugadores;
     Entrenador entrenador;
     int dinero;
     String[] camisa;
@@ -17,7 +19,7 @@ public class Equipo {
 
     public Equipo(String nombre, String[] camisa) {
         this.nombre = nombre;
-        this.jugadores = null;
+        this.jugadores = new ArrayList();
         this.entrenador = null;
         this.dinero = 3000000;
         this.camisa = camisa;
