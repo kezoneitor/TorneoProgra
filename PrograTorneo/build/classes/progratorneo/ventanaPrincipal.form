@@ -1048,11 +1048,9 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="cmbEstadiosRegistrar" pref="126" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtPremioCu" pref="126" max="32767" attributes="0"/>
-                                              <Component id="txtPremioFi" alignment="0" pref="126" max="32767" attributes="0"/>
-                                              <Component id="txtPremioSe" alignment="0" pref="126" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="txtPremioCu" pref="126" max="32767" attributes="0"/>
+                                          <Component id="txtPremioFi" alignment="0" pref="126" max="32767" attributes="0"/>
+                                          <Component id="txtPremioSe" alignment="0" pref="126" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>

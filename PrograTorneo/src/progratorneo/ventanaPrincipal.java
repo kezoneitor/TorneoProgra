@@ -86,6 +86,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         data.CrearJugadores();
         insertarJugadores();
         insertarEquipos();
+        data.crearEquipo();
     }
 
     //Metodo para verificar si el valor puede convertirse en numero
