@@ -509,6 +509,16 @@ public class Metodos {
             aux = aux.sig;
         }
     }
+    
+    public int lenEstadio(){
+        Estadio auxEs = inicioEs;
+        int lenEs = 0;
+        while (auxEs != null) {
+            lenEs++;
+            auxEs = auxEs.sig;
+        }
+        return lenEs;
+    }
 //-------------------------------------------METODOS TORNEOS----------------------------------//
     //Metodos listas simple
     // metodo buscar
