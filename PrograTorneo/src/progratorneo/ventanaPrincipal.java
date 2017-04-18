@@ -108,7 +108,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             g.drawImage(estam, 0, 0, null);
         }
     }
-    
+
     //insertar los jugadores en el puntero de jugadores
     private void insertarJugadores() {
         for (int i = 0; i < data.Jugadores.size(); i++) {
@@ -260,6 +260,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tablaEquipos = new javax.swing.JTable();
         jLabel59 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        cmbEstadiosRegistrar = new javax.swing.JComboBox<>();
         panelModificar = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         cmbModificar = new javax.swing.JComboBox<>();
@@ -976,6 +978,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jLabel60.setText(" a otro torneo.");
 
+        jLabel61.setText("Estadios:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -983,34 +987,35 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel55)
-                            .addComponent(jLabel56)
-                            .addComponent(jLabel54))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPremioCu, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rBtnAleatorio)
                             .addComponent(jLabel57)
-                            .addComponent(rBtnManual)))
+                            .addComponent(rBtnManual)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel42)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel53)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel61)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel55)
+                            .addComponent(jLabel54)
+                            .addComponent(jLabel56))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel42)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel53)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                            .addComponent(cmbEstadiosRegistrar, 0, 126, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPremioCu, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                                .addComponent(txtPremioFi, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                                .addComponent(txtPremioSe, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel58)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1049,7 +1054,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel56))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel61)
+                            .addComponent(cmbEstadiosRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
                         .addComponent(jLabel57)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rBtnAleatorio)
@@ -1809,10 +1818,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         for (int i = 0; i < 32; i++) {
             boolean flag = true;
             while (flag) {
-                int add = (int) (Math.random() * met.lenEquipo()) + 1;
+                int add = (int) (Math.random() * met.lenEquipo());
                 Equipo auxEq = met.inicioEq;
+                int k = 0;
                 while (auxEq != null) {
-                    if (add == 0) {
+                    if (add == k) {
                         if (auxEq.posicionTorneo == 0) {
                             auxEq.posicionTorneo = 16;
                             equipos.add(auxEq);
@@ -1820,7 +1830,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         flag = false;
                         break;
                     }
-                    add--;
+                    k++;
                     if (auxEq == met.finalEq) {
                         break;
                     }
@@ -1829,6 +1839,31 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         }
         return equipos;
+    }
+
+    private ArrayList<String> equiposTabla() {
+        ArrayList<String> equipos = new ArrayList();
+        for (int i = 0; i < met.lenEquipo(); i++) {
+            boolean value = (boolean) tablaEquipos.getValueAt(i, 3);
+            if (value) {
+                equipos.add((String) tablaEquipos.getValueAt(i, 0));
+            }
+        }
+        return equipos;
+    }
+
+    private Estadio sacarEstadioRandom() {
+        int add = (int) (Math.random() * met.lenEstadio());
+        Estadio auxEs = met.inicioEs;
+        int i = 0;
+        while (auxEs != null) {
+            if (add == i) {
+                return auxEs;
+            }
+            i++;
+            auxEs = auxEs.sig;
+        }
+        return auxEs;
     }
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -1896,13 +1931,30 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     if (esNumero(txtPremioCu.getText()) & esNumero(txtPremioFi.getText()) & esNumero(txtPremioSe.getText())) {
                         if (rBtnAleatorio.isEnabled()) {
                             ArrayList<Equipo> equipos = sacarPartidosRandom();
+                            Estadio estadio = sacarEstadioRandom();
                             int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
                             met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
-                            for(int i = 0;i < equipos.size();i+=2){
-                                
+                            for (int i = 0; i < equipos.size(); i += 2) {
+                                met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipos.get(i), equipos.get(i + 1), estadio);
                             }
+                            JOptionPane.showMessageDialog(null, "Torneo insertado");
+                            met.imprimirTorneo();
                         } else if (rBtnManual.isEnabled()) {
-
+                            ArrayList<String> equipos = equiposTabla();
+                            if (equipos.size() == 32) {
+                                Estadio estadio = met.buscarEstadio((String) cmbEstadiosRegistrar.getSelectedItem());
+                                int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                                met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
+                                for (int i = 0; i < equipos.size(); i += 2) {
+                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), met.buscarEquipo(equipos.get(i)), met.buscarEquipo(equipos.get(i+1)), estadio);
+                                }
+                                JOptionPane.showMessageDialog(null, "Torneo insertado");
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Necesitas más equipos para iniciar un torneo");
+                            }
+                            met.imprimirTorneo();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Marque una de las opciones");
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Los espacios de premios deben ser números");
@@ -2404,6 +2456,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbDribbling;
     private javax.swing.JComboBox<String> cmbDribblingModi;
     private javax.swing.JComboBox<String> cmbEliminar;
+    private javax.swing.JComboBox<String> cmbEstadiosRegistrar;
     private javax.swing.JComboBox<String> cmbEstampado;
     private javax.swing.JComboBox<String> cmbEstampadoColor;
     private javax.swing.JComboBox<String> cmbEstampadoColorModi;
@@ -2471,6 +2524,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
