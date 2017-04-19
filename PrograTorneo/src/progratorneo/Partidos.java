@@ -14,5 +14,5 @@ public class Partidos {
         this.equipoA = equipoA;
         this.equipoB = equipoB;
     }
-
+    
 }

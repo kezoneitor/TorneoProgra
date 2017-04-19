@@ -18,6 +18,7 @@ public class DataDefecto {
     ArrayList<Entrenador> listaEntrenadorG = new ArrayList();
     ArrayList<Equipo> listaEquiposG = new ArrayList();
     ArrayList<Estadio> listaEstadioG = new ArrayList();
+    ArrayList<ArrayList> listaEqJugadoresG = new ArrayList();
 
     ArrayList<ArrayList> Jugadores = new ArrayList();// matriz 
     ArrayList<String> listNombre = new ArrayList();
@@ -439,4 +440,40 @@ public class DataDefecto {
         listaEstadioG.add(estadio5);
     }
 
+    public void crearEquiposJugadores(){
+        ArrayList<ArrayList> tempJu = Jugadores;
+        for (Equipo listaEquiposG1 : listaEquiposG) {
+            ArrayList<ArrayList> equipo = new ArrayList();
+            int idx;
+            while(equipo.size()!= 1){
+                idx = (int) (Math.random()*(tempJu.size()-1));
+                if(tempJu.get(idx).get(4).equals("portero")){
+                    equipo.add(tempJu.get(idx));
+                    tempJu.remove(idx);
+                }
+            }
+            while(equipo.size()!= 5){
+                idx = (int) (Math.random()*(tempJu.size()-1));
+                if(tempJu.get(idx).get(4).equals("defensa")){
+                    equipo.add(tempJu.get(idx));
+                    tempJu.remove(idx);
+                }
+            }
+            while(equipo.size()!= 9){
+                idx = (int) (Math.random()*(tempJu.size()-1));
+                if(tempJu.get(idx).get(4).equals("medio")){
+                    equipo.add(tempJu.get(idx));
+                    tempJu.remove(idx);
+                }
+            }
+            while(equipo.size()!= 11){
+                idx = (int) (Math.random()*(tempJu.size()-1));
+                if(tempJu.get(idx).get(4).equals("delantero")){
+                    equipo.add(tempJu.get(idx));
+                    tempJu.remove(idx);
+                }
+            }
+            listaEqJugadoresG.add(equipo);
+        }
+    }
 }

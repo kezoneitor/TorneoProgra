@@ -198,6 +198,9 @@ public class Metodos {
         while (aux != null) {
             out.println(aux.toString());
             aux = aux.sig;
+            if(aux == finalEn){
+                break;
+            }
         }
     }
 
@@ -416,10 +419,13 @@ public class Metodos {
         while (aux != null) {
             out.println(aux.toString());
             aux = aux.sig;
+            if (aux.nombre.equals(finalEq.nombre)) {
+                break;
+            }
         }
     }
-    
-    public int lenEquipo(){
+
+    public int lenEquipo() {
         Equipo auxEq = inicioEq;
         int lenEq = 0;
         while (auxEq != null) {
@@ -509,8 +515,8 @@ public class Metodos {
             aux = aux.sig;
         }
     }
-    
-    public int lenEstadio(){
+
+    public int lenEstadio() {
         Estadio auxEs = inicioEs;
         int lenEs = 0;
         while (auxEs != null) {
@@ -553,7 +559,7 @@ public class Metodos {
         return "Toneo insertado";
     }
 
-    public String modificarAdmin(Administrador admin, String nombre, String nombreN, int[] premios) {
+    public String modificarTorneo(Administrador admin, String nombre, String nombreN, int[] premios) {
         Torneo aux = inicioT;
         while (aux != null) {
             if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
@@ -570,6 +576,18 @@ public class Metodos {
 
     public String eliminarTorneo(Administrador admin, String nombre) {
         if (inicioT.nombre.equals(nombre) & inicioT.admin.nombre.equals(admin.nombre)) {
+            Partidos auxPA = inicioT.SubPartidosA;
+            Partidos auxPB = inicioT.SubPartidosB;
+            while (auxPA != null) {
+                auxPA.equipoA.posicionTorneo = 0;
+                auxPA.equipoB.posicionTorneo = 0;
+                auxPA = auxPA.sig;
+            }
+            while (auxPB != null) {
+                auxPB.equipoA.posicionTorneo = 0;
+                auxPB.equipoB.posicionTorneo = 0;
+                auxPB = auxPB.sig;
+            }
             inicioT = inicioT.sig;
             inicioT.ant = null;
             return " Torneo Eliminado. ";
@@ -577,6 +595,18 @@ public class Metodos {
         Torneo aux = inicioT.sig;
         while (aux.sig != null) {
             if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
+                Partidos auxPA = aux.SubPartidosA;
+                Partidos auxPB = aux.SubPartidosB;
+                while (auxPA != null) {
+                    auxPA.equipoA.posicionTorneo = 0;
+                    auxPA.equipoB.posicionTorneo = 0;
+                    auxPA = auxPA.sig;
+                }
+                while (auxPB != null) {
+                    auxPB.equipoA.posicionTorneo = 0;
+                    auxPB.equipoB.posicionTorneo = 0;
+                    auxPB = auxPB.sig;
+                }
                 aux.ant.sig = aux.sig;
                 aux.sig.ant = aux.ant;
                 return " Torneo Eliminado. ";
@@ -584,6 +614,18 @@ public class Metodos {
             aux = aux.sig;
         }
         if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
+            Partidos auxPA = aux.SubPartidosA;
+            Partidos auxPB = aux.SubPartidosB;
+            while (auxPA != null) {
+                auxPA.equipoA.posicionTorneo = 0;
+                auxPA.equipoB.posicionTorneo = 0;
+                auxPA = auxPA.sig;
+            }
+            while (auxPB != null) {
+                auxPB.equipoA.posicionTorneo = 0;
+                auxPB.equipoB.posicionTorneo = 0;
+                auxPB = auxPB.sig;
+            }
             aux.ant.sig = null;
             return " Torneo Eliminado. ";
         }
@@ -610,7 +652,7 @@ public class Metodos {
                 System.out.print("/ " + auxPB.toString());
                 auxPB = auxPB.sig;
             }
-            System.out.print(" /");
+            System.out.println(" /");
 
             aux = aux.sig;
         }
@@ -618,44 +660,65 @@ public class Metodos {
 
     public String insertarPartidoTorneo(String nombre, Equipo equipoA, Equipo equipoB, Estadio estadio) {
         Torneo auxT = inicioT;
+        equipoA.posicionTorneo = 16;
+        equipoB.posicionTorneo = 16;
         Partidos nuevo = new Partidos(estadio, equipoA, equipoB);
 
         while (auxT != null) {
 
             if (auxT.nombre.equals(nombre)) {
 
-                if (auxT.cantPA < 16) {
+                if (auxT.cantPA < 8) {
                     if (auxT.SubPartidosA == null) {
                         auxT.SubPartidosA = nuevo;
                         auxT.cantPA++;
-                        return "Torneo insertado";
+                        return "Partido insertado";
                     }
                     nuevo.sig = auxT.SubPartidosA;//
                     auxT.SubPartidosA = nuevo;
                     auxT.cantPA++;
-                    return "Torneo insertado";
-
+                    return "Partido insertado";
                 }
 
-                if (auxT.cantPB < 16) {
+                if (auxT.cantPB < 8) {
                     if (auxT.SubPartidosB == null) {
                         auxT.SubPartidosB = nuevo;
                         auxT.cantPB++;
-                        return "Torneo insertado";
+                        return "Partido insertado";
                     }
                     nuevo.sig = auxT.SubPartidosB;//
                     auxT.SubPartidosB = nuevo;
                     auxT.cantPB++;
-                    return "Torneo insertado";
+                    return "Partido insertado";
 
                 }
-                
 
             }
             auxT = auxT.sig;
-
         }
         return " NO existe nigun torneo. ";
     }
 
+//-------------------------------------------METODOS PROGRA----------------------------------//
+    public ArrayList<String> equiposRandom() {
+        ArrayList<String> equipos = new ArrayList();
+        Equipo auxEq = inicioEq;
+        while (auxEq != null) {
+            if (auxEq.posicionTorneo == 0 & auxEq.jugadores.size() == 11 & auxEq.entrenador != null) {
+                equipos.add(auxEq.nombre);
+            }
+            if (auxEq == finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
+        }
+        if (equipos.size() < 32) {
+            return null;
+        }
+        while (equipos.size() != 32) {
+            int idx = (int) (Math.random() * (equipos.size() - 1));
+            equipos.remove(idx);
+        }
+        return equipos;
+    }
 }

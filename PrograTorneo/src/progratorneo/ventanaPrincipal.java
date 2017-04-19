@@ -80,13 +80,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         //Componentes y sus iniciaciones por defecto|||final
         met.InsertarAdmin("kezo", "123");
         met.InsertarAdmin("julio", "123");
-        llenarTablaEquipos();
 
         data.AgregarNombreApellido();
         data.CrearJugadores();
+        data.crearEquipo();//Este metodo tambien crea a los entrenadores
+        data.CrearEstadioPorDefecto();
+        //data.crearEquiposJugadores();
+
         insertarJugadores();
         insertarEquipos();
-        data.crearEquipo();
+        insertarEstadios();
+        insertarEntrenadores();
+
+        asignarEntrenadorYEquipo();
+        asignarJugadoresAEquipos();
+        asignarEqJu();
+        
+
+        met.imprimirEntrenador();
+        met.imprimirEquipo();
+
+        llenarTablaEquipos();
+        llenarTablaEstadios();
     }
 
     //Metodo para verificar si el valor puede convertirse en numero
@@ -121,13 +136,91 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             String posicion = (String) data.Jugadores.get(i).get(4);
             met.InsertarJugador(nombre, apellido, habilidades, precio, posicion);
         }
-        met.imprimirJugador();
     }
-    
-    private void insertarEquipos(){
+
+    private void insertarEquipos() {
         for (int i = 0; i < data.listaEquiposG.size(); i++) {
-            met.InsertarEquipo(data.listaEquiposG.get(i).nombre,data.listaEquiposG.get(i).camisa);
-            
+            met.InsertarEquipo(data.listaEquiposG.get(i).nombre, data.listaEquiposG.get(i).camisa);
+        }
+    }
+
+    private void insertarEstadios() {
+        for (int i = 0; i < data.listaEstadioG.size(); i++) {
+            String nombre = data.listaEstadioG.get(i).nombre;
+            String ubicacion = data.listaEstadioG.get(i).ubicacion;
+            int capacidad = data.listaEstadioG.get(i).capacidad;
+            met.InsertarEstadio(nombre, ubicacion, capacidad);
+        }
+    }
+
+    private void insertarEntrenadores() {
+        for (int i = 0; i < data.listaEntrenadorG.size(); i++) {
+            String nombre = data.listaEntrenadorG.get(i).nombre;
+            String apellido = data.listaEntrenadorG.get(i).apellido;
+            met.InsertarEntrenador(nombre, apellido);
+        }
+    }
+
+    private void asignarEntrenadorYEquipo() {
+        Equipo auxEq = met.inicioEq;
+        Entrenador auxEn = met.inicioEn;
+        while (auxEq != null) {
+            auxEq.entrenador = auxEn;
+            auxEn.equipo = auxEq;
+            if (auxEq == met.finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
+        }
+    }
+
+    private void asignarEqJu() {
+        Equipo auxEq = met.inicioEq;
+        Jugador auxJ;
+        int i = 0;
+        while (auxEq != null) {
+            int j = 0;
+            while(j < data.listaEqJugadoresG.get(i).size()){
+                ArrayList jugador = (ArrayList) data.listaEqJugadoresG.get(i).get(j);
+                auxJ = met.buscarJugador((String)jugador.get(0),(String)jugador.get(1));
+                auxEq.jugadores.add(auxJ);
+            }
+            if (auxEq == met.finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
+            i++;
+        }
+    }
+
+    private void asignarJugadoresAEquipos() {
+        Equipo auxEq = met.inicioEq;
+        Jugador auxJ;
+        while (auxEq != null) {
+            auxJ = met.inicioJ;
+            while (auxJ != null) {
+                if (auxJ.posicion.equals("portero")) {
+                    auxJ.equipo = auxEq;
+                    auxEq.jugadores.add(auxJ);
+                    break;
+                }
+                auxJ = auxJ.sig;
+            }
+            for (int i = 0; i < 4;) {
+                auxJ = met.inicioJ;
+                while (auxJ != null) {
+                    if (auxJ.posicion.equals("defensa")) {
+                        auxJ.equipo = auxEq;
+                        auxEq.jugadores.add(auxJ);
+                        break;
+                    }
+                    auxJ = auxJ.sig;
+                }
+            }
+            if (auxEq == met.finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
         }
     }
 
@@ -173,6 +266,20 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 break;
             }
             auxEq = auxEq.sig;
+            i++;
+        }
+    }
+
+    private void llenarTablaEstadios() {
+        TableModel tabla = tablaEstadios.getModel();
+        Estadio auxEs = met.inicioEs;
+        int i = 0;
+        while (auxEs != null) {
+            tabla.setValueAt(auxEs.nombre, i, 0);
+            tabla.setValueAt(auxEs.ubicacion, i, 1);
+            tabla.setValueAt(auxEs.capacidad, i, 2);
+            auxEs = auxEs.sig;
+            i++;
         }
     }
 
@@ -250,28 +357,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         panelCamisa = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
-        txtNombreTorneo = new javax.swing.JTextField();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        txtPremioCu = new javax.swing.JTextField();
-        txtPremioSe = new javax.swing.JTextField();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        txtPremioFi = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        jLabel57 = new javax.swing.JLabel();
-        rBtnAleatorio = new javax.swing.JRadioButton();
-        rBtnManual = new javax.swing.JRadioButton();
-        jLabel58 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaEquipos = new javax.swing.JTable();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaEstadios = new javax.swing.JTable();
         panelModificar = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         cmbModificar = new javax.swing.JComboBox<>();
@@ -339,6 +424,30 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         BtnGenerarJ = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
+        txtNombreTorneo = new javax.swing.JTextField();
+        lblPremios = new javax.swing.JLabel();
+        lblCuarPre = new javax.swing.JLabel();
+        txtPremioCu = new javax.swing.JTextField();
+        txtPremioSe = new javax.swing.JTextField();
+        lblSePre = new javax.swing.JLabel();
+        lblFiPre = new javax.swing.JLabel();
+        txtPremioFi = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        lblGenerarPartidos = new javax.swing.JLabel();
+        rBtnAleatorio = new javax.swing.JRadioButton();
+        rBtnManual = new javax.swing.JRadioButton();
+        jLabel58 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaEquipos = new javax.swing.JTable();
+        jLabel59 = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablaEstadios = new javax.swing.JTable();
+        btnCrearTorneo = new javax.swing.JButton();
+        cmbOpcionesTorneo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -402,7 +511,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtnJugador))
                     .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(785, Short.MAX_VALUE))
+                .addContainerGap(874, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +581,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
                             .addComponent(txtNAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(805, Short.MAX_VALUE))
+                .addContainerGap(894, Short.MAX_VALUE))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,7 +596,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtCAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Administrador", panelAdmin);
@@ -835,382 +944,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEquipoLayout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(panelCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 127, Short.MAX_VALUE))
+                .addGap(0, 117, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Equipo", panelEquipo);
-
-        jLabel42.setText("Nombre: ");
-
-        jLabel53.setText("Premios");
-
-        jLabel54.setText("Cuartos:");
-
-        jLabel55.setText("Semifinales:");
-
-        jLabel56.setText("Finales:");
-
-        jLabel57.setText("Generar partidos");
-
-        rBtnAleatorio.setText("aleatoriamente");
-        rBtnAleatorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rBtnAleatorioActionPerformed(evt);
-            }
-        });
-
-        rBtnManual.setText("manualmente");
-        rBtnManual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rBtnManualActionPerformed(evt);
-            }
-        });
-
-        jLabel58.setText("Escoger equipos");
-
-        tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "cantidad Jugadores", "En torneo", "Agregar"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tablaEquipos.setColumnSelectionAllowed(true);
-        jScrollPane2.setViewportView(tablaEquipos);
-        tablaEquipos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tablaEquipos.getColumnModel().getColumnCount() > 0) {
-            tablaEquipos.getColumnModel().getColumn(1).setHeaderValue("cantidad Jugadores");
-            tablaEquipos.getColumnModel().getColumn(2).setResizable(false);
-            tablaEquipos.getColumnModel().getColumn(2).setHeaderValue("En torneo");
-        }
-
-        jLabel59.setText("Un equipo en torneo no puede entrar");
-
-        jLabel60.setText(" a otro torneo.");
-
-        jLabel61.setText("Estadios");
-
-        tablaEstadios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Nombre", "Agregar"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tablaEstadios);
-        tablaEstadios.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rBtnAleatorio)
-                            .addComponent(jLabel57)
-                            .addComponent(rBtnManual)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel42)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel53)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel55)
-                            .addComponent(jLabel54)
-                            .addComponent(jLabel56))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPremioCu, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(txtPremioFi, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(txtPremioSe, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel58)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel59)
-                            .addComponent(jLabel60)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel61))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(190, 190, 190))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel42)
-                            .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel59)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel60)
-                            .addComponent(jLabel61))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel53)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel54)
-                            .addComponent(txtPremioCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel55)
-                            .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel56))
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel57)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rBtnAleatorio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rBtnManual))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        tbdRegistrar.addTab("Torneo", jPanel1);
 
         javax.swing.GroupLayout panelRegistrarLayout = new javax.swing.GroupLayout(panelRegistrar);
         panelRegistrar.setLayout(panelRegistrarLayout);
@@ -1235,7 +972,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(cmbRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbdRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 413, Short.MAX_VALUE))
+                .addComponent(tbdRegistrar))
         );
 
         tbdPrincipal.addTab("Registrar", panelRegistrar);
@@ -1281,7 +1018,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel29)
                         .addGap(18, 18, 18)
                         .addComponent(txtNAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(805, Short.MAX_VALUE))
+                .addContainerGap(894, Short.MAX_VALUE))
         );
         panelAdminModiLayout.setVerticalGroup(
             panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1432,7 +1169,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAJugadorModi))
                             .addComponent(jLabel37))
-                        .addGap(489, 863, Short.MAX_VALUE))))
+                        .addGap(489, 952, Short.MAX_VALUE))))
         );
         panelJugdorModiLayout.setVerticalGroup(
             panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1737,7 +1474,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEliminarLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(btnEliminar)))
-                .addContainerGap(824, Short.MAX_VALUE))
+                .addContainerGap(913, Short.MAX_VALUE))
         );
         panelEliminarLayout.setVerticalGroup(
             panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1801,7 +1538,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(BtnGenerarJ)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1107, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1815,6 +1552,398 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         );
 
         tbdPrincipal.addTab("tab3", jPanel3);
+
+        jLabel42.setText("Nombre: ");
+
+        lblPremios.setText("Premios");
+
+        lblCuarPre.setText("Cuartos:");
+
+        lblSePre.setText("Semifinales:");
+
+        lblFiPre.setText("Finales:");
+
+        lblGenerarPartidos.setText("Generar partidos");
+
+        rBtnAleatorio.setText("aleatoriamente");
+        rBtnAleatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnAleatorioActionPerformed(evt);
+            }
+        });
+
+        rBtnManual.setText("manualmente");
+        rBtnManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rBtnManualActionPerformed(evt);
+            }
+        });
+
+        jLabel58.setText("Escoger equipos");
+
+        tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "cantidad Jugadores", "En torneo", "Agregar"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaEquipos.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(tablaEquipos);
+        tablaEquipos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tablaEquipos.getColumnModel().getColumnCount() > 0) {
+            tablaEquipos.getColumnModel().getColumn(1).setHeaderValue("cantidad Jugadores");
+            tablaEquipos.getColumnModel().getColumn(2).setResizable(false);
+            tablaEquipos.getColumnModel().getColumn(2).setHeaderValue("En torneo");
+        }
+
+        jLabel59.setText("Un equipo en torneo no puede entrar");
+
+        jLabel60.setText(" a otro torneo.");
+
+        jLabel61.setText("Estadios");
+
+        tablaEstadios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Ubicacion", "Capacidad", "Agregar"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tablaEstadios);
+        tablaEstadios.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        btnCrearTorneo.setText("Crear");
+        btnCrearTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearTorneoActionPerformed(evt);
+            }
+        });
+
+        cmbOpcionesTorneo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crear", "Modificar", "Eliminar" }));
+        cmbOpcionesTorneo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbOpcionesTorneoItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGenerarPartidos)
+                    .addComponent(rBtnManual)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel42)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblPremios)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSePre)
+                            .addComponent(lblCuarPre)
+                            .addComponent(lblFiPre))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPremioCu)
+                            .addComponent(txtPremioFi)
+                            .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cmbOpcionesTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnCrearTorneo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rBtnAleatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel58)
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel60)
+                            .addComponent(jLabel59))
+                        .addGap(54, 54, 54))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel61)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(107, 107, 107))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbOpcionesTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel42)
+                            .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPremios)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCuarPre)
+                            .addComponent(txtPremioCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSePre)
+                            .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFiPre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblGenerarPartidos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rBtnAleatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rBtnManual)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCrearTorneo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel59)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel60)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel61)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+
+        tbdPrincipal.addTab("Torneo", jPanel1);
 
         jLabel3.setText("Usuario actual: ");
 
@@ -1948,69 +2077,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnJugadorActionPerformed
 //RadioButtons para que solo este seleccionado 1 de ellos|||Final
 
-    private ArrayList<Equipo> sacarPartidosRandom() {
-        ArrayList<Equipo> equipos = new ArrayList();
-        for (int i = 0; i < 32; i++) {
-            boolean flag = true;
-            while (flag) {
-                int add = (int) (Math.random() * met.lenEquipo());
-                Equipo auxEq = met.inicioEq;
-                int k = 0;
-                while (auxEq != null) {
-                    if (add == k) {
-                        if (auxEq.posicionTorneo == 0) {
-                            auxEq.posicionTorneo = 16;
-                            equipos.add(auxEq);
-                        }
-                        flag = false;
-                        break;
-                    }
-                    k++;
-                    if (auxEq == met.finalEq) {
-                        break;
-                    }
-                    auxEq = auxEq.sig;
-                }
-            }
-        }
-        return equipos;
-    }
-
-    private ArrayList<String> equiposTabla() {
-        ArrayList<String> equipos = new ArrayList();
-        for (int i = 0; i < met.lenEquipo(); i++) {
-            boolean value = (boolean) tablaEquipos.getValueAt(i, 3);
-            if (value) {
-                equipos.add((String) tablaEquipos.getValueAt(i, 0));
-            }
-        }
-        return equipos;
-    }
-    
-    private ArrayList<String> estadiosTabla() {
-        ArrayList<String> equipos = new ArrayList();
-        for (int i = 0; i < met.lenEstadio(); i++) {
-            boolean value = (boolean) tablaEstadios.getValueAt(i, 1);
-            if (value) {
-                equipos.add((String) tablaEquipos.getValueAt(i, 0));
-            }
-        }
-        return equipos;
-    }
-
-    private Estadio sacarEstadioRandom() {
-        int add = (int) (Math.random() * met.lenEstadio());
-        Estadio auxEs = met.inicioEs;
-        int i = 0;
-        while (auxEs != null) {
-            if (add == i) {
-                return auxEs;
-            }
-            i++;
-            auxEs = auxEs.sig;
-        }
-        return auxEs;
-    }
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         int index = cmbRegistro.getSelectedIndex();
@@ -2072,45 +2138,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     showMessageDialog(null, "Equipo insertado exitosamente");
                 }
                 break;
-            case 5:
-                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
-                    if (esNumero(txtPremioCu.getText()) & esNumero(txtPremioFi.getText()) & esNumero(txtPremioSe.getText())) {
-                        if (rBtnAleatorio.isEnabled()) {
-                            ArrayList<Equipo> equipos = sacarPartidosRandom();
-                            Estadio estadio = sacarEstadioRandom();
-                            int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                            met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
-                            for (int i = 0; i < equipos.size(); i += 2) {
-                                met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipos.get(i), equipos.get(i + 1), estadio);
-                            }
-                            JOptionPane.showMessageDialog(null, "Torneo insertado");
-                            met.imprimirTorneo();
-                        } else if (rBtnManual.isEnabled()) {
-                            ArrayList<String> equipos = equiposTabla();
-                            if (equipos.size() == 32) {
-                                ArrayList<String> estadios = estadiosTabla();
-                                int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                                met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
-                                for (int i = 0; i < equipos.size(); i += 2) {
-                                    int idxEs = (int) (Math.random()* (estadios.size()-1));
-                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), met.buscarEquipo(equipos.get(i)), met.buscarEquipo(equipos.get(i+1)), met.buscarEstadio(estadios.get(idxEs)));
-                                }
-                                JOptionPane.showMessageDialog(null, "Torneo insertado");
-                            }else{
-                                JOptionPane.showMessageDialog(null, "Necesitas más equipos para iniciar un torneo");
-                            }
-                            met.imprimirTorneo();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Marque una de las opciones");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Los espacios de premios deben ser números");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Por favor llene los campos vacios.");
-                }
-                break;
-
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -2122,43 +2149,32 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(3, false);
                 tbdRegistrar.setEnabledAt(4, false);
-                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 1:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(3, false);
                 tbdRegistrar.setEnabledAt(4, false);
-                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 2:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(1, false);
                 tbdRegistrar.setEnabledAt(3, false);
                 tbdRegistrar.setEnabledAt(4, false);
-                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 3:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(1, false);
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(4, false);
-                tbdRegistrar.setEnabledAt(5, false);
                 break;
             case 4:
                 tbdRegistrar.setEnabledAt(0, false);
                 tbdRegistrar.setEnabledAt(1, false);
                 tbdRegistrar.setEnabledAt(2, false);
                 tbdRegistrar.setEnabledAt(3, false);
-                tbdRegistrar.setEnabledAt(5, false);
                 break;
-            case 5:
-                tbdRegistrar.setEnabledAt(0, false);
-                tbdRegistrar.setEnabledAt(1, false);
-                tbdRegistrar.setEnabledAt(2, false);
-                tbdRegistrar.setEnabledAt(3, false);
-                tbdRegistrar.setEnabledAt(4, false);
-                break;
+
         }
         tbdRegistrar.setEnabledAt(index, true);
         tbdRegistrar.setSelectedIndex(index);
@@ -2557,6 +2573,141 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tablaEquipos.setEnabled(true);
     }//GEN-LAST:event_rBtnManualActionPerformed
 
+    private ArrayList<String> equiposTabla() {
+        ArrayList<String> equipos = new ArrayList();
+        for (int i = 0; i < met.lenEquipo(); i++) {
+            boolean value = (boolean) tablaEquipos.getValueAt(i, 3);
+            if (value) {
+                equipos.add((String) tablaEquipos.getValueAt(i, 0));
+            }
+        }
+        return equipos;
+    }
+
+    private ArrayList<String> estadiosTabla() {
+        ArrayList<String> equipos = new ArrayList();
+        for (int i = 0; i < met.lenEstadio(); i++) {
+            boolean value = (boolean) tablaEstadios.getValueAt(i, 1);
+            if (value) {
+                equipos.add((String) tablaEquipos.getValueAt(i, 0));
+            }
+        }
+        return equipos;
+    }
+
+    private Estadio sacarEstadioRandom() {
+        int add = (int) (Math.random() * met.lenEstadio());
+        Estadio auxEs = met.inicioEs;
+        int i = 0;
+        while (auxEs != null) {
+            if (add == i) {
+                return auxEs;
+            }
+            i++;
+            auxEs = auxEs.sig;
+        }
+        return auxEs;
+    }
+
+    private void btnCrearTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTorneoActionPerformed
+        int index = cmbOpcionesTorneo.getSelectedIndex();
+        String msj = "";
+        switch (index) {
+            case 0:
+                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
+                    if (esNumero(txtPremioCu.getText()) & esNumero(txtPremioFi.getText()) & esNumero(txtPremioSe.getText())) {
+                        if (rBtnAleatorio.isEnabled()) {
+                            ArrayList<String> equipos = met.equiposRandom();
+                            int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                            met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
+                            if (equipos != null) {
+                                for (int i = 0; i < equipos.size(); i += 2) {
+                                    Estadio estadio = sacarEstadioRandom();
+                                    Equipo equipoA = met.buscarEquipo(equipos.get(i));
+                                    Equipo equipoB = met.buscarEquipo(equipos.get(i + 1));
+                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipoA, equipoB, estadio);
+                                }
+                                JOptionPane.showMessageDialog(null, "Torneo insertado");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No hay suficientes equipos para crear el torneo");
+                            }
+                        } else if (rBtnManual.isEnabled()) {
+                            ArrayList<String> equipos = equiposTabla();
+                            ArrayList<String> estadios = estadiosTabla();
+                            if (equipos.size() == 32 & !estadios.isEmpty()) {
+                                int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                                met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
+                                for (int i = 0; i < equipos.size(); i += 2) {
+                                    int idxEs = (int) (Math.random() * (estadios.size() - 1));
+                                    Equipo equipoA = met.buscarEquipo(equipos.get(i));
+                                    Equipo equipoB = met.buscarEquipo(equipos.get(i + 1));
+                                    Estadio estadio = met.buscarEstadio(estadios.get(idxEs));
+                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipoA, equipoB, estadio);
+                                }
+                                JOptionPane.showMessageDialog(null, "Torneo insertado");
+                                met.imprimirTorneo();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Necesitas más equipos para iniciar un torneo y como minimo un estadio.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Marque una de las opciones");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Los espacios de premios deben ser números");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor llene los campos vacios.");
+                }
+                break;
+            case 1:
+                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
+                    String nombre = JOptionPane.showInputDialog(this, "Digite el nombre del torneo que desea modificar");
+                    int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                    msj = met.modificarTorneo(logeado, nombre, txtNombreTorneo.getText(), premios);
+                    JOptionPane.showMessageDialog(null, msj);
+                }
+                break;
+            case 2:
+                msj = met.eliminarTorneo(logeado, txtNombreTorneo.getText());
+                JOptionPane.showMessageDialog(null, msj);
+                break;
+        }
+    }//GEN-LAST:event_btnCrearTorneoActionPerformed
+
+    private void cmbOpcionesTorneoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOpcionesTorneoItemStateChanged
+        int index = cmbOpcionesTorneo.getSelectedIndex();
+        switch (index) {
+            case 0:
+                txtPremioCu.setEnabled(true);
+                txtPremioSe.setEnabled(true);
+                txtPremioFi.setEnabled(true);
+                rBtnAleatorio.setEnabled(true);
+                rBtnManual.setEnabled(true);
+                tablaEquipos.setEnabled(true);
+                tablaEstadios.setEnabled(true);
+                break;
+            case 1:
+                txtPremioCu.setEnabled(true);
+                txtPremioSe.setEnabled(true);
+                txtPremioFi.setEnabled(true);
+                rBtnAleatorio.setEnabled(false);
+                rBtnManual.setEnabled(false);
+                tablaEquipos.setEnabled(false);
+                tablaEstadios.setEnabled(false);
+                break;
+            case 2:
+                txtPremioCu.setEnabled(false);
+                txtPremioSe.setEnabled(false);
+                txtPremioFi.setEnabled(false);
+                rBtnAleatorio.setEnabled(false);
+                rBtnManual.setEnabled(false);
+                tablaEquipos.setEnabled(false);
+                tablaEstadios.setEnabled(false);
+                break;
+        }
+        btnCrearTorneo.setText((String) cmbOpcionesTorneo.getSelectedItem());
+    }//GEN-LAST:event_cmbOpcionesTorneoItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2590,6 +2741,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGenerarJ;
+    private javax.swing.JButton btnCrearTorneo;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnModificar;
@@ -2610,6 +2762,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbFisico;
     private javax.swing.JComboBox<String> cmbFisicoModi;
     private javax.swing.JComboBox<String> cmbModificar;
+    private javax.swing.JComboBox<String> cmbOpcionesTorneo;
     private javax.swing.JComboBox<String> cmbPosicion;
     private javax.swing.JComboBox<String> cmbPosicionModi;
     private javax.swing.JComboBox<String> cmbRegistro;
@@ -2661,11 +2814,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
@@ -2686,11 +2834,16 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblBuscarModi;
     private javax.swing.JLabel lblClaveEliminar;
     private javax.swing.JLabel lblContraApellido;
+    private javax.swing.JLabel lblCuarPre;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblFiPre;
+    private javax.swing.JLabel lblGenerarPartidos;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombreEliminar;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblPrecioModi;
+    private javax.swing.JLabel lblPremios;
+    private javax.swing.JLabel lblSePre;
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JPanel panelAdmin;
     private javax.swing.JPanel panelAdminModi;
