@@ -198,7 +198,7 @@ public class Metodos {
         while (aux != null) {
             out.println(aux.toString());
             aux = aux.sig;
-            if(aux == finalEn){
+            if (aux == finalEn) {
                 break;
             }
         }
@@ -305,8 +305,12 @@ public class Metodos {
         Jugador auxAnt = inicioJ;
         while (aux != null) {
             if (aux.nombre.equals(nombre) & aux.apellido.equals(apellido)) {
-                auxAnt.sig = aux.sig;
-                return "Jugador eliminado";
+                if (aux.equipo.posicionTorneo == 0) {
+                    auxAnt.sig = aux.sig;
+                    return "Jugador eliminado";
+                }else{
+                    return "El jugador esta en un torneo, no puede ser eliminado";
+                }
             }
             aux = aux.sig;
         }
@@ -353,6 +357,9 @@ public class Metodos {
         while (aux != null) {
             if (aux.nombre.equals(nombre)) {
                 return "Ya Existe!";
+            }
+            if (aux.camisa == camisa) {
+                return "La Camisa ya existe";
             }
             if (aux.nombre.equals(finalEq.nombre)) {
                 break;
@@ -417,7 +424,7 @@ public class Metodos {
     public void imprimirEquipo() {
         Equipo aux = inicioEq;
         while (aux != null) {
-            out.println(aux.toString());
+            out.println("Entrenador: " + aux.entrenador.nombre + " " + aux.entrenador.apellido + aux.toString());
             aux = aux.sig;
             if (aux.nombre.equals(finalEq.nombre)) {
                 break;
@@ -583,11 +590,6 @@ public class Metodos {
                 auxPA.equipoB.posicionTorneo = 0;
                 auxPA = auxPA.sig;
             }
-            while (auxPB != null) {
-                auxPB.equipoA.posicionTorneo = 0;
-                auxPB.equipoB.posicionTorneo = 0;
-                auxPB = auxPB.sig;
-            }
             inicioT = inicioT.sig;
             inicioT.ant = null;
             return " Torneo Eliminado. ";
@@ -602,11 +604,6 @@ public class Metodos {
                     auxPA.equipoB.posicionTorneo = 0;
                     auxPA = auxPA.sig;
                 }
-                while (auxPB != null) {
-                    auxPB.equipoA.posicionTorneo = 0;
-                    auxPB.equipoB.posicionTorneo = 0;
-                    auxPB = auxPB.sig;
-                }
                 aux.ant.sig = aux.sig;
                 aux.sig.ant = aux.ant;
                 return " Torneo Eliminado. ";
@@ -620,11 +617,6 @@ public class Metodos {
                 auxPA.equipoA.posicionTorneo = 0;
                 auxPA.equipoB.posicionTorneo = 0;
                 auxPA = auxPA.sig;
-            }
-            while (auxPB != null) {
-                auxPB.equipoA.posicionTorneo = 0;
-                auxPB.equipoB.posicionTorneo = 0;
-                auxPB = auxPB.sig;
             }
             aux.ant.sig = null;
             return " Torneo Eliminado. ";
@@ -643,14 +635,6 @@ public class Metodos {
             while (auxPA != null) {
                 System.out.print("/ " + auxPA.toString());
                 auxPA = auxPA.sig;
-            }
-            System.out.println(" /");
-
-            Partidos auxPB = aux.SubPartidosB;
-            System.out.print("Grupo B ");
-            while (auxPB != null) {
-                System.out.print("/ " + auxPB.toString());
-                auxPB = auxPB.sig;
             }
             System.out.println(" /");
 
@@ -720,5 +704,23 @@ public class Metodos {
             equipos.remove(idx);
         }
         return equipos;
+    }
+
+    public String asignarEntrenador(Entrenador entrenador, Equipo equipo) {
+        if (equipo.entrenador == null & entrenador.equipo == null) {
+            equipo.entrenador = entrenador;
+            entrenador.equipo = equipo;
+            return "Entrenador asignado";
+        } else if (equipo.entrenador != null & entrenador.equipo == null) {
+            return "El quipo ya tiene un entrenador";
+        } else if (entrenador.equipo != null & equipo.entrenador == null) {
+            return "El entrenador ya tiene un equipo";
+        } else {
+            return "El equipo ya tiene entrenador y el entrenador ya tiene equipo";
+        }
+    }
+    
+    public void contratar(Entrenador entrenador, Jugador jugador, String estado){
+        
     }
 }

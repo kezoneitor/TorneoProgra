@@ -20,6 +20,7 @@ public class Jugador {
     int precio;
     String posicion;
     int goles;
+    String estado;
     //Punteros
     Jugador sig;
 
@@ -32,6 +33,7 @@ public class Jugador {
         this.posicion = posicion;
         this.goles = 0;
         this.sig = null;
+        this.estado = "libre";
     }
 
     @Override

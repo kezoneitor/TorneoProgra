@@ -3,6 +3,7 @@
 package progratorneo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Equipo {
     String nombre;
@@ -31,7 +32,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" + "nombre=" + nombre + ", jugadores=" + jugadores + ", entrenador=" + entrenador + ", dinero=" + dinero + ", camisa=" + camisa + ", posicionTorneo=" + posicionTorneo + ", goles=" + goles +'}';
+        return "Equipo{" + "nombre=" + nombre + ", jugadores=" + jugadores.size() +  ", dinero=" + dinero + ", camisa=" + Arrays.toString(camisa) + ", posicionTorneo=" + posicionTorneo + ", goles=" + goles +'}';
     }
     
     

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Logger.getLogger;
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -59,49 +61,77 @@ import javax.swing.table.TableModel;
 public class ventanaPrincipal extends javax.swing.JFrame {
 
     char tipo = 'N';
-    Administrador logeado;
+    Administrador logeadoA;
+    Entrenador logeadoE;
+    Jugador logeadoJ;
     Metodos met = new Metodos();
     DataDefecto data = new DataDefecto();
     DefaultTableModel tabla = new DefaultTableModel();
+    Jugador auxJContratarAnt;
+    Jugador auxJContratar;
 
     /**
      * Creates new form ventanaPrincipal
      */
     public ventanaPrincipal() {
         initComponents();
-
         //Componentes y sus iniciaciones por defecto|||Inicio
-        //tbdPrincipal.setEnabledAt(1, false);
-        //tbdPrincipal.setEnabledAt(2, false);
-        //tbdPrincipal.setEnabledAt(3, false);
-        //tbdRegistrar.setEnabledAt(0, true);
-        //tbdRegistrar.setEnabledAt(1, false);
-        //tbdRegistrar.setEnabledAt(2, false);
+        tbdPrincipal.setEnabledAt(1, false);
+        tbdPrincipal.setEnabledAt(2, false);
+        tbdPrincipal.setEnabledAt(3, false);
+        tbdPrincipal.setEnabledAt(4, false);
+        tbdPrincipal.setEnabledAt(5, false);
+        tbdRegistrar.setEnabledAt(0, true);
+        tbdRegistrar.setEnabledAt(1, false);
+        tbdRegistrar.setEnabledAt(2, false);
+        tbdRegistrar.setEnabledAt(3, false);
+        tbdRegistrar.setEnabledAt(4, false);
+        tbdModificar.setEnabledAt(0, true);
+        tbdModificar.setEnabledAt(1, false);
+        tbdModificar.setEnabledAt(2, false);
+        tbdModificar.setEnabledAt(3, false);
+        tbdModificar.setEnabledAt(4, false);
         //Componentes y sus iniciaciones por defecto|||final
         met.InsertarAdmin("kezo", "123");
         met.InsertarAdmin("julio", "123");
 
-        data.AgregarNombreApellido();
-        data.CrearJugadores();
+        // data.AgregarNombreApellido();
+        // data.CrearJugadores();
         data.crearEquipo();//Este metodo tambien crea a los entrenadores
         data.CrearEstadioPorDefecto();
-        //data.crearEquiposJugadores();
 
-        insertarJugadores();
+        //insertarJugadores();
         insertarEquipos();
         insertarEstadios();
         insertarEntrenadores();
 
         asignarEntrenadorYEquipo();
-        asignarJugadoresAEquipos();
-        asignarEqJu();
-        
-
-        met.imprimirEntrenador();
-        met.imprimirEquipo();
+        //asignarEqJu();
 
         llenarTablaEquipos();
         llenarTablaEstadios();
+        llenarListEntrenadores();
+        llenarComboEquipo();
+
+        int[] habi = {4, 4, 4, 4};
+        met.InsertarJugador("Keslerth", "Calderón", habi, 800000, "defensa");
+        met.InsertarJugador("jose", "carlos", habi, 800000, "delantero");
+        met.inicioJ.equipo = met.inicioEq;
+        met.inicioJ.estado = "contratado";
+        met.inicioEq.jugadores.add(met.inicioJ);
+        met.imprimirEquipo();
+
+        //Buscar Jugadores para contratar||inicio
+        this.auxJContratarAnt = met.inicioJ;
+        this.auxJContratar = met.inicioJ;
+
+        //Mostrar jugador en labels para hacer tratos como entrenador
+        lblNombreContratar.setText(auxJContratar.nombre);
+        lblApellidoContratar.setText(auxJContratar.apellido);
+        lblEstadoContratar.setText(auxJContratar.estado);
+        lblEquipoContratar.setText(auxJContratar.equipo.nombre);
+        lblPrecioContratar.setText(String.valueOf(auxJContratar.precio));
+
     }
 
     //Metodo para verificar si el valor puede convertirse en numero
@@ -171,25 +201,50 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 break;
             }
             auxEq = auxEq.sig;
+            auxEn = auxEn.sig;
         }
     }
 
     private void asignarEqJu() {
         Equipo auxEq = met.inicioEq;
         Jugador auxJ;
-        int i = 0;
         while (auxEq != null) {
-            int j = 0;
-            while(j < data.listaEqJugadoresG.get(i).size()){
-                ArrayList jugador = (ArrayList) data.listaEqJugadoresG.get(i).get(j);
-                auxJ = met.buscarJugador((String)jugador.get(0),(String)jugador.get(1));
-                auxEq.jugadores.add(auxJ);
+            int por = 1;
+            int def = 4;
+            int med = 4;
+            int del = 2;
+            auxJ = met.inicioJ;
+            while (auxJ != null & (por != 0 | def != 0 | med != 0 | del != 0)) {
+                if (por != 0 & auxJ.equipo == null) {
+                    auxJ.equipo = auxEq;
+                    auxJ.estado = "contratado";
+                    auxEq.jugadores.add(auxJ);
+                    por--;
+                } else if (def != 0 & auxJ.equipo == null) {
+                    auxJ.equipo = auxEq;
+                    auxJ.estado = "contratado";
+                    auxEq.jugadores.add(auxJ);
+                    def--;
+                } else if (med != 0 & auxJ.equipo == null) {
+                    auxJ.equipo = auxEq;
+                    auxJ.estado = "contratado";
+                    auxEq.jugadores.add(auxJ);
+                    med--;
+                } else if (del != 0 & auxJ.equipo == null) {
+                    auxJ.equipo = auxEq;
+                    auxJ.estado = "contratado";
+                    auxEq.jugadores.add(auxJ);
+                    del--;
+                } else if (por == 0 & def == 0 & med == 0 & del == 0) {
+                    break;
+                }
+                auxJ = auxJ.sig;
             }
+            auxEq.dinero = 0;
             if (auxEq == met.finalEq) {
                 break;
             }
             auxEq = auxEq.sig;
-            i++;
         }
     }
 
@@ -280,6 +335,32 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             tabla.setValueAt(auxEs.capacidad, i, 2);
             auxEs = auxEs.sig;
             i++;
+        }
+    }
+
+    private void llenarListEntrenadores() {
+        Entrenador auxEn = met.inicioEn;
+        DefaultListModel list = new DefaultListModel();
+        listEntrenadorAsig.removeAll();
+        while (auxEn != null) {
+            list.addElement(auxEn.nombre + " " + auxEn.apellido);
+            auxEn = auxEn.sig;
+            if (auxEn == met.finalEn) {
+                break;
+            }
+        }
+        listEntrenadorAsig.setModel(list);
+    }
+
+    private void llenarComboEquipo() {
+        Equipo auxEq = met.inicioEq;
+        cmbEquipoAsig.removeAllItems();
+        while (auxEq != null) {
+            cmbEquipoAsig.addItem(auxEq.nombre);
+            if (auxEq == met.finalEq) {
+                break;
+            }
+            auxEq = auxEq.sig;
         }
     }
 
@@ -420,11 +501,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         txtClaveEliminar = new javax.swing.JTextField();
         txtNombreEliminar = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        BtnGenerarJ = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelTorneo = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
         txtNombreTorneo = new javax.swing.JTextField();
         lblPremios = new javax.swing.JLabel();
@@ -448,10 +525,49 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tablaEstadios = new javax.swing.JTable();
         btnCrearTorneo = new javax.swing.JButton();
         cmbOpcionesTorneo = new javax.swing.JComboBox<>();
+        panelConsultas = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        BtnGenerarJ = new javax.swing.JButton();
+        panelAdminMet = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelAsignarEntrenador = new javax.swing.JPanel();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        btnAsignarEntrenador = new javax.swing.JButton();
+        cmbEquipoAsig = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listEntrenadorAsig = new javax.swing.JList<>();
+        txtNombreAsig = new javax.swing.JTextField();
+        txtApellidoAsig = new javax.swing.JTextField();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnTablaContratarSig = new javax.swing.JButton();
+        btnTrato = new javax.swing.JButton();
+        jLabel65 = new javax.swing.JLabel();
+        lblApellidoContratar = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        lblEquipoContratar = new javax.swing.JLabel();
+        lblPrecioContratar = new javax.swing.JLabel();
+        lblNombreContratar5 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        lblEstadoContratar = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        lblNombreContratar = new javax.swing.JLabel();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        btnTablaContratarAnt = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        jLabel69 = new javax.swing.JLabel();
+        cmbTratoEntrenador = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
+        lblRefresh = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -511,7 +627,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtnJugador))
                     .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(874, Short.MAX_VALUE))
+                .addContainerGap(889, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,7 +658,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo a registrar:");
 
-        cmbRegistro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador", "Jugador", "Estadio", "Equipo", "Torneo" }));
+        cmbRegistro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Entrenador", "Jugador", "Estadio", "Equipo" }));
         cmbRegistro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbRegistroItemStateChanged(evt);
@@ -581,7 +697,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
                             .addComponent(txtNAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(894, Short.MAX_VALUE))
+                .addContainerGap(909, Short.MAX_VALUE))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1018,7 +1134,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel29)
                         .addGap(18, 18, 18)
                         .addComponent(txtNAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(894, Short.MAX_VALUE))
+                .addContainerGap(909, Short.MAX_VALUE))
         );
         panelAdminModiLayout.setVerticalGroup(
             panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1169,7 +1285,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAJugadorModi))
                             .addComponent(jLabel37))
-                        .addGap(489, 952, Short.MAX_VALUE))))
+                        .addGap(489, 967, Short.MAX_VALUE))))
         );
         panelJugdorModiLayout.setVerticalGroup(
             panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1474,7 +1590,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEliminarLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(btnEliminar)))
-                .addContainerGap(913, Short.MAX_VALUE))
+                .addContainerGap(928, Short.MAX_VALUE))
         );
         panelEliminarLayout.setVerticalGroup(
             panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1497,61 +1613,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         );
 
         tbdPrincipal.addTab("Eliminar", panelEliminar);
-
-        jPanel3.setEnabled(false);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Apellido", "Habilidades", "Precio", "Posicion"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        BtnGenerarJ.setText("Generar J");
-        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnGenerarJMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(BtnGenerarJ)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1107, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtnGenerarJ)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                .addGap(45, 45, 45))
-        );
-
-        tbdPrincipal.addTab("tab3", jPanel3);
 
         jLabel42.setText("Nombre: ");
 
@@ -1837,83 +1898,83 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelTorneoLayout = new javax.swing.GroupLayout(panelTorneo);
+        panelTorneo.setLayout(panelTorneoLayout);
+        panelTorneoLayout.setHorizontalGroup(
+            panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTorneoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblGenerarPartidos)
                     .addComponent(rBtnManual)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelTorneoLayout.createSequentialGroup()
                             .addComponent(jLabel42)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(panelTorneoLayout.createSequentialGroup()
                             .addComponent(lblPremios)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSePre)
                             .addComponent(lblCuarPre)
                             .addComponent(lblFiPre))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPremioCu)
                             .addComponent(txtPremioFi)
                             .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(cmbOpcionesTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnCrearTorneo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rBtnAleatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addComponent(jLabel58)
                         .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel60)
                             .addComponent(jLabel59))
                         .addGap(54, 54, 54))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTorneoLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel61)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(107, 107, 107))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        panelTorneoLayout.setVerticalGroup(
+            panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTorneoLayout.createSequentialGroup()
+                .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(cmbOpcionesTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel42)
                             .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(58, 58, 58)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPremios)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(panelTorneoLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCuarPre)
                             .addComponent(txtPremioCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblSePre)
                             .addComponent(txtPremioSe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPremioFi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblFiPre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1924,18 +1985,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(rBtnManual)
                         .addGap(18, 18, 18)
                         .addComponent(btnCrearTorneo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelTorneoLayout.createSequentialGroup()
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTorneoLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
                                 .addComponent(jLabel58, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(panelTorneoLayout.createSequentialGroup()
                                 .addComponent(jLabel59)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel60)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jLabel61)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1943,7 +2004,322 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        tbdPrincipal.addTab("Torneo", jPanel1);
+        tbdPrincipal.addTab("Torneo", panelTorneo);
+
+        panelConsultas.setEnabled(false);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "Habilidades", "Precio", "Posicion"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        BtnGenerarJ.setText("Generar J");
+        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGenerarJMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelConsultasLayout = new javax.swing.GroupLayout(panelConsultas);
+        panelConsultas.setLayout(panelConsultasLayout);
+        panelConsultasLayout.setHorizontalGroup(
+            panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConsultasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConsultasLayout.createSequentialGroup()
+                        .addComponent(BtnGenerarJ)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelConsultasLayout.setVerticalGroup(
+            panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConsultasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BtnGenerarJ)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
+        );
+
+        tbdPrincipal.addTab("tab3", panelConsultas);
+
+        jLabel53.setText("Entrenador:");
+
+        jLabel54.setText("Equipo:");
+
+        btnAsignarEntrenador.setText("Asignar");
+        btnAsignarEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarEntrenadorActionPerformed(evt);
+            }
+        });
+
+        jScrollPane4.setViewportView(listEntrenadorAsig);
+
+        txtApellidoAsig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoAsigActionPerformed(evt);
+            }
+        });
+
+        jLabel55.setText("Apellido:");
+
+        jLabel56.setText("Nombre:");
+
+        javax.swing.GroupLayout panelAsignarEntrenadorLayout = new javax.swing.GroupLayout(panelAsignarEntrenador);
+        panelAsignarEntrenador.setLayout(panelAsignarEntrenadorLayout);
+        panelAsignarEntrenadorLayout.setHorizontalGroup(
+            panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAsignarEntrenadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel53)
+                    .addGroup(panelAsignarEntrenadorLayout.createSequentialGroup()
+                        .addComponent(jLabel56)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtNombreAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAsignarEntrenadorLayout.createSequentialGroup()
+                                .addComponent(jLabel54)
+                                .addGap(32, 32, 32)
+                                .addComponent(cmbEquipoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelAsignarEntrenadorLayout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(btnAsignarEntrenador)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAsignarEntrenadorLayout.createSequentialGroup()
+                            .addComponent(jLabel55)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtApellidoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(680, Short.MAX_VALUE))
+        );
+        panelAsignarEntrenadorLayout.setVerticalGroup(
+            panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAsignarEntrenadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(panelAsignarEntrenadorLayout.createSequentialGroup()
+                        .addComponent(jLabel53)
+                        .addGap(14, 14, 14)
+                        .addGroup(panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNombreAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel56))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtApellidoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel55))
+                        .addGap(37, 37, 37)
+                        .addGroup(panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel54)
+                            .addComponent(cmbEquipoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAsignarEntrenador)
+                        .addContainerGap(227, Short.MAX_VALUE))))
+        );
+
+        jTabbedPane1.addTab("Asignar Entrenador", panelAsignarEntrenador);
+
+        javax.swing.GroupLayout panelAdminMetLayout = new javax.swing.GroupLayout(panelAdminMet);
+        panelAdminMet.setLayout(panelAdminMetLayout);
+        panelAdminMetLayout.setHorizontalGroup(
+            panelAdminMetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
+        );
+        panelAdminMetLayout.setVerticalGroup(
+            panelAdminMetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
+        tbdPrincipal.addTab("Admin", panelAdminMet);
+
+        btnTablaContratarSig.setText(">>");
+        btnTablaContratarSig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTablaContratarSigActionPerformed(evt);
+            }
+        });
+
+        btnTrato.setText("Contratar");
+        btnTrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTratoActionPerformed(evt);
+            }
+        });
+
+        jLabel65.setText("Apellido");
+
+        lblApellidoContratar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblApellidoContratar.setText("jLabel69");
+
+        jLabel67.setText("Equipo");
+
+        lblEquipoContratar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblEquipoContratar.setText("jLabel69");
+
+        lblPrecioContratar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPrecioContratar.setText("jLabel69");
+
+        lblNombreContratar5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNombreContratar5.setText("$");
+
+        jLabel68.setText("Precio");
+
+        lblEstadoContratar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblEstadoContratar.setText("jLabel69");
+
+        jLabel66.setText("Estado");
+
+        lblNombreContratar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNombreContratar.setText("jLabel69");
+
+        jLabel64.setText("Nombre");
+
+        jLabel63.setText("Jugadores Disponibles");
+
+        jLabel62.setText("0");
+
+        jLabel57.setText("Dinero: $");
+
+        btnTablaContratarAnt.setText("<<");
+        btnTablaContratarAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTablaContratarAntActionPerformed(evt);
+            }
+        });
+
+        btnInicio.setText("Inicio");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+
+        jLabel69.setText("Tipo de trato:");
+
+        cmbTratoEntrenador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contratar", "Despedir", "Vender" }));
+        cmbTratoEntrenador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbTratoEntrenadorItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel57)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel62)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel69)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbTratoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnInicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnTrato))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel63)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnTablaContratarAnt)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel66)
+                                            .addComponent(lblNombreContratar)
+                                            .addComponent(jLabel64)
+                                            .addComponent(lblEstadoContratar))
+                                        .addGap(147, 147, 147)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblApellidoContratar)
+                                            .addComponent(jLabel65)
+                                            .addComponent(jLabel67)
+                                            .addComponent(lblEquipoContratar)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel68)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblNombreContratar5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblPrecioContratar)))))
+                        .addGap(156, 156, 156)
+                        .addComponent(btnTablaContratarSig)))
+                .addContainerGap(611, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel57)
+                    .addComponent(jLabel62)
+                    .addComponent(jLabel69)
+                    .addComponent(cmbTratoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel63)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel64)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblNombreContratar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel66)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblEstadoContratar)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel68)
+                                        .addComponent(lblPrecioContratar)
+                                        .addComponent(lblNombreContratar5)))
+                                .addComponent(btnTablaContratarAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel65)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblApellidoContratar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel67)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblEquipoContratar)
+                            .addGap(35, 35, 35)))
+                    .addComponent(btnTablaContratarSig, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInicio)
+                    .addComponent(btnTrato))
+                .addContainerGap(227, Short.MAX_VALUE))
+        );
+
+        tbdPrincipal.addTab("Entrenador", jPanel1);
 
         jLabel3.setText("Usuario actual: ");
 
@@ -1952,6 +2328,19 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel5.setText("Estado:");
 
         lblEstado.setText("Desconectado");
+
+        lblRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/refresh1.png"))); // NOI18N
+        lblRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRefreshMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblRefreshMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblRefreshMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1966,219 +2355,27 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblEstado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(tbdPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblUsuarioActual)
-                    .addComponent(jLabel5)
-                    .addComponent(lblEstado))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(lblUsuarioActual)
+                        .addComponent(jLabel5)
+                        .addComponent(lblEstado))
+                    .addComponent(lblRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbdPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    //Boton para logearse en el sistema
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        //Validar que el boton diga login
-        if (btnLogin.getText().equals("Login")) {
-            //Validar que se allá escrito un nombre y marcado algun campo
-            if (!txtNLogin.getText().isEmpty() & (rbtnAdmin.isEnabled() | rbtnEntrenador.isEnabled() | rbtnJugador.isEnabled())) {
-                //Validar que el campo contraseña este lleno
-                //Realizar este codigo si esta selecionado el radiobutton admin
-                if (rbtnAdmin.isSelected()) {
-                    Administrador admin = met.buscarAdmin(txtNLogin.getText(), txtCLogin.getText());
-                    //Verificar que exista ese admin
-                    if (admin != null) {
-                        this.tipo = 'A';
-                        this.logeado = admin;
-                        lblUsuarioActual.setText(this.logeado.nombre);
-                        lblEstado.setText("Conectado");
-                        btnLogin.setText("Logout");
-                        //Habilitar los paneles para el administrador
-                        tbdPrincipal.setEnabledAt(1, true);
-                    } else {
-                        showMessageDialog(null, "No se encontro usuario administrador");
-                    }
-                    //Realizar este codigo si esta selecionado el radiobutton entrenador
-                } else if (rbtnEntrenador.isSelected()) {
-                    Entrenador entrenador = met.buscarEntrenador(txtNLogin.getText(), txtCLogin.getText());
-                    //Verificar que exista ese entrenador
-                    if (entrenador != null) {
-                        this.tipo = 'B';
-                        lblUsuarioActual.setText(this.logeado.nombre);
-                        lblEstado.setText("Conectado");
-                        btnLogin.setText("Logout");
-                        //Habilitar los paneles para el entrenador
-                    } else {
-                        showMessageDialog(null, "No se encontro usuario entrenador");
-                    }
-                    //Realizar este codigo si esta selecionado el radiobutton jugador
-                } else if (rbtnJugador.isSelected()) {
-                    Jugador jugador = met.buscarJugador(txtNLogin.getText(), txtCLogin.getText());
-                    //Verificar que exista ese jugador
-                    if (jugador != null) {
-                        this.tipo = 'C';
-                        lblUsuarioActual.setText(this.logeado.nombre);
-                        lblEstado.setText("Conectado");
-                        btnLogin.setText("Logout");
-                        //Habilitar los paneles para el Jugador
-                    } else {
-                        showMessageDialog(null, "No se encontro usuario jugador");
-                    }
-                } else {
-                    showMessageDialog(null, "Se debe marcar una opción.");
-                }
-            } else {
-                showMessageDialog(null, "Los campos que le corresponden deben estar llenos");
-            }
-            //Validar que el boton diga logout y realizar el codigo
-        } else if (btnLogin.getText().equals("Logout")) {
-            this.tipo = 'N';
-            this.logeado = null;
-            lblUsuarioActual.setText("No hay");
-            lblEstado.setText("Desconectado");
-            btnLogin.setText("Login");
-            //Desabilitar todos los paneles
-            tbdPrincipal.setEnabledAt(1, false);
-            tbdPrincipal.setEnabledAt(2, false);
-            tbdPrincipal.setEnabledAt(3, false);
-        }
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-//RadioButtons para que solo este seleccionado 1 de ellos|||Inicio 
-    private void rbtnEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEntrenadorActionPerformed
-        lblContraApellido.setText("Apellido:");
-        lblNombre.setText("Nombre:");
-        rbtnJugador.setSelected(false);
-        rbtnAdmin.setSelected(false);
-
-    }//GEN-LAST:event_rbtnEntrenadorActionPerformed
-
-    private void rbtnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAdminActionPerformed
-        lblContraApellido.setText("Contraseña:");
-        lblNombre.setText("Nombre Usuario:");
-        rbtnJugador.setSelected(false);
-        rbtnEntrenador.setSelected(false);
-
-    }//GEN-LAST:event_rbtnAdminActionPerformed
-
-    private void rbtnJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnJugadorActionPerformed
-        lblContraApellido.setText("Apellido:");
-        lblNombre.setText("Nombre:");
-        rbtnEntrenador.setSelected(false);
-        rbtnAdmin.setSelected(false);
-    }//GEN-LAST:event_rbtnJugadorActionPerformed
 //RadioButtons para que solo este seleccionado 1 de ellos|||Final
-
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        int index = cmbRegistro.getSelectedIndex();
-        switch (index) {
-            case 0:
-                if (!txtNAdmin.getText().isEmpty() & !txtCAdmin.getText().isEmpty()) {
-                    met.InsertarAdmin(txtNAdmin.getText(), txtCAdmin.getText());
-                    showMessageDialog(null, "Administrador insertado exitosamente");
-                } else {
-                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
-                }
-                break;
-            case 1:
-                if (!txtNEntrenador.getText().isEmpty() & !txtAEntrenador.getText().isEmpty()) {
-                    met.InsertarEntrenador(txtNEntrenador.getText(), txtAEntrenador.getText());
-                    showMessageDialog(null, "Entrenador insertado exitosamente");
-                } else {
-                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
-                }
-                break;
-            case 2:
-                if (!txtNJugador.getText().isEmpty() & !txtAJugador.getText().isEmpty()) {
-                    int precio = parseInt(lblPrecio.getText());
-                    int fisico = parseInt((String) cmbFisico.getSelectedItem());
-                    int defensa = parseInt((String) cmbDefensa.getSelectedItem());
-                    int dribbling = parseInt((String) cmbDribbling.getSelectedItem());
-                    int disparo = parseInt((String) cmbDisparo.getSelectedItem());
-                    int[] habilidades = {fisico, defensa, dribbling, disparo};
-                    met.InsertarJugador(txtNJugador.getText(), txtAJugador.getText(), habilidades, precio, (String) cmbPosicion.getSelectedItem());
-                    showMessageDialog(null, "Jugador insertado exitosamente");
-                } else {
-                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
-                }
-                break;
-            case 3:
-                if (!txtNEstadio.getText().isEmpty() & !txtUEstadio.getText().isEmpty() & !txtCEstadio.getText().isEmpty()) {
-                    if (esNumero(txtCEstadio.getText())) {
-                        int capacidad = parseInt(txtCEstadio.getText());
-                        met.InsertarEstadio(txtNEstadio.getText(), txtUEstadio.getText(), capacidad);
-                        showMessageDialog(null, "Estadio insertado exitosamente");
-                    } else {
-                        showMessageDialog(null, "El espacio capacidad deben ser números");
-                    }
-                } else {
-                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
-                }
-                break;
-            case 4:
-                if (!txtNEquipo.getText().isEmpty()) {
-                    String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
-                    String[] camisa = {ubicacionCamisa, ubicacionCamisa};
-                    if (cmbEstampado.getSelectedIndex() != 0) {
-                        String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
-                        camisa[1] = ubicacionEstampado;
-                    } else {
-                        showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
-                    }
-                    met.InsertarEquipo(txtNEquipo.getText(), camisa);
-                    showMessageDialog(null, "Equipo insertado exitosamente");
-                }
-                break;
-        }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
-    private void cmbRegistroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbRegistroItemStateChanged
-        int index = cmbRegistro.getSelectedIndex();
-        switch (index) {
-            case 0:
-                tbdRegistrar.setEnabledAt(1, false);
-                tbdRegistrar.setEnabledAt(2, false);
-                tbdRegistrar.setEnabledAt(3, false);
-                tbdRegistrar.setEnabledAt(4, false);
-                break;
-            case 1:
-                tbdRegistrar.setEnabledAt(0, false);
-                tbdRegistrar.setEnabledAt(2, false);
-                tbdRegistrar.setEnabledAt(3, false);
-                tbdRegistrar.setEnabledAt(4, false);
-                break;
-            case 2:
-                tbdRegistrar.setEnabledAt(0, false);
-                tbdRegistrar.setEnabledAt(1, false);
-                tbdRegistrar.setEnabledAt(3, false);
-                tbdRegistrar.setEnabledAt(4, false);
-                break;
-            case 3:
-                tbdRegistrar.setEnabledAt(0, false);
-                tbdRegistrar.setEnabledAt(1, false);
-                tbdRegistrar.setEnabledAt(2, false);
-                tbdRegistrar.setEnabledAt(4, false);
-                break;
-            case 4:
-                tbdRegistrar.setEnabledAt(0, false);
-                tbdRegistrar.setEnabledAt(1, false);
-                tbdRegistrar.setEnabledAt(2, false);
-                tbdRegistrar.setEnabledAt(3, false);
-                break;
-
-        }
-        tbdRegistrar.setEnabledAt(index, true);
-        tbdRegistrar.setSelectedIndex(index);
-    }//GEN-LAST:event_cmbRegistroItemStateChanged
 
     private void sacarPrecioJugador(JLabel label) {
         int fisico = parseInt((String) cmbFisico.getSelectedItem());
@@ -2189,28 +2386,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         int precio = data.precio(habilidades);
         label.setText(valueOf(precio));
     }
-
-    //Sacar Precio y mostrarlo en un label||| inicio
-    private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
-        sacarPrecioJugador(lblPrecio);
-    }//GEN-LAST:event_cmbFisicoItemStateChanged
-
-    private void cmbDefensaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaItemStateChanged
-        sacarPrecioJugador(lblPrecio);
-    }//GEN-LAST:event_cmbDefensaItemStateChanged
-
-    private void cmbDribblingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingItemStateChanged
-        sacarPrecioJugador(lblPrecio);
-    }//GEN-LAST:event_cmbDribblingItemStateChanged
-
-    private void cmbDisparoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoItemStateChanged
-        sacarPrecioJugador(lblPrecio);
-    }//GEN-LAST:event_cmbDisparoItemStateChanged
     //Sacar Precio y mostrarlo en un label||| final
-
-    private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
-        llenarTablaJugadores();
-    }//GEN-LAST:event_BtnGenerarJMouseClicked
 
     private void imprimirCamisa(JPanel panel) {
         String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
@@ -2226,132 +2402,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         dibujarCamisa(panel.getGraphics(), camisa, estam);
     }
 
-    //Elegir la comida|||Inicio
-    private void cmbColorCamisaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaItemStateChanged
-        imprimirCamisa(panelCamisa);
-    }//GEN-LAST:event_cmbColorCamisaItemStateChanged
-
-    private void cmbEstampadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoItemStateChanged
-        imprimirCamisa(panelCamisa);
-    }//GEN-LAST:event_cmbEstampadoItemStateChanged
-
-    private void cmbEstampadoColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorItemStateChanged
-        imprimirCamisa(panelCamisa);
-    }//GEN-LAST:event_cmbEstampadoColorItemStateChanged
-
-    private void cmbModificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbModificarItemStateChanged
-        int index = cmbModificar.getSelectedIndex();
-        switch (index) {
-            case 0:
-                tbdModificar.setEnabledAt(1, false);
-                tbdModificar.setEnabledAt(2, false);
-                tbdModificar.setEnabledAt(3, false);
-                tbdModificar.setEnabledAt(4, false);
-                break;
-            case 1:
-                tbdModificar.setEnabledAt(0, false);
-                tbdModificar.setEnabledAt(2, false);
-                tbdModificar.setEnabledAt(3, false);
-                tbdModificar.setEnabledAt(4, false);
-                break;
-            case 2:
-                tbdModificar.setEnabledAt(0, false);
-                tbdModificar.setEnabledAt(1, false);
-                tbdModificar.setEnabledAt(3, false);
-                tbdModificar.setEnabledAt(4, false);
-                break;
-            case 3:
-                tbdModificar.setEnabledAt(0, false);
-                tbdModificar.setEnabledAt(1, false);
-                tbdModificar.setEnabledAt(2, false);
-                tbdModificar.setEnabledAt(4, false);
-                break;
-            case 4:
-                tbdModificar.setEnabledAt(0, false);
-                tbdModificar.setEnabledAt(1, false);
-                tbdModificar.setEnabledAt(2, false);
-                tbdModificar.setEnabledAt(3, false);
-                break;
-        }
-        tbdModificar.setEnabledAt(index, true);
-        tbdModificar.setSelectedIndex(index);
-        lblBuscarModi.setText("Buscar " + cmbModificar.getSelectedItem() + " para modificar");
-    }//GEN-LAST:event_cmbModificarItemStateChanged
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int index = cmbModificar.getSelectedIndex();
-        switch (index) {
-            case 0:
-                if (!txtNAdminModi.getText().isEmpty() & !txtCAdminModi.getText().isEmpty()) {
-                    met.modificarAdmin(this.adminModi.nombre, this.adminModi.clave, txtNAdminModi.getText(), txtCAdminModi.getText());
-                    showMessageDialog(null, "Administrador modificado exitosamente");
-                    this.adminModi = null;
-                } else {
-                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
-                }
-                break;
-            case 1:
-                if (!txtNEntrenadorModi.getText().isEmpty() & !txtAEntrenadorModi.getText().isEmpty()) {
-                    met.modificarEntrenador(this.entreModi.nombre, this.entreModi.nombre, txtNEntrenadorModi.getText(), txtAEntrenadorModi.getText());
-                    showMessageDialog(null, "Entrenador modificado exitosamente");
-                    this.entreModi = null;
-                } else {
-                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
-                }
-                break;
-            case 2:
-                if (!txtNJugadorModi.getText().isEmpty() & !txtAJugadorModi.getText().isEmpty()) {
-                    int precio = parseInt(lblPrecioModi.getText());
-                    int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
-                    int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
-                    int dribbling = parseInt((String) cmbDribblingModi.getSelectedItem());
-                    int disparo = parseInt((String) cmbDisparoModi.getSelectedItem());
-                    int[] habilidades = {fisico, defensa, dribbling, disparo};
-                    met.modificarJugador(this.jugaModi.nombre, txtNJugadorModi.getText(), txtAJugadorModi.getText(), habilidades, precio, (String) cmbPosicionModi.getSelectedItem());
-                    showMessageDialog(null, "Jugador modificado exitosamente");
-                    this.jugaModi = null;
-                } else {
-                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
-                }
-
-                break;
-            case 3:
-                if (!txtNEstadioModi.getText().isEmpty() & !txtUEstadioModi.getText().isEmpty() & !txtCEstadioModi.getText().isEmpty()) {
-                    if (esNumero(txtCEstadioModi.getText())) {
-                        int capacidad = parseInt(txtCEstadioModi.getText());
-                        met.modificarEstadio(this.estaModi.nombre, txtUEstadioModi.getText(), txtNEstadioModi.getText(), capacidad);
-                        showMessageDialog(null, "Estadio modificado exitosamente");
-                        this.estaModi = null;
-                    } else {
-                        showMessageDialog(null, "El espacio capacidad deben ser números");
-                    }
-                } else {
-                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
-                }
-                break;
-            case 4:
-                if (!txtNEquipoModi.getText().isEmpty()) {
-                    if (esNumero(txtDineroEquipo.getText())) {
-                        String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisaModi.getSelectedIndex()];
-                        String[] camisa = {ubicacionCamisa, ubicacionCamisa};
-                        if (cmbEstampadoModi.getSelectedIndex() != 0) {
-                            String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampadoModi.getSelectedIndex() - 1] + data.colores[cmbEstampadoColorModi.getSelectedIndex()];
-                            camisa[1] = ubicacionEstampado;
-                        } else {
-                            showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
-                        }
-                        int dinero = parseInt(txtDineroEquipo.getText());
-                        met.modificarEquipo(this.equiModi.nombre, dinero, camisa, txtNEquipoModi.getText());
-                        showMessageDialog(null, "Equipo modificado exitosamente");
-                        this.equiModi = null;
-                    } else {
-                        showMessageDialog(null, "En el espacio dinero deben ir solo números");
-                    }
-                }
-                break;
-        }
-    }//GEN-LAST:event_btnModificarActionPerformed
-
     private void sacarPrecioJugadorModi(JLabel label) {
         int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
         int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
@@ -2362,40 +2412,277 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         label.setText(valueOf(precio));
     }
 
-    private void cmbFisicoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoModiItemStateChanged
-        sacarPrecioJugadorModi(lblPrecioModi);
-    }//GEN-LAST:event_cmbFisicoModiItemStateChanged
-
-    private void cmbDefensaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaModiItemStateChanged
-        sacarPrecioJugadorModi(lblPrecioModi);
-    }//GEN-LAST:event_cmbDefensaModiItemStateChanged
-
-    private void cmbDribblingModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingModiItemStateChanged
-        sacarPrecioJugadorModi(lblPrecioModi);
-    }//GEN-LAST:event_cmbDribblingModiItemStateChanged
-
-    private void cmbDisparoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoModiItemStateChanged
-        sacarPrecioJugadorModi(lblPrecioModi);
-    }//GEN-LAST:event_cmbDisparoModiItemStateChanged
-
-    private void cmbColorCamisaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaModiItemStateChanged
-        imprimirCamisa(panelCamisaModi);
-    }//GEN-LAST:event_cmbColorCamisaModiItemStateChanged
-
-    private void cmbEstampadoColorModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorModiItemStateChanged
-        imprimirCamisa(panelCamisaModi);
-    }//GEN-LAST:event_cmbEstampadoColorModiItemStateChanged
-
-    private void cmbEstampadoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoModiItemStateChanged
-        imprimirCamisa(panelCamisaModi);
-    }//GEN-LAST:event_cmbEstampadoModiItemStateChanged
-
     boolean mostrarMsj = true;
     Administrador adminModi = null;
     Entrenador entreModi = null;
     Jugador jugaModi = null;
     Estadio estaModi = null;
     Equipo equiModi = null;
+
+    private ArrayList<String> equiposTabla() {
+        ArrayList<String> equipos = new ArrayList();
+        for (int i = 0; i < met.lenEquipo(); i++) {
+            boolean value = (boolean) tablaEquipos.getValueAt(i, 3);
+            if (value) {
+                equipos.add((String) tablaEquipos.getValueAt(i, 0));
+            }
+        }
+        return equipos;
+    }
+
+    private ArrayList<String> estadiosTabla() {
+        ArrayList<String> equipos = new ArrayList();
+        for (int i = 0; i < met.lenEstadio(); i++) {
+            boolean value = (boolean) tablaEstadios.getValueAt(i, 1);
+            if (value) {
+                equipos.add((String) tablaEquipos.getValueAt(i, 0));
+            }
+        }
+        return equipos;
+    }
+
+    private Estadio sacarEstadioRandom() {
+        int add = (int) (Math.random() * met.lenEstadio());
+        Estadio auxEs = met.inicioEs;
+        int i = 0;
+        while (auxEs != null) {
+            if (add == i) {
+                return auxEs;
+            }
+            i++;
+            auxEs = auxEs.sig;
+        }
+        return auxEs;
+    }
+
+    private void lblRefreshMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefreshMouseEntered
+        lblRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/refresh2.png")));
+    }//GEN-LAST:event_lblRefreshMouseEntered
+
+    private void lblRefreshMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefreshMouseExited
+        lblRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/refresh1.png")));
+    }//GEN-LAST:event_lblRefreshMouseExited
+
+    private void lblRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRefreshMouseClicked
+        llenarTablaEquipos();
+        llenarTablaEstadios();
+        llenarComboEquipo();
+        llenarListEntrenadores();
+        verJugadorContratar();
+        lblRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/refresh1.png")));
+    }//GEN-LAST:event_lblRefreshMouseClicked
+
+    private void txtApellidoAsigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoAsigActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoAsigActionPerformed
+
+    private void btnAsignarEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenadorActionPerformed
+        Entrenador entrenador = met.buscarEntrenador(txtNombreAsig.getText(), txtApellidoAsig.getText());
+        Equipo equipo = met.buscarEquipo((String) cmbEquipoAsig.getSelectedItem());
+        String msj = met.asignarEntrenador(entrenador, equipo);
+        JOptionPane.showMessageDialog(null, msj);
+    }//GEN-LAST:event_btnAsignarEntrenadorActionPerformed
+
+    private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
+        llenarTablaJugadores();
+    }//GEN-LAST:event_BtnGenerarJMouseClicked
+
+    private void cmbOpcionesTorneoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOpcionesTorneoItemStateChanged
+        int index = cmbOpcionesTorneo.getSelectedIndex();
+        switch (index) {
+            case 0:
+                txtPremioCu.setEnabled(true);
+                txtPremioSe.setEnabled(true);
+                txtPremioFi.setEnabled(true);
+                rBtnAleatorio.setEnabled(true);
+                rBtnManual.setEnabled(true);
+                tablaEquipos.setEnabled(true);
+                tablaEstadios.setEnabled(true);
+                break;
+            case 1:
+                txtPremioCu.setEnabled(true);
+                txtPremioSe.setEnabled(true);
+                txtPremioFi.setEnabled(true);
+                rBtnAleatorio.setEnabled(false);
+                rBtnManual.setEnabled(false);
+                tablaEquipos.setEnabled(false);
+                tablaEstadios.setEnabled(false);
+                break;
+            case 2:
+                txtPremioCu.setEnabled(false);
+                txtPremioSe.setEnabled(false);
+                txtPremioFi.setEnabled(false);
+                rBtnAleatorio.setEnabled(false);
+                rBtnManual.setEnabled(false);
+                tablaEquipos.setEnabled(false);
+                tablaEstadios.setEnabled(false);
+                break;
+        }
+        btnCrearTorneo.setText((String) cmbOpcionesTorneo.getSelectedItem());
+    }//GEN-LAST:event_cmbOpcionesTorneoItemStateChanged
+
+    private void btnCrearTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTorneoActionPerformed
+        int index = cmbOpcionesTorneo.getSelectedIndex();
+        String msj;
+        switch (index) {
+            case 0:
+                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
+                    if (esNumero(txtPremioCu.getText()) & esNumero(txtPremioFi.getText()) & esNumero(txtPremioSe.getText())) {
+                        if (rBtnAleatorio.isEnabled()) {
+                            ArrayList<String> equipos = met.equiposRandom();
+                            int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                            met.InsertarTorneo(logeadoA, txtNombreTorneo.getText(), premios);
+                            ArrayList<String> equiposRandom = new ArrayList();
+                            if (equipos != null) {
+                                while (equipos.size() != 2) {
+                                    int eq1 = (int) (Math.random() * (equipos.size() - 1));
+                                    int eq2 = (int) (Math.random() * (equipos.size() - 1));
+                                    if (eq1 != eq2) {
+                                        equiposRandom.add(equipos.get(eq1));
+                                        equiposRandom.add(equipos.get(eq2));
+                                        String nomEq1 = equipos.get(eq1);
+                                        String nomEq2 = equipos.get(eq2);
+                                        equipos.remove(nomEq1);
+                                        equipos.remove(nomEq2);
+                                    }
+                                }
+                                equiposRandom.add(equipos.get(0));
+                                equiposRandom.add(equipos.get(1));
+
+                                for (int i = 0; i < equiposRandom.size(); i += 2) {
+                                    Estadio estadio = sacarEstadioRandom();
+                                    Equipo equipoA = met.buscarEquipo(equiposRandom.get(i));
+                                    Equipo equipoB = met.buscarEquipo(equiposRandom.get(i + 1));
+                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipoA, equipoB, estadio);
+                                }
+                                JOptionPane.showMessageDialog(null, "Torneo insertado");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No hay suficientes equipos para crear el torneo");
+                            }
+                        } else if (rBtnManual.isEnabled()) {
+                            ArrayList<String> equipos = equiposTabla();
+                            ArrayList<String> estadios = estadiosTabla();
+                            if (equipos.size() == 32 & !estadios.isEmpty()) {
+                                int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                                met.InsertarTorneo(logeadoA, txtNombreTorneo.getText(), premios);
+                                ArrayList<String> equiposRandom = new ArrayList();
+                                while (equipos.size() != 2) {
+                                    int eq1 = (int) (Math.random() * (equipos.size() - 1));
+                                    int eq2 = (int) (Math.random() * (equipos.size() - 1));
+                                    if (eq1 != eq2) {
+                                        equiposRandom.add(equipos.get(eq1));
+                                        equiposRandom.add(equipos.get(eq2));
+                                        String nomEq1 = equipos.get(eq1);
+                                        String nomEq2 = equipos.get(eq2);
+                                        equipos.remove(nomEq1);
+                                        equipos.remove(nomEq2);
+                                    }
+                                }
+                                equiposRandom.add(equipos.get(0));
+                                equiposRandom.add(equipos.get(1));
+                                for (int i = 0; i < equiposRandom.size(); i += 2) {
+                                    int idxEs = (int) (Math.random() * (estadios.size() - 1));
+                                    Equipo equipoA = met.buscarEquipo(equiposRandom.get(i));
+                                    Equipo equipoB = met.buscarEquipo(equiposRandom.get(i + 1));
+                                    Estadio estadio = met.buscarEstadio(estadios.get(idxEs));
+                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipoA, equipoB, estadio);
+                                }
+                                JOptionPane.showMessageDialog(null, "Torneo insertado");
+                                met.imprimirTorneo();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Necesitas más equipos para iniciar un torneo y como minimo un estadio.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Marque una de las opciones");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Los espacios de premios deben ser números");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor llene los campos vacios.");
+                }
+                break;
+            case 1:
+                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
+                    String nombre = JOptionPane.showInputDialog(this, "Digite el nombre del torneo que desea modificar");
+                    int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
+                    msj = met.modificarTorneo(logeadoA, nombre, txtNombreTorneo.getText(), premios);
+                    JOptionPane.showMessageDialog(null, msj);
+                }
+                break;
+            case 2:
+                msj = met.eliminarTorneo(logeadoA, txtNombreTorneo.getText());
+                JOptionPane.showMessageDialog(null, msj);
+                break;
+        }
+    }//GEN-LAST:event_btnCrearTorneoActionPerformed
+
+    private void rBtnManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnManualActionPerformed
+        rBtnAleatorio.setSelected(false);
+        tablaEquipos.setEnabled(true);
+    }//GEN-LAST:event_rBtnManualActionPerformed
+
+    private void rBtnAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnAleatorioActionPerformed
+        rBtnManual.setSelected(false);
+        tablaEquipos.setEnabled(false);
+    }//GEN-LAST:event_rBtnAleatorioActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int index = cmbEliminar.getSelectedIndex();
+        String msj = "";
+        int value = JOptionPane.showConfirmDialog(null, "Esta seguro de que desea eliminarlo");
+        if (value == 0) {
+            switch (index) {
+                case 0:
+                    msj = met.eliminarAdmin(txtNombreEliminar.getText(), txtClaveEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 1:
+                    msj = met.eliminarEntrenador(txtNombreEliminar.getText(), txtClaveEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 2:
+                    msj = met.eliminarJugador(txtNombreEliminar.getText(), txtClaveEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 3:
+                    msj = met.EliminarEstadio(txtNombreEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+                    break;
+                case 4:
+                    msj = met.EliminarEquipo(txtNombreEliminar.getText());
+                    JOptionPane.showMessageDialog(null, msj);
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void cmbEliminarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEliminarItemStateChanged
+        int index = cmbEliminar.getSelectedIndex();
+        if (index == 0) {
+            lblNombreEliminar.setText("Nombre Usuario: ");
+            lblClaveEliminar.setText("Clave: ");
+            lblClaveEliminar.setVisible(true);
+            txtNombreEliminar.setVisible(true);
+        } else if (index == 1 & index == 2) {
+            lblNombreEliminar.setText("Nombre: ");
+            lblClaveEliminar.setText("Apellido: ");
+            lblClaveEliminar.setVisible(true);
+            txtNombreEliminar.setVisible(true);
+        } else if (index == 3 & index == 4) {
+            lblNombreEliminar.setText("Nombre: ");
+            lblClaveEliminar.setVisible(false);
+            txtNombreEliminar.setVisible(false);
+        }
+    }//GEN-LAST:event_cmbEliminarItemStateChanged
+
+    private void lblBuscarModiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseExited
+        lblBuscarModi.setForeground(black);
+    }//GEN-LAST:event_lblBuscarModiMouseExited
+
+    private void lblBuscarModiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseEntered
+        lblBuscarModi.setForeground(red);
+    }//GEN-LAST:event_lblBuscarModiMouseEntered
+
     private void lblBuscarModiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseClicked
         lblBuscarModi.setForeground(blue);
         switch (cmbModificar.getSelectedIndex()) {
@@ -2507,206 +2794,551 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         lblBuscarModi.setForeground(black);
     }//GEN-LAST:event_lblBuscarModiMouseClicked
 
-    private void lblBuscarModiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseEntered
-        lblBuscarModi.setForeground(red);
-    }//GEN-LAST:event_lblBuscarModiMouseEntered
+    private void cmbEstampadoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoModiItemStateChanged
+        imprimirCamisa(panelCamisaModi);
+    }//GEN-LAST:event_cmbEstampadoModiItemStateChanged
 
-    private void lblBuscarModiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarModiMouseExited
-        lblBuscarModi.setForeground(black);
-    }//GEN-LAST:event_lblBuscarModiMouseExited
+    private void cmbEstampadoColorModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorModiItemStateChanged
+        imprimirCamisa(panelCamisaModi);
+    }//GEN-LAST:event_cmbEstampadoColorModiItemStateChanged
 
-    private void cmbEliminarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEliminarItemStateChanged
-        int index = cmbEliminar.getSelectedIndex();
-        if (index == 0) {
-            lblNombreEliminar.setText("Nombre Usuario: ");
-            lblClaveEliminar.setText("Clave: ");
-            lblClaveEliminar.setVisible(true);
-            txtNombreEliminar.setVisible(true);
-        } else if (index == 1 & index == 2) {
-            lblNombreEliminar.setText("Nombre: ");
-            lblClaveEliminar.setText("Apellido: ");
-            lblClaveEliminar.setVisible(true);
-            txtNombreEliminar.setVisible(true);
-        } else if (index == 3 & index == 4) {
-            lblNombreEliminar.setText("Nombre: ");
-            lblClaveEliminar.setVisible(false);
-            txtNombreEliminar.setVisible(false);
-        }
-    }//GEN-LAST:event_cmbEliminarItemStateChanged
+    private void cmbColorCamisaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaModiItemStateChanged
+        imprimirCamisa(panelCamisaModi);
+    }//GEN-LAST:event_cmbColorCamisaModiItemStateChanged
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int index = cmbEliminar.getSelectedIndex();
-        String msj = "";
-        int value = JOptionPane.showConfirmDialog(null, "Esta seguro de que desea eliminarlo");
-        if (value == 0) {
-            switch (index) {
-                case 0:
-                    msj = met.eliminarAdmin(txtNombreEliminar.getText(), txtClaveEliminar.getText());
-                    JOptionPane.showMessageDialog(null, msj);
-                    break;
-                case 1:
-                    msj = met.eliminarEntrenador(txtNombreEliminar.getText(), txtClaveEliminar.getText());
-                    JOptionPane.showMessageDialog(null, msj);
-                    break;
-                case 2:
-                    msj = met.eliminarJugador(txtNombreEliminar.getText(), txtClaveEliminar.getText());
-                    JOptionPane.showMessageDialog(null, msj);
-                    break;
-                case 3:
-                    msj = met.EliminarEstadio(txtNombreEliminar.getText());
-                    JOptionPane.showMessageDialog(null, msj);
-                    break;
-                case 4:
-                    msj = met.EliminarEquipo(txtNombreEliminar.getText());
-                    JOptionPane.showMessageDialog(null, msj);
-            }
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    private void cmbDisparoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoModiItemStateChanged
+        sacarPrecioJugadorModi(lblPrecioModi);
+    }//GEN-LAST:event_cmbDisparoModiItemStateChanged
 
-    private void rBtnAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnAleatorioActionPerformed
-        rBtnManual.setSelected(false);
-        tablaEquipos.setEnabled(false);
-    }//GEN-LAST:event_rBtnAleatorioActionPerformed
+    private void cmbDribblingModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingModiItemStateChanged
+        sacarPrecioJugadorModi(lblPrecioModi);
+    }//GEN-LAST:event_cmbDribblingModiItemStateChanged
 
-    private void rBtnManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rBtnManualActionPerformed
-        rBtnAleatorio.setSelected(false);
-        tablaEquipos.setEnabled(true);
-    }//GEN-LAST:event_rBtnManualActionPerformed
+    private void cmbDefensaModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaModiItemStateChanged
+        sacarPrecioJugadorModi(lblPrecioModi);
+    }//GEN-LAST:event_cmbDefensaModiItemStateChanged
 
-    private ArrayList<String> equiposTabla() {
-        ArrayList<String> equipos = new ArrayList();
-        for (int i = 0; i < met.lenEquipo(); i++) {
-            boolean value = (boolean) tablaEquipos.getValueAt(i, 3);
-            if (value) {
-                equipos.add((String) tablaEquipos.getValueAt(i, 0));
-            }
-        }
-        return equipos;
-    }
+    private void cmbFisicoModiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoModiItemStateChanged
+        sacarPrecioJugadorModi(lblPrecioModi);
+    }//GEN-LAST:event_cmbFisicoModiItemStateChanged
 
-    private ArrayList<String> estadiosTabla() {
-        ArrayList<String> equipos = new ArrayList();
-        for (int i = 0; i < met.lenEstadio(); i++) {
-            boolean value = (boolean) tablaEstadios.getValueAt(i, 1);
-            if (value) {
-                equipos.add((String) tablaEquipos.getValueAt(i, 0));
-            }
-        }
-        return equipos;
-    }
-
-    private Estadio sacarEstadioRandom() {
-        int add = (int) (Math.random() * met.lenEstadio());
-        Estadio auxEs = met.inicioEs;
-        int i = 0;
-        while (auxEs != null) {
-            if (add == i) {
-                return auxEs;
-            }
-            i++;
-            auxEs = auxEs.sig;
-        }
-        return auxEs;
-    }
-
-    private void btnCrearTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearTorneoActionPerformed
-        int index = cmbOpcionesTorneo.getSelectedIndex();
-        String msj = "";
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int index = cmbModificar.getSelectedIndex();
         switch (index) {
             case 0:
-                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
-                    if (esNumero(txtPremioCu.getText()) & esNumero(txtPremioFi.getText()) & esNumero(txtPremioSe.getText())) {
-                        if (rBtnAleatorio.isEnabled()) {
-                            ArrayList<String> equipos = met.equiposRandom();
-                            int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                            met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
-                            if (equipos != null) {
-                                for (int i = 0; i < equipos.size(); i += 2) {
-                                    Estadio estadio = sacarEstadioRandom();
-                                    Equipo equipoA = met.buscarEquipo(equipos.get(i));
-                                    Equipo equipoB = met.buscarEquipo(equipos.get(i + 1));
-                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipoA, equipoB, estadio);
-                                }
-                                JOptionPane.showMessageDialog(null, "Torneo insertado");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No hay suficientes equipos para crear el torneo");
-                            }
-                        } else if (rBtnManual.isEnabled()) {
-                            ArrayList<String> equipos = equiposTabla();
-                            ArrayList<String> estadios = estadiosTabla();
-                            if (equipos.size() == 32 & !estadios.isEmpty()) {
-                                int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                                met.InsertarTorneo(logeado, txtNombreTorneo.getText(), premios);
-                                for (int i = 0; i < equipos.size(); i += 2) {
-                                    int idxEs = (int) (Math.random() * (estadios.size() - 1));
-                                    Equipo equipoA = met.buscarEquipo(equipos.get(i));
-                                    Equipo equipoB = met.buscarEquipo(equipos.get(i + 1));
-                                    Estadio estadio = met.buscarEstadio(estadios.get(idxEs));
-                                    met.insertarPartidoTorneo(txtNombreTorneo.getText(), equipoA, equipoB, estadio);
-                                }
-                                JOptionPane.showMessageDialog(null, "Torneo insertado");
-                                met.imprimirTorneo();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Necesitas más equipos para iniciar un torneo y como minimo un estadio.");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Marque una de las opciones");
-                        }
+                if (!txtNAdminModi.getText().isEmpty() & !txtCAdminModi.getText().isEmpty()) {
+                    met.modificarAdmin(this.adminModi.nombre, this.adminModi.clave, txtNAdminModi.getText(), txtCAdminModi.getText());
+                    showMessageDialog(null, "Administrador modificado exitosamente");
+                    this.adminModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
+                }
+                break;
+            case 1:
+                if (!txtNEntrenadorModi.getText().isEmpty() & !txtAEntrenadorModi.getText().isEmpty()) {
+                    met.modificarEntrenador(this.entreModi.nombre, this.entreModi.nombre, txtNEntrenadorModi.getText(), txtAEntrenadorModi.getText());
+                    showMessageDialog(null, "Entrenador modificado exitosamente");
+                    this.entreModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
+                }
+                break;
+            case 2:
+                if (!txtNJugadorModi.getText().isEmpty() & !txtAJugadorModi.getText().isEmpty()) {
+                    int precio = parseInt(lblPrecioModi.getText());
+                    int fisico = parseInt((String) cmbFisicoModi.getSelectedItem());
+                    int defensa = parseInt((String) cmbDefensaModi.getSelectedItem());
+                    int dribbling = parseInt((String) cmbDribblingModi.getSelectedItem());
+                    int disparo = parseInt((String) cmbDisparoModi.getSelectedItem());
+                    int[] habilidades = {fisico, defensa, dribbling, disparo};
+                    met.modificarJugador(this.jugaModi.nombre, txtNJugadorModi.getText(), txtAJugadorModi.getText(), habilidades, precio, (String) cmbPosicionModi.getSelectedItem());
+                    showMessageDialog(null, "Jugador modificado exitosamente");
+                    this.jugaModi = null;
+                } else {
+                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
+                }
+
+                break;
+            case 3:
+                if (!txtNEstadioModi.getText().isEmpty() & !txtUEstadioModi.getText().isEmpty() & !txtCEstadioModi.getText().isEmpty()) {
+                    if (esNumero(txtCEstadioModi.getText())) {
+                        int capacidad = parseInt(txtCEstadioModi.getText());
+                        met.modificarEstadio(this.estaModi.nombre, txtUEstadioModi.getText(), txtNEstadioModi.getText(), capacidad);
+                        showMessageDialog(null, "Estadio modificado exitosamente");
+                        this.estaModi = null;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Los espacios de premios deben ser números");
+                        showMessageDialog(null, "El espacio capacidad deben ser números");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Por favor llene los campos vacios.");
+                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
                 }
                 break;
-            case 1:
-                if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
-                    String nombre = JOptionPane.showInputDialog(this, "Digite el nombre del torneo que desea modificar");
-                    int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                    msj = met.modificarTorneo(logeado, nombre, txtNombreTorneo.getText(), premios);
-                    JOptionPane.showMessageDialog(null, msj);
+            case 4:
+                if (!txtNEquipoModi.getText().isEmpty()) {
+                    if (esNumero(txtDineroEquipo.getText())) {
+                        String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisaModi.getSelectedIndex()];
+                        String[] camisa = {ubicacionCamisa, ubicacionCamisa};
+                        if (cmbEstampadoModi.getSelectedIndex() != 0) {
+                            String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampadoModi.getSelectedIndex() - 1] + data.colores[cmbEstampadoColorModi.getSelectedIndex()];
+                            camisa[1] = ubicacionEstampado;
+                        } else {
+                            showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
+                        }
+                        int dinero = parseInt(txtDineroEquipo.getText());
+                        met.modificarEquipo(this.equiModi.nombre, dinero, camisa, txtNEquipoModi.getText());
+                        showMessageDialog(null, "Equipo modificado exitosamente");
+                        this.equiModi = null;
+                    } else {
+                        showMessageDialog(null, "En el espacio dinero deben ir solo números");
+                    }
                 }
-                break;
-            case 2:
-                msj = met.eliminarTorneo(logeado, txtNombreTorneo.getText());
-                JOptionPane.showMessageDialog(null, msj);
                 break;
         }
-    }//GEN-LAST:event_btnCrearTorneoActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void cmbOpcionesTorneoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOpcionesTorneoItemStateChanged
-        int index = cmbOpcionesTorneo.getSelectedIndex();
+    private void cmbModificarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbModificarItemStateChanged
+        int index = cmbModificar.getSelectedIndex();
         switch (index) {
             case 0:
-                txtPremioCu.setEnabled(true);
-                txtPremioSe.setEnabled(true);
-                txtPremioFi.setEnabled(true);
-                rBtnAleatorio.setEnabled(true);
-                rBtnManual.setEnabled(true);
-                tablaEquipos.setEnabled(true);
-                tablaEstadios.setEnabled(true);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(3, false);
+                tbdModificar.setEnabledAt(4, false);
                 break;
             case 1:
-                txtPremioCu.setEnabled(true);
-                txtPremioSe.setEnabled(true);
-                txtPremioFi.setEnabled(true);
-                rBtnAleatorio.setEnabled(false);
-                rBtnManual.setEnabled(false);
-                tablaEquipos.setEnabled(false);
-                tablaEstadios.setEnabled(false);
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(3, false);
+                tbdModificar.setEnabledAt(4, false);
                 break;
             case 2:
-                txtPremioCu.setEnabled(false);
-                txtPremioSe.setEnabled(false);
-                txtPremioFi.setEnabled(false);
-                rBtnAleatorio.setEnabled(false);
-                rBtnManual.setEnabled(false);
-                tablaEquipos.setEnabled(false);
-                tablaEstadios.setEnabled(false);
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(3, false);
+                tbdModificar.setEnabledAt(4, false);
+                break;
+            case 3:
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(4, false);
+                break;
+            case 4:
+                tbdModificar.setEnabledAt(0, false);
+                tbdModificar.setEnabledAt(1, false);
+                tbdModificar.setEnabledAt(2, false);
+                tbdModificar.setEnabledAt(3, false);
                 break;
         }
-        btnCrearTorneo.setText((String) cmbOpcionesTorneo.getSelectedItem());
-    }//GEN-LAST:event_cmbOpcionesTorneoItemStateChanged
+        tbdModificar.setEnabledAt(index, true);
+        tbdModificar.setSelectedIndex(index);
+        lblBuscarModi.setText("Buscar " + cmbModificar.getSelectedItem() + " para modificar");
+    }//GEN-LAST:event_cmbModificarItemStateChanged
+
+    private void cmbEstampadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoItemStateChanged
+        imprimirCamisa(panelCamisa);
+    }//GEN-LAST:event_cmbEstampadoItemStateChanged
+
+    private void cmbEstampadoColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEstampadoColorItemStateChanged
+        imprimirCamisa(panelCamisa);
+    }//GEN-LAST:event_cmbEstampadoColorItemStateChanged
+
+    //Elegir la comida|||Inicio
+    private void cmbColorCamisaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbColorCamisaItemStateChanged
+        imprimirCamisa(panelCamisa);
+    }//GEN-LAST:event_cmbColorCamisaItemStateChanged
+
+    private void cmbDisparoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisparoItemStateChanged
+        sacarPrecioJugador(lblPrecio);
+    }//GEN-LAST:event_cmbDisparoItemStateChanged
+
+    private void cmbDribblingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDribblingItemStateChanged
+        sacarPrecioJugador(lblPrecio);
+    }//GEN-LAST:event_cmbDribblingItemStateChanged
+
+    private void cmbDefensaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDefensaItemStateChanged
+        sacarPrecioJugador(lblPrecio);
+    }//GEN-LAST:event_cmbDefensaItemStateChanged
+
+    //Sacar Precio y mostrarlo en un label||| inicio
+    private void cmbFisicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbFisicoItemStateChanged
+        sacarPrecioJugador(lblPrecio);
+    }//GEN-LAST:event_cmbFisicoItemStateChanged
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        int index = cmbRegistro.getSelectedIndex();
+        switch (index) {
+            case 0:
+                if (!txtNAdmin.getText().isEmpty() & !txtCAdmin.getText().isEmpty()) {
+                    met.InsertarAdmin(txtNAdmin.getText(), txtCAdmin.getText());
+                    showMessageDialog(null, "Administrador insertado exitosamente");
+                } else {
+                    showMessageDialog(null, "Los espacios de administrador deben estar llenos");
+                }
+                break;
+            case 1:
+                if (!txtNEntrenador.getText().isEmpty() & !txtAEntrenador.getText().isEmpty()) {
+                    met.InsertarEntrenador(txtNEntrenador.getText(), txtAEntrenador.getText());
+                    showMessageDialog(null, "Entrenador insertado exitosamente");
+                } else {
+                    showMessageDialog(null, "Los espacios de entrenador deben estar llenos");
+                }
+                break;
+            case 2:
+                if (!txtNJugador.getText().isEmpty() & !txtAJugador.getText().isEmpty()) {
+                    int precio = parseInt(lblPrecio.getText());
+                    int fisico = parseInt((String) cmbFisico.getSelectedItem());
+                    int defensa = parseInt((String) cmbDefensa.getSelectedItem());
+                    int dribbling = parseInt((String) cmbDribbling.getSelectedItem());
+                    int disparo = parseInt((String) cmbDisparo.getSelectedItem());
+                    int[] habilidades = {fisico, defensa, dribbling, disparo};
+                    met.InsertarJugador(txtNJugador.getText(), txtAJugador.getText(), habilidades, precio, (String) cmbPosicion.getSelectedItem());
+                    showMessageDialog(null, "Jugador insertado exitosamente");
+                } else {
+                    showMessageDialog(null, "Los espacios de jugador deben estar llenos");
+                }
+                break;
+            case 3:
+                if (!txtNEstadio.getText().isEmpty() & !txtUEstadio.getText().isEmpty() & !txtCEstadio.getText().isEmpty()) {
+                    if (esNumero(txtCEstadio.getText())) {
+                        int capacidad = parseInt(txtCEstadio.getText());
+                        met.InsertarEstadio(txtNEstadio.getText(), txtUEstadio.getText(), capacidad);
+                        showMessageDialog(null, "Estadio insertado exitosamente");
+                    } else {
+                        showMessageDialog(null, "El espacio capacidad deben ser números");
+                    }
+                } else {
+                    showMessageDialog(null, "Los espacios de estadio deben estar llenos");
+                }
+                break;
+            case 4:
+                if (!txtNEquipo.getText().isEmpty()) {
+                    String ubicacionCamisa = "/progratorneo/camisas/color" + data.colores[cmbColorCamisa.getSelectedIndex()];
+                    String[] camisa = {ubicacionCamisa, ubicacionCamisa};
+                    if (cmbEstampado.getSelectedIndex() != 0) {
+                        String ubicacionEstampado = "/progratorneo/camisas" + data.estampado[cmbEstampado.getSelectedIndex() - 1] + data.colores[cmbEstampadoColor.getSelectedIndex()];
+                        camisa[1] = ubicacionEstampado;
+                    } else {
+                        showMessageDialog(null, "Los espacios de Equipo deben estar llenos");
+                    }
+                    met.InsertarEquipo(txtNEquipo.getText(), camisa);
+                    showMessageDialog(null, "Equipo insertado exitosamente");
+                }
+                break;
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void cmbRegistroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbRegistroItemStateChanged
+        int index = cmbRegistro.getSelectedIndex();
+        switch (index) {
+            case 0:
+                tbdRegistrar.setEnabledAt(1, false);
+                tbdRegistrar.setEnabledAt(2, false);
+                tbdRegistrar.setEnabledAt(3, false);
+                tbdRegistrar.setEnabledAt(4, false);
+                break;
+            case 1:
+                tbdRegistrar.setEnabledAt(0, false);
+                tbdRegistrar.setEnabledAt(2, false);
+                tbdRegistrar.setEnabledAt(3, false);
+                tbdRegistrar.setEnabledAt(4, false);
+                break;
+            case 2:
+                tbdRegistrar.setEnabledAt(0, false);
+                tbdRegistrar.setEnabledAt(1, false);
+                tbdRegistrar.setEnabledAt(3, false);
+                tbdRegistrar.setEnabledAt(4, false);
+                break;
+            case 3:
+                tbdRegistrar.setEnabledAt(0, false);
+                tbdRegistrar.setEnabledAt(1, false);
+                tbdRegistrar.setEnabledAt(2, false);
+                tbdRegistrar.setEnabledAt(4, false);
+                break;
+            case 4:
+                tbdRegistrar.setEnabledAt(0, false);
+                tbdRegistrar.setEnabledAt(1, false);
+                tbdRegistrar.setEnabledAt(2, false);
+                tbdRegistrar.setEnabledAt(3, false);
+                break;
+
+        }
+        tbdRegistrar.setEnabledAt(index, true);
+        tbdRegistrar.setSelectedIndex(index);
+    }//GEN-LAST:event_cmbRegistroItemStateChanged
+
+    private void rbtnJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnJugadorActionPerformed
+        lblContraApellido.setText("Apellido:");
+        lblNombre.setText("Nombre:");
+        rbtnEntrenador.setSelected(false);
+        rbtnAdmin.setSelected(false);
+    }//GEN-LAST:event_rbtnJugadorActionPerformed
+
+//RadioButtons para que solo este seleccionado 1 de ellos|||Inicio 
+    private void rbtnEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnEntrenadorActionPerformed
+        lblContraApellido.setText("Apellido:");
+        lblNombre.setText("Nombre:");
+        rbtnJugador.setSelected(false);
+        rbtnAdmin.setSelected(false);
+    }//GEN-LAST:event_rbtnEntrenadorActionPerformed
+
+    private void rbtnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAdminActionPerformed
+        lblContraApellido.setText("Contraseña:");
+        lblNombre.setText("Nombre Usuario:");
+        rbtnJugador.setSelected(false);
+        rbtnEntrenador.setSelected(false);
+    }//GEN-LAST:event_rbtnAdminActionPerformed
+
+    //Boton para logearse en el sistema
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        //Validar que el boton diga login
+        if (btnLogin.getText().equals("Login")) {
+            //Validar que se allá escrito un nombre y marcado algun campo
+            if (!txtNLogin.getText().isEmpty() & (rbtnAdmin.isEnabled() | rbtnEntrenador.isEnabled() | rbtnJugador.isEnabled())) {
+                //Validar que el campo contraseña este lleno
+                //Realizar este codigo si esta selecionado el radiobutton admin
+                if (rbtnAdmin.isSelected()) {
+                    Administrador admin = met.buscarAdmin(txtNLogin.getText(), txtCLogin.getText());
+                    //Verificar que exista ese admin
+                    if (admin != null) {
+                        this.tipo = 'A';
+                        this.logeadoA = admin;
+                        lblUsuarioActual.setText(this.logeadoA.nombre);
+                        lblEstado.setText("Conectado");
+                        btnLogin.setText("Logout");
+                        //Habilitar los paneles para el administrador
+                        tbdPrincipal.setEnabledAt(1, true);
+                        tbdPrincipal.setEnabledAt(2, true);
+                        tbdPrincipal.setEnabledAt(3, true);
+                        tbdPrincipal.setEnabledAt(4, true);
+                        tbdPrincipal.setEnabledAt(5, true);
+                    } else {
+                        showMessageDialog(null, "No se encontro usuario administrador");
+                    }
+                    //Realizar este codigo si esta selecionado el radiobutton entrenador
+                } else if (rbtnEntrenador.isSelected()) {
+                    Entrenador entrenador = met.buscarEntrenador(txtNLogin.getText(), txtCLogin.getText());
+                    //Verificar que exista ese entrenador
+                    if (entrenador != null) {
+                        this.tipo = 'B';
+                        this.logeadoE = entrenador;
+                        lblUsuarioActual.setText(this.logeadoE.nombre);
+                        lblEstado.setText("Conectado");
+                        btnLogin.setText("Logout");
+                        //Habilitar los paneles para el entrenador
+                        tbdPrincipal.setEnabledAt(1, false);
+                        tbdPrincipal.setEnabledAt(2, false);
+                        tbdPrincipal.setEnabledAt(3, false);
+                        tbdPrincipal.setEnabledAt(4, false);
+                        tbdPrincipal.setEnabledAt(5, true);
+                    } else {
+                        showMessageDialog(null, "No se encontro usuario entrenador");
+                    }
+                    //Realizar este codigo si esta selecionado el radiobutton jugador
+                } else if (rbtnJugador.isSelected()) {
+                    Jugador jugador = met.buscarJugador(txtNLogin.getText(), txtCLogin.getText());
+                    //Verificar que exista ese jugador
+                    if (jugador != null) {
+                        this.tipo = 'C';
+                        this.logeadoJ = jugador;
+                        lblUsuarioActual.setText(this.logeadoJ.nombre);
+                        lblEstado.setText("Conectado");
+                        btnLogin.setText("Logout");
+                        //Habilitar los paneles para el Jugador
+                        tbdPrincipal.setEnabledAt(1, false);
+                        tbdPrincipal.setEnabledAt(2, false);
+                        tbdPrincipal.setEnabledAt(3, false);
+                        tbdPrincipal.setEnabledAt(4, false);
+                        tbdPrincipal.setEnabledAt(5, true);
+                    } else {
+                        showMessageDialog(null, "No se encontro usuario jugador");
+                    }
+                } else {
+                    showMessageDialog(null, "Se debe marcar una opción.");
+                }
+            } else {
+                showMessageDialog(null, "Los campos que le corresponden deben estar llenos");
+            }
+            //Validar que el boton diga logout y realizar el codigo
+        } else if (btnLogin.getText().equals("Logout")) {
+            this.tipo = 'N';
+            this.logeadoA = null;
+            this.logeadoE = null;
+            this.logeadoJ = null;
+            lblUsuarioActual.setText("No hay");
+            lblEstado.setText("Desconectado");
+            btnLogin.setText("Login");
+            //Desabilitar todos los paneles
+            tbdPrincipal.setEnabledAt(1, false);
+            tbdPrincipal.setEnabledAt(2, false);
+            tbdPrincipal.setEnabledAt(3, false);
+            tbdPrincipal.setEnabledAt(4, false);
+            tbdPrincipal.setEnabledAt(5, false);
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void verJugadorContratar() {
+        if (logeadoE.equipo != null) {
+            jLabel62.setText(String.valueOf(logeadoE.equipo.dinero));
+        }
+        lblNombreContratar.setText(auxJContratar.nombre);
+        lblApellidoContratar.setText(auxJContratar.apellido);
+        lblEstadoContratar.setText(auxJContratar.estado);
+        if (auxJContratar.equipo != null) {
+            lblEquipoContratar.setText(auxJContratar.equipo.nombre);
+        } else {
+            lblEquipoContratar.setText("libre");
+        }
+        lblPrecioContratar.setText(String.valueOf(auxJContratar.precio));
+    }
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        auxJContratar = met.inicioJ;
+
+        verJugadorContratar();
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnTablaContratarSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaContratarSigActionPerformed
+        if (auxJContratar.sig == null) {
+            auxJContratar = met.inicioJ;
+        } else {
+            auxJContratarAnt = auxJContratar;
+            auxJContratar = auxJContratar.sig;
+        }
+        verJugadorContratar();
+    }//GEN-LAST:event_btnTablaContratarSigActionPerformed
+
+    private void btnTablaContratarAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaContratarAntActionPerformed
+
+        if (auxJContratar.sig == null) {
+            auxJContratar = met.inicioJ;
+        } else {
+            auxJContratar = auxJContratarAnt;
+        }
+        verJugadorContratar();
+
+    }//GEN-LAST:event_btnTablaContratarAntActionPerformed
+
+    private int[] contarTipoJugadores(Equipo equipo) {
+        int[] cantidad = {0, 0, 0, 0};
+        for (int i = 0; i < equipo.jugadores.size(); i++) {
+            Jugador jugador = equipo.jugadores.get(i);
+            switch (jugador.posicion) {
+                case "portero":
+                    cantidad[0]++;
+                    break;
+                case "defensa":
+                    cantidad[1]++;
+                    break;
+                case "medio":
+                    cantidad[2]++;
+                    break;
+                case "delantero":
+                    cantidad[3]++;
+                    break;
+            }
+        }
+        return cantidad;
+    }
+
+    private void btnTratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTratoActionPerformed
+        int trato = cmbTratoEntrenador.getSelectedIndex();
+        Jugador jugador = met.buscarJugador(lblNombreContratar.getText(), lblApellidoContratar.getText());
+        switch (trato) {
+            case 0://Contratar
+                if (!lblEstadoContratar.getText().equals("contratado") & !lblEquipoContratar.getText().equals(logeadoE.equipo.nombre)) {
+                    int[] cantidad = contarTipoJugadores(logeadoE.equipo);
+                    if (lblEstadoContratar.getText().equals("vender") & logeadoE.equipo.dinero >= jugador.precio & logeadoE.equipo.jugadores.size() < 11 & logeadoE.equipo.posicionTorneo == 0) {
+                        if (cantidad[0] < 1 & jugador.posicion.equals("portero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else if (cantidad[1] < 4 & jugador.posicion.equals("defensa")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else if (cantidad[2] < 4 & jugador.posicion.equals("medio")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else if (cantidad[3] < 2 & jugador.posicion.equals("delantero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se puede comprar este jugador");
+                        }
+                    } else if (lblEstadoContratar.getText().equals("libre") & logeadoE.equipo.dinero >= jugador.precio & logeadoE.equipo.jugadores.size() < 11 & logeadoE.equipo.posicionTorneo == 0) {
+                        if (cantidad[0] < 1 & jugador.posicion.equals("portero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else if (cantidad[1] < 4 & jugador.posicion.equals("defensa")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else if (cantidad[2] < 4 & jugador.posicion.equals("medio")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else if (cantidad[3] < 2 & jugador.posicion.equals("delantero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se puede comprar este jugador");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se a podido contratar este jugador");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede contratar este jugador.Puede que ya este contratado.");
+                }
+                break;
+            case 1://Despedir
+                if (logeadoE.equipo == jugador.equipo) {
+                    jugador.equipo = null;
+                    jugador.estado = "libre";
+                    logeadoE.equipo.jugadores.remove(jugador.nombre);
+                    
+                } else {
+                    JOptionPane.showMessageDialog(null, "El jugador no concuerda con el equipo");
+                }
+                break;
+            case 2://Vender
+                if (logeadoE.equipo == jugador.equipo) {
+                    jugador.estado = "vender";
+                    JOptionPane.showMessageDialog(null, "El jugador fue puesto en venta");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El jugador no concuerda con el equipo");
+                }
+                break;
+        }
+    }//GEN-LAST:event_btnTratoActionPerformed
+
+    private void cmbTratoEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTratoEntrenadorItemStateChanged
+        btnTrato.setText((String) cmbTratoEntrenador.getSelectedItem());
+    }//GEN-LAST:event_cmbTratoEntrenadorItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -2741,11 +3373,16 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGenerarJ;
+    private javax.swing.JButton btnAsignarEntrenador;
     private javax.swing.JButton btnCrearTorneo;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnTablaContratarAnt;
+    private javax.swing.JButton btnTablaContratarSig;
+    private javax.swing.JButton btnTrato;
     private javax.swing.JComboBox<String> cmbColorCamisa;
     private javax.swing.JComboBox<String> cmbColorCamisaModi;
     private javax.swing.JComboBox<String> cmbDefensa;
@@ -2755,6 +3392,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbDribbling;
     private javax.swing.JComboBox<String> cmbDribblingModi;
     private javax.swing.JComboBox<String> cmbEliminar;
+    private javax.swing.JComboBox<String> cmbEquipoAsig;
     private javax.swing.JComboBox<String> cmbEstampado;
     private javax.swing.JComboBox<String> cmbEstampadoColor;
     private javax.swing.JComboBox<String> cmbEstampadoColorModi;
@@ -2766,6 +3404,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbPosicion;
     private javax.swing.JComboBox<String> cmbPosicionModi;
     private javax.swing.JComboBox<String> cmbRegistro;
+    private javax.swing.JComboBox<String> cmbTratoEntrenador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2814,41 +3453,66 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblApellidoContratar;
     private javax.swing.JLabel lblBuscarModi;
     private javax.swing.JLabel lblClaveEliminar;
     private javax.swing.JLabel lblContraApellido;
     private javax.swing.JLabel lblCuarPre;
+    private javax.swing.JLabel lblEquipoContratar;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblEstadoContratar;
     private javax.swing.JLabel lblFiPre;
     private javax.swing.JLabel lblGenerarPartidos;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombreContratar;
+    private javax.swing.JLabel lblNombreContratar5;
     private javax.swing.JLabel lblNombreEliminar;
     private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblPrecioContratar;
     private javax.swing.JLabel lblPrecioModi;
     private javax.swing.JLabel lblPremios;
+    private javax.swing.JLabel lblRefresh;
     private javax.swing.JLabel lblSePre;
     private javax.swing.JLabel lblUsuarioActual;
+    private javax.swing.JList<String> listEntrenadorAsig;
     private javax.swing.JPanel panelAdmin;
+    private javax.swing.JPanel panelAdminMet;
     private javax.swing.JPanel panelAdminModi;
+    private javax.swing.JPanel panelAsignarEntrenador;
     private javax.swing.JPanel panelCamisa;
     private javax.swing.JPanel panelCamisaModi;
+    private javax.swing.JPanel panelConsultas;
     private javax.swing.JPanel panelEliminar;
     private javax.swing.JPanel panelEntrenador;
     private javax.swing.JPanel panelEntrenadorModi;
@@ -2861,6 +3525,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPanel panelModificar;
     private javax.swing.JPanel panelRegistrar;
+    private javax.swing.JPanel panelTorneo;
     private javax.swing.JRadioButton rBtnAleatorio;
     private javax.swing.JRadioButton rBtnManual;
     private javax.swing.JRadioButton rbtnAdmin;
@@ -2875,6 +3540,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtAEntrenadorModi;
     private javax.swing.JTextField txtAJugador;
     private javax.swing.JTextField txtAJugadorModi;
+    private javax.swing.JTextField txtApellidoAsig;
     private javax.swing.JTextField txtCAdmin;
     private javax.swing.JTextField txtCAdminModi;
     private javax.swing.JTextField txtCEstadio;
@@ -2893,6 +3559,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNJugador;
     private javax.swing.JTextField txtNJugadorModi;
     private javax.swing.JTextField txtNLogin;
+    private javax.swing.JTextField txtNombreAsig;
     private javax.swing.JTextField txtNombreEliminar;
     private javax.swing.JTextField txtNombreTorneo;
     private javax.swing.JTextField txtPremioCu;

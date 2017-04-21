@@ -6,11 +6,9 @@ public class Torneo {
     int[] Premio;
     Administrador admin;
     Partidos SubPartidosA;
-    Partidos SubPartidosB;
     Torneo sig;
     Torneo ant;
     int cantPA;
-    int cantPB;
 
     public Torneo(Administrador admin, String nombre, int[] Premio) {
         this.nombre = nombre;
@@ -19,9 +17,7 @@ public class Torneo {
         this.sig = null;
         this.ant = null;
         this.SubPartidosA = null;
-        this.SubPartidosB = null;
         this.cantPA = 0;
-        this.cantPB = 0;
     }
 
     @Override
