@@ -584,7 +584,6 @@ public class Metodos {
     public String eliminarTorneo(Administrador admin, String nombre) {
         if (inicioT.nombre.equals(nombre) & inicioT.admin.nombre.equals(admin.nombre)) {
             Partidos auxPA = inicioT.SubPartidosA;
-            Partidos auxPB = inicioT.SubPartidosB;
             while (auxPA != null) {
                 auxPA.equipoA.posicionTorneo = 0;
                 auxPA.equipoB.posicionTorneo = 0;
@@ -598,7 +597,6 @@ public class Metodos {
         while (aux.sig != null) {
             if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
                 Partidos auxPA = aux.SubPartidosA;
-                Partidos auxPB = aux.SubPartidosB;
                 while (auxPA != null) {
                     auxPA.equipoA.posicionTorneo = 0;
                     auxPA.equipoB.posicionTorneo = 0;
@@ -612,7 +610,6 @@ public class Metodos {
         }
         if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
             Partidos auxPA = aux.SubPartidosA;
-            Partidos auxPB = aux.SubPartidosB;
             while (auxPA != null) {
                 auxPA.equipoA.posicionTorneo = 0;
                 auxPA.equipoB.posicionTorneo = 0;
@@ -662,19 +659,6 @@ public class Metodos {
                     auxT.SubPartidosA = nuevo;
                     auxT.cantPA++;
                     return "Partido insertado";
-                }
-
-                if (auxT.cantPB < 8) {
-                    if (auxT.SubPartidosB == null) {
-                        auxT.SubPartidosB = nuevo;
-                        auxT.cantPB++;
-                        return "Partido insertado";
-                    }
-                    nuevo.sig = auxT.SubPartidosB;//
-                    auxT.SubPartidosB = nuevo;
-                    auxT.cantPB++;
-                    return "Partido insertado";
-
                 }
 
             }
