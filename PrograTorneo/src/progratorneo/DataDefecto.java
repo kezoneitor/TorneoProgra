@@ -94,7 +94,7 @@ public class DataDefecto {
             }
         }
         String[] posiciones = {"portero", "defensa", "medio", "delantero"};
-        int count = (Jugadores.size() / 11);
+        int count = 32;
         for (ArrayList Jugadore : Jugadores) {
             if (count != 0) {
                 boolean flag = true;
@@ -108,7 +108,7 @@ public class DataDefecto {
                 count--;
             }
         }
-        count = (Jugadores.size() / 11) * 4;
+        count = 32*4;
         for (ArrayList Jugadore : Jugadores) {
             if (count != 0) {
                 boolean flag = true;
@@ -122,15 +122,15 @@ public class DataDefecto {
                 count--;
             }
         }
-        count = (Jugadores.size() / 11) * 4;
+        count = 32*4;
         for (int i = 0; i < Jugadores.size(); i++) {
             if (count != 0 & Jugadores.get(i).size() == 4) {
                 Jugadores.get(i).add(posiciones[2]);
                 count--;
             }
         }
-        count = (Jugadores.size() / 11) * 2;
-        for (int i = 0; i < (Jugadores.size() / 11) * 2; i++) {
+        count = 32*2;
+        for (int i = 0; i < Jugadores.size(); i++) {
             if (count != 0 & Jugadores.get(i).size() == 4) {
                 Jugadores.get(i).add(posiciones[3]);
                 count--;

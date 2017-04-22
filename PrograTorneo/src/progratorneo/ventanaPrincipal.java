@@ -69,12 +69,16 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     DefaultTableModel tabla = new DefaultTableModel();
     Jugador auxJContratarAnt;
     Jugador auxJContratar;
+    ArrayList<JLabel> octavos;
+    ArrayList<JLabel> cuartos;
+    ArrayList<JLabel> semifinales;
 
     /**
      * Creates new form ventanaPrincipal
      */
     public ventanaPrincipal() {
         initComponents();
+
         //Componentes y sus iniciaciones por defecto|||Inicio
         tbdPrincipal.setEnabledAt(1, false);
         tbdPrincipal.setEnabledAt(2, false);
@@ -95,31 +99,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         met.InsertarAdmin("kezo", "123");
         met.InsertarAdmin("julio", "123");
 
-        // data.AgregarNombreApellido();
-        // data.CrearJugadores();
+        data.AgregarNombreApellido();
+        data.CrearJugadores();
         data.crearEquipo();//Este metodo tambien crea a los entrenadores
         data.CrearEstadioPorDefecto();
 
-        //insertarJugadores();
+        insertarJugadores();
         insertarEquipos();
         insertarEstadios();
         insertarEntrenadores();
 
+        octavos = new ArrayList();
+        cuartos = new ArrayList();
+        semifinales = new ArrayList();
+        listasTorneos();
+
         asignarEntrenadorYEquipo();
-        //asignarEqJu();
+        asignarEqJu();
 
         llenarTablaEquipos();
         llenarTablaEstadios();
         llenarListEntrenadores();
         llenarComboEquipo();
-
-        int[] habi = {4, 4, 4, 4};
-        met.InsertarJugador("Keslerth", "Calderón", habi, 800000, "defensa");
-        met.InsertarJugador("jose", "carlos", habi, 800000, "delantero");
-        met.inicioJ.equipo = met.inicioEq;
-        met.inicioJ.estado = "contratado";
-        met.inicioEq.jugadores.add(met.inicioJ);
-        met.imprimirEquipo();
 
         //Buscar Jugadores para contratar||inicio
         this.auxJContratarAnt = met.inicioJ;
@@ -142,6 +143,25 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    private void listasTorneos() {
+        octavos.add(this.lblPartido0);
+        octavos.add(this.lblPartido1);
+        octavos.add(this.lblPartido2);
+        octavos.add(this.lblPartido3);
+        octavos.add(this.lblPartido4);
+        octavos.add(this.lblPartido5);
+        octavos.add(this.lblPartido6);
+        octavos.add(this.lblPartido7);
+
+        cuartos.add(this.lblPartido8);
+        cuartos.add(this.lblPartido9);
+        cuartos.add(this.lblPartidoA);
+        cuartos.add(this.lblPartidoB);
+
+        semifinales.add(this.lblPartidoC);
+        semifinales.add(this.lblPartidoD);
     }
 
     //Pintar una imagen en una ventana
@@ -215,22 +235,22 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             int del = 2;
             auxJ = met.inicioJ;
             while (auxJ != null & (por != 0 | def != 0 | med != 0 | del != 0)) {
-                if (por != 0 & auxJ.equipo == null) {
+                if (por != 0 & auxJ.posicion.equals("portero") & auxJ.equipo == null) {
                     auxJ.equipo = auxEq;
                     auxJ.estado = "contratado";
                     auxEq.jugadores.add(auxJ);
                     por--;
-                } else if (def != 0 & auxJ.equipo == null) {
+                } else if (def != 0 & auxJ.posicion.equals("defensa") & auxJ.equipo == null) {
                     auxJ.equipo = auxEq;
                     auxJ.estado = "contratado";
                     auxEq.jugadores.add(auxJ);
                     def--;
-                } else if (med != 0 & auxJ.equipo == null) {
+                } else if (med != 0 & auxJ.posicion.equals("medio") & auxJ.equipo == null) {
                     auxJ.equipo = auxEq;
                     auxJ.estado = "contratado";
                     auxEq.jugadores.add(auxJ);
                     med--;
-                } else if (del != 0 & auxJ.equipo == null) {
+                } else if (del != 0 & auxJ.posicion.equals("delantero") & auxJ.equipo == null) {
                     auxJ.equipo = auxEq;
                     auxJ.estado = "contratado";
                     auxEq.jugadores.add(auxJ);
@@ -525,12 +545,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tablaEstadios = new javax.swing.JTable();
         btnCrearTorneo = new javax.swing.JButton();
         cmbOpcionesTorneo = new javax.swing.JComboBox<>();
-        panelConsultas = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        BtnGenerarJ = new javax.swing.JButton();
-        panelAdminMet = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jLabel70 = new javax.swing.JLabel();
+        spnEntrada = new javax.swing.JSpinner();
         panelAsignarEntrenador = new javax.swing.JPanel();
         jLabel53 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
@@ -563,6 +579,39 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
         jLabel69 = new javax.swing.JLabel();
         cmbTratoEntrenador = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        rbtnManuTorneo = new javax.swing.JRadioButton();
+        rbtnAutoTorneo = new javax.swing.JRadioButton();
+        lblBuscarTorneo = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblPartido0 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        lblPartido1 = new javax.swing.JLabel();
+        lblPartido3 = new javax.swing.JLabel();
+        lblPartido2 = new javax.swing.JLabel();
+        jLabel75 = new javax.swing.JLabel();
+        lblPartido5 = new javax.swing.JLabel();
+        lblPartido4 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        lblPartido7 = new javax.swing.JLabel();
+        lblPartido6 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        lblPartidoB = new javax.swing.JLabel();
+        lblPartidoA = new javax.swing.JLabel();
+        lblPartido9 = new javax.swing.JLabel();
+        lblPartido8 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        lblPartidoC = new javax.swing.JLabel();
+        lblPartidoD = new javax.swing.JLabel();
+        jLabel90 = new javax.swing.JLabel();
+        lblPartidoE = new javax.swing.JLabel();
+        btnAutoTorneo = new javax.swing.JButton();
+        lblNombreTorneo = new javax.swing.JLabel();
+        panelConsultas = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        BtnGenerarJ = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -627,7 +676,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rbtnJugador))
                     .addComponent(txtNLogin, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(889, Short.MAX_VALUE))
+                .addContainerGap(1072, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -647,7 +696,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtCLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
 
         tbdPrincipal.addTab("Login", panelLogin);
@@ -697,7 +746,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGap(18, 18, 18)
                             .addComponent(txtNAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(909, Short.MAX_VALUE))
+                .addContainerGap(1092, Short.MAX_VALUE))
         );
         panelAdminLayout.setVerticalGroup(
             panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -712,7 +761,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtCAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Administrador", panelAdmin);
@@ -1060,7 +1109,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEquipoLayout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(panelCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 117, Short.MAX_VALUE))
+                .addGap(0, 119, Short.MAX_VALUE))
         );
 
         tbdRegistrar.addTab("Equipo", panelEquipo);
@@ -1134,7 +1183,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel29)
                         .addGap(18, 18, 18)
                         .addComponent(txtNAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(909, Short.MAX_VALUE))
+                .addContainerGap(1092, Short.MAX_VALUE))
         );
         panelAdminModiLayout.setVerticalGroup(
             panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1147,7 +1196,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelAdminModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(txtCAdminModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(315, Short.MAX_VALUE))
         );
 
         tbdModificar.addTab("Administrador", panelAdminModi);
@@ -1285,7 +1334,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtAJugadorModi))
                             .addComponent(jLabel37))
-                        .addGap(489, 967, Short.MAX_VALUE))))
+                        .addGap(489, 1150, Short.MAX_VALUE))))
         );
         panelJugdorModiLayout.setVerticalGroup(
             panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1318,7 +1367,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelJugdorModiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
                     .addComponent(lblPrecioModi))
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         tbdModificar.addTab("Jugador", panelJugdorModi);
@@ -1494,7 +1543,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEquipoModiLayout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(panelCamisaModi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 117, Short.MAX_VALUE))
+                .addGap(0, 119, Short.MAX_VALUE))
         );
 
         tbdModificar.addTab("Equipo", panelEquipoModi);
@@ -1590,7 +1639,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelEliminarLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(btnEliminar)))
-                .addContainerGap(928, Short.MAX_VALUE))
+                .addContainerGap(1111, Short.MAX_VALUE))
         );
         panelEliminarLayout.setVerticalGroup(
             panelEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1609,7 +1658,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtClaveEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEliminar)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(323, Short.MAX_VALUE))
         );
 
         tbdPrincipal.addTab("Eliminar", panelEliminar);
@@ -1898,6 +1947,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel70.setText("Precio Entrada:   $");
+
         javax.swing.GroupLayout panelTorneoLayout = new javax.swing.GroupLayout(panelTorneo);
         panelTorneo.setLayout(panelTorneoLayout);
         panelTorneoLayout.setHorizontalGroup(
@@ -1909,13 +1960,17 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(rBtnManual)
                     .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(panelTorneoLayout.createSequentialGroup()
-                            .addComponent(jLabel42)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelTorneoLayout.createSequentialGroup()
                             .addComponent(lblPremios)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTorneoLayout.createSequentialGroup()
+                            .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel42)
+                                .addComponent(jLabel70))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(spnEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1931,7 +1986,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnCrearTorneo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rBtnAleatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addComponent(jLabel58)
@@ -1959,7 +2014,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel42)
                             .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel70)
+                            .addComponent(spnEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPremios)
                             .addGroup(panelTorneoLayout.createSequentialGroup()
@@ -2005,61 +2064,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         );
 
         tbdPrincipal.addTab("Torneo", panelTorneo);
-
-        panelConsultas.setEnabled(false);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Apellido", "Habilidades", "Precio", "Posicion"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
-        BtnGenerarJ.setText("Generar J");
-        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnGenerarJMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelConsultasLayout = new javax.swing.GroupLayout(panelConsultas);
-        panelConsultas.setLayout(panelConsultasLayout);
-        panelConsultasLayout.setHorizontalGroup(
-            panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConsultasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelConsultasLayout.createSequentialGroup()
-                        .addComponent(BtnGenerarJ)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelConsultasLayout.setVerticalGroup(
-            panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConsultasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtnGenerarJ)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                .addGap(45, 45, 45))
-        );
-
-        tbdPrincipal.addTab("tab3", panelConsultas);
 
         jLabel53.setText("Entrenador:");
 
@@ -2111,7 +2115,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(txtApellidoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(680, Short.MAX_VALUE))
+                .addContainerGap(868, Short.MAX_VALUE))
         );
         panelAsignarEntrenadorLayout.setVerticalGroup(
             panelAsignarEntrenadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2135,23 +2139,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(cmbEquipoAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btnAsignarEntrenador)
-                        .addContainerGap(227, Short.MAX_VALUE))))
+                        .addContainerGap(257, Short.MAX_VALUE))))
         );
 
-        jTabbedPane1.addTab("Asignar Entrenador", panelAsignarEntrenador);
-
-        javax.swing.GroupLayout panelAdminMetLayout = new javax.swing.GroupLayout(panelAdminMet);
-        panelAdminMet.setLayout(panelAdminMetLayout);
-        panelAdminMetLayout.setHorizontalGroup(
-            panelAdminMetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-        );
-        panelAdminMetLayout.setVerticalGroup(
-            panelAdminMetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-
-        tbdPrincipal.addTab("Admin", panelAdminMet);
+        tbdPrincipal.addTab("Asignar Entrenador", panelAsignarEntrenador);
 
         btnTablaContratarSig.setText(">>");
         btnTablaContratarSig.addActionListener(new java.awt.event.ActionListener() {
@@ -2270,7 +2261,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                         .addComponent(lblPrecioContratar)))))
                         .addGap(156, 156, 156)
                         .addComponent(btnTablaContratarSig)))
-                .addContainerGap(611, Short.MAX_VALUE))
+                .addContainerGap(794, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2311,15 +2302,397 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(lblEquipoContratar)
                             .addGap(35, 35, 35)))
-                    .addComponent(btnTablaContratarSig, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                    .addComponent(btnTablaContratarSig, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInicio)
                     .addComponent(btnTrato))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         tbdPrincipal.addTab("Entrenador", jPanel1);
+
+        rbtnManuTorneo.setText("Manual");
+        rbtnManuTorneo.setToolTipText("Esta en desarrollo");
+        rbtnManuTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnManuTorneoActionPerformed(evt);
+            }
+        });
+
+        rbtnAutoTorneo.setText("Automático");
+        rbtnAutoTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAutoTorneoActionPerformed(evt);
+            }
+        });
+
+        lblBuscarTorneo.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
+        lblBuscarTorneo.setText("Buscar Torneo");
+        lblBuscarTorneo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBuscarTorneoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblBuscarTorneoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblBuscarTorneoMouseExited(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblPartido0.setText("___ vs ___");
+        lblPartido0.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido0MouseClicked(evt);
+            }
+        });
+
+        jLabel71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llaves cuartos.png"))); // NOI18N
+        jLabel71.setText("jLabel71");
+
+        lblPartido1.setText("___ vs ___");
+        lblPartido1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido1MouseClicked(evt);
+            }
+        });
+
+        lblPartido3.setText("___ vs ___");
+        lblPartido3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido3MouseClicked(evt);
+            }
+        });
+
+        lblPartido2.setText("___ vs ___");
+        lblPartido2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido2MouseClicked(evt);
+            }
+        });
+
+        jLabel75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llaves cuartos.png"))); // NOI18N
+        jLabel75.setText("jLabel71");
+
+        lblPartido5.setText("___ vs ___");
+        lblPartido5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido5MouseClicked(evt);
+            }
+        });
+
+        lblPartido4.setText("___ vs ___");
+        lblPartido4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido4MouseClicked(evt);
+            }
+        });
+
+        jLabel78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llaves cuartos.png"))); // NOI18N
+        jLabel78.setText("jLabel71");
+
+        lblPartido7.setText("___ vs ___");
+        lblPartido7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido7MouseClicked(evt);
+            }
+        });
+
+        lblPartido6.setText("___ vs ___");
+        lblPartido6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido6MouseClicked(evt);
+            }
+        });
+
+        jLabel81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llaves cuartos.png"))); // NOI18N
+        jLabel81.setText("jLabel71");
+
+        lblPartidoB.setText("___ vs ___");
+        lblPartidoB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartidoBMouseClicked(evt);
+            }
+        });
+
+        lblPartidoA.setText("___ vs ___");
+        lblPartidoA.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartidoAMouseClicked(evt);
+            }
+        });
+
+        lblPartido9.setText("___ vs ___");
+        lblPartido9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido9MouseClicked(evt);
+            }
+        });
+
+        lblPartido8.setText("___ vs ___");
+        lblPartido8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartido8MouseClicked(evt);
+            }
+        });
+
+        jLabel86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llaves Semifinal.png"))); // NOI18N
+        jLabel86.setText("jLabel86");
+
+        jLabel87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llaves Semifinal.png"))); // NOI18N
+        jLabel87.setText("jLabel86");
+
+        lblPartidoC.setText("___ vs ___");
+        lblPartidoC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartidoCMouseClicked(evt);
+            }
+        });
+
+        lblPartidoD.setText("___ vs ___");
+        lblPartidoD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartidoDMouseClicked(evt);
+            }
+        });
+
+        jLabel90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/progratorneo/images/llave Finales.png"))); // NOI18N
+        jLabel90.setText("jLabel90");
+
+        lblPartidoE.setText("___ vs ___");
+        lblPartidoE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPartidoEMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(481, 481, 481)
+                .addComponent(lblPartidoE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPartido0)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblPartido1))
+                            .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPartido2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblPartido3))
+                            .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPartido8)
+                                .addGap(213, 213, 213)
+                                .addComponent(lblPartido9))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(231, 231, 231)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPartidoC)
+                                .addGap(275, 275, 275)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(lblPartido4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblPartido5))
+                                            .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(75, 75, 75)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(lblPartido6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblPartido7))
+                                            .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(66, 66, 66)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(lblPartidoA)
+                                                .addGap(200, 200, 200)
+                                                .addComponent(lblPartidoB))
+                                            .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(187, 187, 187)
+                                        .addComponent(lblPartidoD)))))))
+                .addContainerGap(331, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPartido0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblPartido3)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(lblPartido2)
+                                            .addComponent(lblPartido1))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPartido8)
+                            .addComponent(lblPartido9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPartidoC))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblPartido4)
+                                    .addComponent(lblPartido5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel78, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblPartido6)
+                                    .addComponent(lblPartido7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPartidoA)
+                            .addComponent(lblPartidoB))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPartidoD)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPartidoE)
+                .addGap(140, 140, 140))
+        );
+
+        btnAutoTorneo.setText("Campeón");
+        btnAutoTorneo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutoTorneoActionPerformed(evt);
+            }
+        });
+
+        lblNombreTorneo.setText("Nombre del torneo");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNombreTorneo)
+                .addGap(136, 136, 136)
+                .addComponent(lblBuscarTorneo)
+                .addGap(107, 107, 107)
+                .addComponent(rbtnManuTorneo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rbtnAutoTorneo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAutoTorneo)
+                .addGap(337, 337, 337))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnManuTorneo)
+                    .addComponent(rbtnAutoTorneo)
+                    .addComponent(lblBuscarTorneo)
+                    .addComponent(btnAutoTorneo)
+                    .addComponent(lblNombreTorneo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tbdPrincipal.addTab("Tabla de torneo", jPanel2);
+
+        panelConsultas.setEnabled(false);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "Habilidades", "Precio", "Posicion"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        BtnGenerarJ.setText("Generar J");
+        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnGenerarJMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelConsultasLayout = new javax.swing.GroupLayout(panelConsultas);
+        panelConsultas.setLayout(panelConsultasLayout);
+        panelConsultasLayout.setHorizontalGroup(
+            panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConsultasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConsultasLayout.createSequentialGroup()
+                        .addComponent(BtnGenerarJ)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1305, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelConsultasLayout.setVerticalGroup(
+            panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConsultasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BtnGenerarJ)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
+        );
+
+        tbdPrincipal.addTab("tab3", panelConsultas);
 
         jLabel3.setText("Usuario actual: ");
 
@@ -2370,7 +2743,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(lblEstado))
                     .addComponent(lblRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbdPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tbdPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -2483,6 +2857,131 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, msj);
     }//GEN-LAST:event_btnAsignarEntrenadorActionPerformed
 
+    private void cmbTratoEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTratoEntrenadorItemStateChanged
+        btnTrato.setText((String) cmbTratoEntrenador.getSelectedItem());
+    }//GEN-LAST:event_cmbTratoEntrenadorItemStateChanged
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        auxJContratar = met.inicioJ;
+
+        verJugadorContratar();
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnTablaContratarAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaContratarAntActionPerformed
+
+        if (auxJContratar.sig == null) {
+            auxJContratar = met.inicioJ;
+        } else {
+            auxJContratar = auxJContratarAnt;
+        }
+        verJugadorContratar();
+    }//GEN-LAST:event_btnTablaContratarAntActionPerformed
+
+    private void btnTratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTratoActionPerformed
+        int trato = cmbTratoEntrenador.getSelectedIndex();
+        Jugador jugador = met.buscarJugador(lblNombreContratar.getText(), lblApellidoContratar.getText());
+        switch (trato) {
+            case 0://Contratar
+                if (!lblEstadoContratar.getText().equals("contratado") & !lblEquipoContratar.getText().equals(logeadoE.equipo.nombre)) {
+                    int[] cantidad = contarTipoJugadores(logeadoE.equipo);
+                    if (lblEstadoContratar.getText().equals("vender") & logeadoE.equipo.dinero >= jugador.precio & logeadoE.equipo.jugadores.size() < 11 & logeadoE.equipo.posicionTorneo == 0) {
+                        if (cantidad[0] < 1 & jugador.posicion.equals("portero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else if (cantidad[1] < 4 & jugador.posicion.equals("defensa")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else if (cantidad[2] < 4 & jugador.posicion.equals("medio")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else if (cantidad[3] < 2 & jugador.posicion.equals("delantero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo.dinero += jugador.precio;
+                            jugador.equipo.jugadores.remove(jugador);
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se puede comprar este jugador");
+                        }
+                    } else if (lblEstadoContratar.getText().equals("libre") & logeadoE.equipo.dinero >= jugador.precio & logeadoE.equipo.jugadores.size() < 11 & logeadoE.equipo.posicionTorneo == 0) {
+                        if (cantidad[0] < 1 & jugador.posicion.equals("portero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else if (cantidad[1] < 4 & jugador.posicion.equals("defensa")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else if (cantidad[2] < 4 & jugador.posicion.equals("medio")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else if (cantidad[3] < 2 & jugador.posicion.equals("delantero")) {
+                            jugador.estado = "contratado";
+                            jugador.equipo = logeadoE.equipo;
+                            logeadoE.equipo.dinero -= jugador.precio;
+                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se puede comprar este jugador");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se a podido contratar este jugador");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se puede contratar este jugador.Puede que ya este contratado.");
+                }
+                break;
+            case 1://Despedir
+                if (logeadoE.equipo == jugador.equipo) {
+                    jugador.equipo = null;
+                    jugador.estado = "libre";
+                    logeadoE.equipo.jugadores.remove(jugador.nombre);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El jugador no concuerda con el equipo");
+                }
+                break;
+            case 2://Vender
+                if (logeadoE.equipo == jugador.equipo) {
+                    jugador.estado = "vender";
+                    JOptionPane.showMessageDialog(null, "El jugador fue puesto en venta");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El jugador no concuerda con el equipo");
+                }
+                break;
+        }
+    }//GEN-LAST:event_btnTratoActionPerformed
+
+    private void btnTablaContratarSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaContratarSigActionPerformed
+        if (auxJContratar.sig == null) {
+            auxJContratar = met.inicioJ;
+        } else {
+            auxJContratarAnt = auxJContratar;
+            auxJContratar = auxJContratar.sig;
+        }
+        verJugadorContratar();
+    }//GEN-LAST:event_btnTablaContratarSigActionPerformed
+
     private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
         llenarTablaJugadores();
     }//GEN-LAST:event_BtnGenerarJMouseClicked
@@ -2498,11 +2997,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 rBtnManual.setEnabled(true);
                 tablaEquipos.setEnabled(true);
                 tablaEstadios.setEnabled(true);
+                spnEntrada.setEnabled(true);
                 break;
             case 1:
                 txtPremioCu.setEnabled(true);
                 txtPremioSe.setEnabled(true);
                 txtPremioFi.setEnabled(true);
+                spnEntrada.setEnabled(true);
                 rBtnAleatorio.setEnabled(false);
                 rBtnManual.setEnabled(false);
                 tablaEquipos.setEnabled(false);
@@ -2516,6 +3017,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 rBtnManual.setEnabled(false);
                 tablaEquipos.setEnabled(false);
                 tablaEstadios.setEnabled(false);
+                spnEntrada.setEnabled(false);
                 break;
         }
         btnCrearTorneo.setText((String) cmbOpcionesTorneo.getSelectedItem());
@@ -2531,7 +3033,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         if (rBtnAleatorio.isEnabled()) {
                             ArrayList<String> equipos = met.equiposRandom();
                             int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                            met.InsertarTorneo(logeadoA, txtNombreTorneo.getText(), premios);
+                            met.InsertarTorneo(logeadoA, txtNombreTorneo.getText(), premios, (int) spnEntrada.getValue());
                             ArrayList<String> equiposRandom = new ArrayList();
                             if (equipos != null) {
                                 while (equipos.size() != 2) {
@@ -2562,9 +3064,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         } else if (rBtnManual.isEnabled()) {
                             ArrayList<String> equipos = equiposTabla();
                             ArrayList<String> estadios = estadiosTabla();
-                            if (equipos.size() == 32 & !estadios.isEmpty()) {
+                            if (equipos.size() == 16 & !estadios.isEmpty()) {
                                 int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                                met.InsertarTorneo(logeadoA, txtNombreTorneo.getText(), premios);
+                                met.InsertarTorneo(logeadoA, txtNombreTorneo.getText(), premios, (int) spnEntrada.getValue());
                                 ArrayList<String> equiposRandom = new ArrayList();
                                 while (equipos.size() != 2) {
                                     int eq1 = (int) (Math.random() * (equipos.size() - 1));
@@ -2606,7 +3108,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 if (!txtNombreTorneo.getText().isEmpty() & !txtPremioCu.getText().isEmpty() & !txtPremioFi.getText().isEmpty() & !txtPremioSe.getText().isEmpty()) {
                     String nombre = JOptionPane.showInputDialog(this, "Digite el nombre del torneo que desea modificar");
                     int[] premios = {Integer.parseInt(txtPremioCu.getText()), Integer.parseInt(txtPremioSe.getText()), Integer.parseInt(txtPremioFi.getText())};
-                    msj = met.modificarTorneo(logeadoA, nombre, txtNombreTorneo.getText(), premios);
+                    msj = met.modificarTorneo(logeadoA, nombre, txtNombreTorneo.getText(), premios, (int) spnEntrada.getValue());
                     JOptionPane.showMessageDialog(null, msj);
                 }
                 break;
@@ -3112,6 +3614,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         tbdPrincipal.setEnabledAt(3, true);
                         tbdPrincipal.setEnabledAt(4, true);
                         tbdPrincipal.setEnabledAt(5, true);
+                        tbdPrincipal.setEnabledAt(6, false);
                     } else {
                         showMessageDialog(null, "No se encontro usuario administrador");
                     }
@@ -3177,47 +3680,549 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void verJugadorContratar() {
-        if (logeadoE.equipo != null) {
-            jLabel62.setText(String.valueOf(logeadoE.equipo.dinero));
+    private void verLlave(Torneo auxT) {
+        Partidos auxPA = auxT.SubPartidosA;
+        int i = 0;
+        while (auxPA != null) {
+            octavos.get(i).setText(auxPA.equipoA.nombre.substring(0, 3) + " vs " + auxPA.equipoB.nombre.substring(0, 3));
+            i++;
+            auxPA = auxPA.sig;
         }
-        lblNombreContratar.setText(auxJContratar.nombre);
-        lblApellidoContratar.setText(auxJContratar.apellido);
-        lblEstadoContratar.setText(auxJContratar.estado);
-        if (auxJContratar.equipo != null) {
-            lblEquipoContratar.setText(auxJContratar.equipo.nombre);
-        } else {
-            lblEquipoContratar.setText("libre");
+        auxPA = auxT.cuartosPA;
+        i = 0;
+        while (auxPA != null) {
+            cuartos.get(i).setText(auxPA.equipoA.nombre.substring(0, 3) + " vs " + auxPA.equipoB.nombre.substring(0, 3));
+            i++;
+            auxPA = auxPA.sig;
         }
-        lblPrecioContratar.setText(String.valueOf(auxJContratar.precio));
+        auxPA = auxT.semifinalesPA;
+        i = 0;
+        while (auxPA != null) {
+            semifinales.get(i).setText(auxPA.equipoA.nombre.substring(0, 3) + " vs " + auxPA.equipoB.nombre.substring(0, 3));
+            i++;
+            auxPA = auxPA.sig;
+        }
+        auxPA = auxT.semifinalesPA;
+        i = 0;
+        while (auxPA != null) {
+            semifinales.get(i).setText(auxPA.equipoA.nombre.substring(0, 3) + " vs " + auxPA.equipoB.nombre.substring(0, 3));
+            i++;
+            auxPA = auxPA.sig;
+        }
+        auxPA = auxT.finalPA;
+        if (auxPA != null) {
+            lblPartidoE.setText(auxPA.equipoA.nombre.substring(0, 3) + " vs " + auxPA.equipoB.nombre.substring(0, 3));
+        }
+
     }
 
-    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        auxJContratar = met.inicioJ;
 
-        verJugadorContratar();
-    }//GEN-LAST:event_btnInicioActionPerformed
-
-    private void btnTablaContratarSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaContratarSigActionPerformed
-        if (auxJContratar.sig == null) {
-            auxJContratar = met.inicioJ;
-        } else {
-            auxJContratarAnt = auxJContratar;
-            auxJContratar = auxJContratar.sig;
+    private void lblBuscarTorneoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarTorneoMouseClicked
+        lblBuscarTorneo.setForeground(red);
+        String nombreTorneo = JOptionPane.showInputDialog(null, "Escriba el nombre del torneo que desea ver");
+        Torneo auxT = met.buscarTorneo(logeadoA.nombre, nombreTorneo);
+        if (auxT != null) {
+            lblNombreTorneo.setText(auxT.nombre);
+            verLlave(auxT);
         }
-        verJugadorContratar();
-    }//GEN-LAST:event_btnTablaContratarSigActionPerformed
+        lblBuscarTorneo.setForeground(black);
+    }//GEN-LAST:event_lblBuscarTorneoMouseClicked
 
-    private void btnTablaContratarAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaContratarAntActionPerformed
+    private void lblBuscarTorneoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarTorneoMouseEntered
+        lblBuscarTorneo.setForeground(blue);
+    }//GEN-LAST:event_lblBuscarTorneoMouseEntered
 
-        if (auxJContratar.sig == null) {
-            auxJContratar = met.inicioJ;
-        } else {
-            auxJContratar = auxJContratarAnt;
+    private void lblBuscarTorneoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarTorneoMouseExited
+        lblBuscarTorneo.setForeground(black);
+    }//GEN-LAST:event_lblBuscarTorneoMouseExited
+
+    private ArrayList<Jugador> buscarDelantero(ArrayList<Jugador> jugadores) {
+        ArrayList<Jugador> delanteros = new ArrayList();
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).posicion.equals("delantero")) {
+                delanteros.add(jugadores.get(i));
+            }
         }
-        verJugadorContratar();
+        return delanteros;
+    }
 
-    }//GEN-LAST:event_btnTablaContratarAntActionPerformed
+
+    private void btnAutoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoTorneoActionPerformed
+        Torneo auxT = met.buscarTorneo(logeadoA.nombre, lblNombreTorneo.getText());
+        if (auxT != null) {
+            if (auxT.torneoActivo) {
+                Partidos auxPA = auxT.SubPartidosA;
+                boolean eq = true;
+                Equipo eqA = null;
+                Equipo eqB = null;
+                Estadio es = null;
+
+                //Generar gandores de partidos para cuartos
+                while (auxPA != null) {
+                    boolean flag = true;
+                    //Econtrar los aficionados con un random
+                    int aficionados = (int) (Math.random() * auxPA.estadio.capacidad);
+                    auxPA.aficion = aficionados;
+                    int dineroPartido = aficionados * auxT.entrada;
+
+                    //Sacar la cantidad de goles
+                    while (flag) {
+                        int golA = (int) (Math.random() * 5);
+                        int golB = (int) (Math.random() * 5);
+                        if (golA != golB) {
+                            auxPA.equipoA.goles = auxPA.golesA = golA;
+                            auxPA.equipoB.goles = auxPA.golesB = golB;
+                            flag = false;
+                        }
+
+                        //Buscar los delanteros del equipoA
+                        ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
+                        for (int i = 0; i < golA; i++) {
+                            int jugador = (int) (Math.random() * 6);
+                            int tiempo = (int) (Math.random() * 89) + 1;
+                            if (jugador <= 3) {
+                                String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                                auxPA.equipoA.jugadores.get(0).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            } else {
+                                String goleador = auxPA.equipoA.jugadores.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                                auxPA.equipoA.jugadores.get(1).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            }
+                        }
+
+                        //Buscar los auxPA.equipoA.jugadoress del equipoB  
+                        delantero = buscarDelantero(auxPA.equipoB.jugadores);
+                        for (int i = 0; i < golB; i++) {
+                            int jugador = (int) (Math.random() * 6);
+                            int tiempo = (int) (Math.random() * 89) + 1;
+                            if (jugador <= 3) {
+                                String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(0).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            } else {
+                                String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(1).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            }
+                        }
+                    }
+
+                    //Pasar a la siguiente fase el equipo ganador
+                    if (eq) {
+                        if (auxPA.golesA > auxPA.golesB) {
+                            eqA = auxPA.equipoA;
+                            es = auxPA.estadio;
+                            auxPA.equipoA.dinero += dineroPartido * 0.20;
+                            auxPA.equipoB.dinero += dineroPartido * 0.05;
+                            eq = false;
+                        } else {
+                            eqA = auxPA.equipoB;
+                            es = auxPA.estadio;
+                            auxPA.equipoB.dinero += dineroPartido * 0.20;
+                            auxPA.equipoA.dinero += dineroPartido * 0.05;
+                            eq = false;
+                        }
+                        auxT.admin.dinero += dineroPartido * 0.75;
+                    } else {
+                        if (auxPA.golesA > auxPA.golesB) {
+                            eqB = auxPA.equipoA;
+                            auxPA.equipoA.dinero += dineroPartido * 0.20;
+                            auxPA.equipoB.dinero += dineroPartido * 0.05;
+                            eq = true;
+                        } else {
+                            eqB = auxPA.equipoB;
+                            auxPA.equipoB.dinero += dineroPartido * 0.20;
+                            auxPA.equipoA.dinero += dineroPartido * 0.05;
+                            eq = true;
+                        }
+                        auxT.admin.dinero += dineroPartido * 0.75;
+                        met.insertarPartidoTorneoCuartos(auxT, eqA, eqB, es);
+                    }
+                    auxPA = auxPA.sig;
+                }
+                //Generar ganadores de partidos semifinales
+                auxPA = auxT.cuartosPA;
+                eq = true;
+                eqA = null;
+                eqB = null;
+                es = null;
+
+                while (auxPA != null) {
+                    boolean flag = true;
+                    //Econtrar los aficionados con un random
+                    int aficionados = (int) (Math.random() * auxPA.estadio.capacidad);
+                    auxPA.aficion = aficionados;
+                    int dineroPartido;
+                    //Sacar la cantidad de goles
+                    while (flag) {
+                        int golA = (int) (Math.random() * 5);
+                        int golB = (int) (Math.random() * 5);
+                        if (golA != golB) {
+                            auxPA.equipoA.goles = auxPA.golesA = golA;
+                            auxPA.equipoB.goles = auxPA.golesB = golB;
+                            flag = false;
+                        }
+                        //Buscar los delanteros del equipoA
+                        ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
+                        for (int i = 0; i < golA; i++) {
+                            int jugador = (int) (Math.random() * 6);
+                            int tiempo = (int) (Math.random() * 89) + 1;
+                            if (jugador <= 3) {
+                                String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(0).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            } else {
+                                String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(1).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            }
+                        }
+                        //Buscar los delanteros del equipoB 
+                        delantero = buscarDelantero(auxPA.equipoB.jugadores);
+                        for (int i = 0; i < golB; i++) {
+                            int jugador = (int) (Math.random() * 6);
+                            int tiempo = (int) (Math.random() * 89) + 1;
+                            if (jugador <= 3) {
+                                String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(0).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            } else {
+                                String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(1).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            }
+                        }
+                    }
+                    dineroPartido = (int) (aficionados * (auxT.entrada + (auxT.entrada * 0.20)));
+                    //Pasar a la siguiente fase el equipo ganador
+                    if (eq) {
+                        if (auxPA.golesA > auxPA.golesB) {
+                            eqA = auxPA.equipoA;
+                            es = auxPA.estadio;
+                            auxPA.equipoA.dinero += dineroPartido * 0.20;
+                            auxPA.equipoB.dinero += dineroPartido * 0.05;
+                            eq = false;
+                        } else {
+                            eqA = auxPA.equipoB;
+                            es = auxPA.estadio;
+                            auxPA.equipoB.dinero += dineroPartido * 0.20;
+                            auxPA.equipoA.dinero += dineroPartido * 0.05;
+                            eq = false;
+                        }
+                        auxT.admin.dinero += dineroPartido * 0.75;
+                    } else {
+                        if (auxPA.golesA > auxPA.golesB) {
+                            eqB = auxPA.equipoA;
+                            auxPA.equipoA.dinero += dineroPartido * 0.20;
+                            auxPA.equipoB.dinero += dineroPartido * 0.05;
+                            eq = true;
+                        } else {
+                            eqB = auxPA.equipoB;
+                            auxPA.equipoB.dinero += dineroPartido * 0.20;
+                            auxPA.equipoA.dinero += dineroPartido * 0.05;
+                            eq = true;
+                        }
+                        auxT.admin.dinero += dineroPartido * 0.75;
+                        met.insertarPartidoTorneoSemifinales(auxT, eqA, eqB, es);
+                    }
+                    auxPA = auxPA.sig;
+                }
+
+                //Generar ganadores de partidos Finales
+                auxPA = auxT.semifinalesPA;
+                eqA = null;
+                eqB = null;
+                es = null;
+                while (auxPA != null) {
+                    boolean flag = true;
+                    int aficionados = (int) (Math.random() * auxPA.estadio.capacidad);
+                    int dineroPartido;
+                    while (flag) {
+                        int golA = (int) (Math.random() * 5);
+                        int golB = (int) (Math.random() * 5);
+                        if (golA != golB) {
+                            auxPA.equipoA.goles = auxPA.golesA = golA;
+                            auxPA.equipoB.goles = auxPA.golesB = golB;
+                            flag = false;
+                        }
+                        ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
+                        for (int i = 0; i < golA; i++) {
+                            int jugador = (int) (Math.random() * 6);
+                            int tiempo = (int) (Math.random() * 89) + 1;
+                            if (jugador <= 3) {
+                                String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(0).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            } else {
+                                String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(1).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            }
+                        }
+
+                        delantero = buscarDelantero(auxPA.equipoB.jugadores);
+                        for (int i = 0; i < golB; i++) {
+                            int jugador = (int) (Math.random() * 6);
+                            int tiempo = (int) (Math.random() * 89) + 1;
+                            if (jugador <= 3) {
+                                String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(0).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            } else {
+                                String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                                delantero.get(1).goles += 1;
+                                auxPA.goleadores.add(goleador);
+                            }
+                        }
+                    }
+                    dineroPartido = (int) (aficionados * (auxT.entrada + (auxT.entrada * 0.50)));
+                    if (eq) {
+                        if (auxPA.golesA > auxPA.golesB) {
+                            eqA = auxPA.equipoA;
+                            es = auxPA.estadio;
+                            auxPA.equipoA.dinero += dineroPartido * 0.20;
+                            auxPA.equipoB.dinero += dineroPartido * 0.05;
+                            eq = false;
+                        } else {
+                            eqA = auxPA.equipoB;
+                            es = auxPA.estadio;
+                            auxPA.equipoB.dinero += dineroPartido * 0.20;
+                            auxPA.equipoA.dinero += dineroPartido * 0.05;
+                            eq = false;
+                        }
+                        auxT.admin.dinero += dineroPartido * 0.75;
+                    } else {
+                        if (auxPA.golesA > auxPA.golesB) {
+                            eqB = auxPA.equipoA;
+                            auxPA.equipoA.dinero += dineroPartido * 0.20;
+                            auxPA.equipoB.dinero += dineroPartido * 0.05;
+                            eq = true;
+                        } else {
+                            eqB = auxPA.equipoB;
+                            auxPA.equipoB.dinero += dineroPartido * 0.20;
+                            auxPA.equipoA.dinero += dineroPartido * 0.05;
+                            eq = true;
+                        }
+                        auxT.admin.dinero += dineroPartido * 0.75;
+                        met.insertarPartidoTorneoFinal(auxT, eqA, eqB, es);
+                    }
+                    auxPA = auxPA.sig;
+                }
+
+                //Escoger el campeon del torneo
+                auxPA = auxT.finalPA;
+                boolean flag = true;
+                int aficionados = (int) (Math.random() * auxPA.estadio.capacidad);
+                int dineroPartido;
+                while (flag) {
+                    int golA = (int) (Math.random() * 5);
+                    int golB = (int) (Math.random() * 5);
+                    if (golA != golB) {
+                        auxPA.equipoA.goles = auxPA.golesA = golA;
+                        auxPA.equipoB.goles = auxPA.golesB = golB;
+                        flag = false;
+                    }
+                    ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
+                    for (int i = 0; i < golA; i++) {
+                        int jugador = (int) (Math.random() * 6);
+                        int tiempo = (int) (Math.random() * 89) + 1;
+                        if (jugador <= 3) {
+                            String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                            delantero.get(0).goles += 1;
+                            auxPA.goleadores.add(goleador);
+                        } else {
+                            String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                            delantero.get(1).goles += 1;
+                            auxPA.goleadores.add(goleador);
+                        }
+                    }
+
+                    delantero = buscarDelantero(auxPA.equipoB.jugadores);
+                    for (int i = 0; i < golB; i++) {
+                        int jugador = (int) (Math.random() * 6);
+                        int tiempo = (int) (Math.random() * 89) + 1;
+                        if (jugador <= 3) {
+                            String goleador = delantero.get(0).nombre + " " + String.valueOf(tiempo) + "'";
+                            delantero.get(0).goles += 1;
+                            auxPA.goleadores.add(goleador);
+                        } else {
+                            String goleador = delantero.get(1).nombre + " " + String.valueOf(tiempo) + "'";
+                            delantero.get(1).goles += 1;
+                            auxPA.goleadores.add(goleador);
+                        }
+                    }
+                }
+                dineroPartido = (int) (aficionados * (auxT.entrada + (auxT.entrada * 0.80)));
+                if (auxPA.golesA > auxPA.golesB) {
+                    JOptionPane.showMessageDialog(null, auxPA.equipoA.nombre + " es el campeon del torneo " + auxT.nombre);
+                    auxPA.equipoA.dinero += dineroPartido * 0.20;
+                    auxPA.equipoB.dinero += dineroPartido * 0.05;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, auxPA.equipoA.nombre + " es el campeon del torneo " + auxT.nombre);
+                    auxPA.equipoB.dinero += dineroPartido * 0.20;
+                    auxPA.equipoA.dinero += dineroPartido * 0.05;
+
+                }
+                auxT.admin.dinero += dineroPartido * 0.75;
+                auxT.torneoActivo = false;
+                //Dar premios a los participantes del torneo
+                auxPA = auxT.SubPartidosA;
+                while (auxPA != null) {
+                    if (auxPA.equipoA.posicionTorneo == 8 | auxPA.equipoB.posicionTorneo == 8) {
+                        if (auxPA.equipoA.posicionTorneo == 8) {
+                            auxPA.equipoA.dinero += auxT.Premio[0];
+                        } else if (auxPA.equipoB.posicionTorneo == 8) {
+                            auxPA.equipoB.dinero += auxT.Premio[0];
+                        }
+                    }
+                    if (auxPA.equipoA.posicionTorneo == 4 | auxPA.equipoB.posicionTorneo == 4) {
+                        if (auxPA.equipoA.posicionTorneo == 8) {
+                            auxPA.equipoA.dinero += auxT.Premio[1];
+                        } else if (auxPA.equipoB.posicionTorneo == 8) {
+                            auxPA.equipoB.dinero += auxT.Premio[1];
+                        }
+                    }
+                    if (auxPA.equipoA.posicionTorneo == 2 | auxPA.equipoB.posicionTorneo == 2) {
+                        if (auxPA.equipoA.posicionTorneo == 8) {
+                            auxPA.equipoA.dinero += auxT.Premio[2];
+                        } else if (auxPA.equipoB.posicionTorneo == 8) {
+                            auxPA.equipoB.dinero += auxT.Premio[2];
+                        }
+                    }
+                    auxPA.equipoA.posicionTorneo = 0;
+                    auxPA.equipoB.posicionTorneo = 0;
+                    auxPA = auxPA.sig;
+                }
+                verLlave(auxT);
+            } else {
+                JOptionPane.showMessageDialog(null, "Este torneo ya finalizó");
+            }
+        }
+    }//GEN-LAST:event_btnAutoTorneoActionPerformed
+
+    private void mostrarPartido(ventanaPartido parti, Partidos partido) {
+        parti.lblEquipoA.setText(partido.equipoA.nombre);
+        parti.lblEquipoB.setText(partido.equipoB.nombre);
+
+        parti.lblGolesA.setText(String.valueOf(partido.golesB));
+        parti.lblGolesB.setText(String.valueOf(partido.golesA));
+
+        parti.lblEstadio.setText(partido.estadio.nombre);
+        parti.lblEstadioUbicacion.setText(partido.estadio.ubicacion);
+
+        parti.lblAficion.setText(String.valueOf(partido.aficion));
+        DefaultListModel lista = new DefaultListModel();
+        for (int i = 0; i < partido.goleadores.size(); i++) {
+            lista.addElement(partido.goleadores.get(i));
+        }
+        parti.listaGoleadores.setModel(lista);
+    }
+
+    private void ventanaPartido(int i) {
+        Partidos partido = met.buscarPartido(logeadoA.nombre, lblNombreTorneo.getText(), i);
+        if (partido != null) {
+            Image camisaA = (new javax.swing.ImageIcon(getClass().getResource("/" + partido.equipoA.camisa[0]))).getImage();
+            Image stamA = (new javax.swing.ImageIcon(getClass().getResource("/" + partido.equipoA.camisa[1]))).getImage();
+
+            Image camisaB = (new javax.swing.ImageIcon(getClass().getResource("/" + partido.equipoB.camisa[0]))).getImage();
+            Image stamB = (new javax.swing.ImageIcon(getClass().getResource("/" + partido.equipoB.camisa[1]))).getImage();
+
+            ventanaPartido parti = new ventanaPartido(camisaA, stamA, camisaB, stamB);
+            mostrarPartido(parti, partido);
+            parti.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No Hay partido");
+        }
+    }
+
+    private void lblPartido0MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido0MouseClicked
+        ventanaPartido(1);
+    }//GEN-LAST:event_lblPartido0MouseClicked
+
+    private void rbtnManuTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnManuTorneoActionPerformed
+        rbtnAutoTorneo.setSelected(false);
+        btnAutoTorneo.setEnabled(false);
+    }//GEN-LAST:event_rbtnManuTorneoActionPerformed
+
+    private void rbtnAutoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAutoTorneoActionPerformed
+        rbtnManuTorneo.setSelected(false);
+        btnAutoTorneo.setEnabled(true);
+    }//GEN-LAST:event_rbtnAutoTorneoActionPerformed
+
+    private void lblPartido1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido1MouseClicked
+        ventanaPartido(2);
+    }//GEN-LAST:event_lblPartido1MouseClicked
+
+    private void lblPartido2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido2MouseClicked
+        ventanaPartido(3);
+    }//GEN-LAST:event_lblPartido2MouseClicked
+
+    private void lblPartido3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido3MouseClicked
+        ventanaPartido(4);
+    }//GEN-LAST:event_lblPartido3MouseClicked
+
+    private void lblPartido4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido4MouseClicked
+        ventanaPartido(5);
+    }//GEN-LAST:event_lblPartido4MouseClicked
+
+    private void lblPartido5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido5MouseClicked
+        ventanaPartido(6);
+    }//GEN-LAST:event_lblPartido5MouseClicked
+
+    private void lblPartido6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido6MouseClicked
+        ventanaPartido(7);
+    }//GEN-LAST:event_lblPartido6MouseClicked
+
+    private void lblPartido7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido7MouseClicked
+        ventanaPartido(8);
+    }//GEN-LAST:event_lblPartido7MouseClicked
+
+    private void lblPartido8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido8MouseClicked
+        ventanaPartido(9);
+    }//GEN-LAST:event_lblPartido8MouseClicked
+
+    private void lblPartido9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido9MouseClicked
+        ventanaPartido(10);
+    }//GEN-LAST:event_lblPartido9MouseClicked
+
+    private void lblPartidoAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartidoAMouseClicked
+        ventanaPartido(11);
+    }//GEN-LAST:event_lblPartidoAMouseClicked
+
+    private void lblPartidoBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartidoBMouseClicked
+        ventanaPartido(12);
+    }//GEN-LAST:event_lblPartidoBMouseClicked
+
+    private void lblPartidoCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartidoCMouseClicked
+        ventanaPartido(13);
+    }//GEN-LAST:event_lblPartidoCMouseClicked
+
+    private void lblPartidoDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartidoDMouseClicked
+        ventanaPartido(14);
+    }//GEN-LAST:event_lblPartidoDMouseClicked
+
+    private void lblPartidoEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartidoEMouseClicked
+        ventanaPartido(15);
+    }//GEN-LAST:event_lblPartidoEMouseClicked
+
+    private void verJugadorContratar() {
+        if (logeadoE != null) {
+            if (logeadoE.equipo != null) {
+                jLabel62.setText(String.valueOf(logeadoE.equipo.dinero));
+            }
+            lblNombreContratar.setText(auxJContratar.nombre);
+            lblApellidoContratar.setText(auxJContratar.apellido);
+            lblEstadoContratar.setText(auxJContratar.estado);
+            if (auxJContratar.equipo != null) {
+                lblEquipoContratar.setText(auxJContratar.equipo.nombre);
+            } else {
+                lblEquipoContratar.setText("libre");
+            }
+            lblPrecioContratar.setText(String.valueOf(auxJContratar.precio));
+        }
+    }
 
     private int[] contarTipoJugadores(Equipo equipo) {
         int[] cantidad = {0, 0, 0, 0};
@@ -3241,105 +4246,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         return cantidad;
     }
 
-    private void btnTratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTratoActionPerformed
-        int trato = cmbTratoEntrenador.getSelectedIndex();
-        Jugador jugador = met.buscarJugador(lblNombreContratar.getText(), lblApellidoContratar.getText());
-        switch (trato) {
-            case 0://Contratar
-                if (!lblEstadoContratar.getText().equals("contratado") & !lblEquipoContratar.getText().equals(logeadoE.equipo.nombre)) {
-                    int[] cantidad = contarTipoJugadores(logeadoE.equipo);
-                    if (lblEstadoContratar.getText().equals("vender") & logeadoE.equipo.dinero >= jugador.precio & logeadoE.equipo.jugadores.size() < 11 & logeadoE.equipo.posicionTorneo == 0) {
-                        if (cantidad[0] < 1 & jugador.posicion.equals("portero")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo.dinero += jugador.precio;
-                            jugador.equipo.jugadores.remove(jugador);
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-
-                        } else if (cantidad[1] < 4 & jugador.posicion.equals("defensa")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo.dinero += jugador.precio;
-                            jugador.equipo.jugadores.remove(jugador);
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-
-                        } else if (cantidad[2] < 4 & jugador.posicion.equals("medio")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo.dinero += jugador.precio;
-                            jugador.equipo.jugadores.remove(jugador);
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-
-                        } else if (cantidad[3] < 2 & jugador.posicion.equals("delantero")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo.dinero += jugador.precio;
-                            jugador.equipo.jugadores.remove(jugador);
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se puede comprar este jugador");
-                        }
-                    } else if (lblEstadoContratar.getText().equals("libre") & logeadoE.equipo.dinero >= jugador.precio & logeadoE.equipo.jugadores.size() < 11 & logeadoE.equipo.posicionTorneo == 0) {
-                        if (cantidad[0] < 1 & jugador.posicion.equals("portero")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-                        } else if (cantidad[1] < 4 & jugador.posicion.equals("defensa")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-                        } else if (cantidad[2] < 4 & jugador.posicion.equals("medio")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-                        } else if (cantidad[3] < 2 & jugador.posicion.equals("delantero")) {
-                            jugador.estado = "contratado";
-                            jugador.equipo = logeadoE.equipo;
-                            logeadoE.equipo.dinero -= jugador.precio;
-                            JOptionPane.showMessageDialog(null, "Jugador comprado exitosamente");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se puede comprar este jugador");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se a podido contratar este jugador");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se puede contratar este jugador.Puede que ya este contratado.");
-                }
-                break;
-            case 1://Despedir
-                if (logeadoE.equipo == jugador.equipo) {
-                    jugador.equipo = null;
-                    jugador.estado = "libre";
-                    logeadoE.equipo.jugadores.remove(jugador.nombre);
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "El jugador no concuerda con el equipo");
-                }
-                break;
-            case 2://Vender
-                if (logeadoE.equipo == jugador.equipo) {
-                    jugador.estado = "vender";
-                    JOptionPane.showMessageDialog(null, "El jugador fue puesto en venta");
-                } else {
-                    JOptionPane.showMessageDialog(null, "El jugador no concuerda con el equipo");
-                }
-                break;
-        }
-    }//GEN-LAST:event_btnTratoActionPerformed
-
-    private void cmbTratoEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTratoEntrenadorItemStateChanged
-        btnTrato.setText((String) cmbTratoEntrenador.getSelectedItem());
-    }//GEN-LAST:event_cmbTratoEntrenadorItemStateChanged
-
     /**
      * @param args the command line arguments
      */
@@ -3354,10 +4260,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            getLogger(ventanaPrincipal.class.getName()).log(SEVERE, null, ex);
+            getLogger(ventanaPrincipal.class
+                    .getName()).log(SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -3374,6 +4282,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGenerarJ;
     private javax.swing.JButton btnAsignarEntrenador;
+    private javax.swing.JButton btnAutoTorneo;
     private javax.swing.JButton btnCrearTorneo;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInicio;
@@ -3472,9 +4381,19 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -3482,10 +4401,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblApellidoContratar;
     private javax.swing.JLabel lblBuscarModi;
+    private javax.swing.JLabel lblBuscarTorneo;
     private javax.swing.JLabel lblClaveEliminar;
     private javax.swing.JLabel lblContraApellido;
     private javax.swing.JLabel lblCuarPre;
@@ -3498,6 +4417,22 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombreContratar;
     private javax.swing.JLabel lblNombreContratar5;
     private javax.swing.JLabel lblNombreEliminar;
+    private javax.swing.JLabel lblNombreTorneo;
+    private javax.swing.JLabel lblPartido0;
+    private javax.swing.JLabel lblPartido1;
+    private javax.swing.JLabel lblPartido2;
+    private javax.swing.JLabel lblPartido3;
+    private javax.swing.JLabel lblPartido4;
+    private javax.swing.JLabel lblPartido5;
+    private javax.swing.JLabel lblPartido6;
+    private javax.swing.JLabel lblPartido7;
+    private javax.swing.JLabel lblPartido8;
+    private javax.swing.JLabel lblPartido9;
+    private javax.swing.JLabel lblPartidoA;
+    private javax.swing.JLabel lblPartidoB;
+    private javax.swing.JLabel lblPartidoC;
+    private javax.swing.JLabel lblPartidoD;
+    private javax.swing.JLabel lblPartidoE;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblPrecioContratar;
     private javax.swing.JLabel lblPrecioModi;
@@ -3507,7 +4442,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JList<String> listEntrenadorAsig;
     private javax.swing.JPanel panelAdmin;
-    private javax.swing.JPanel panelAdminMet;
     private javax.swing.JPanel panelAdminModi;
     private javax.swing.JPanel panelAsignarEntrenador;
     private javax.swing.JPanel panelCamisa;
@@ -3529,8 +4463,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rBtnAleatorio;
     private javax.swing.JRadioButton rBtnManual;
     private javax.swing.JRadioButton rbtnAdmin;
+    private javax.swing.JRadioButton rbtnAutoTorneo;
     private javax.swing.JRadioButton rbtnEntrenador;
     private javax.swing.JRadioButton rbtnJugador;
+    private javax.swing.JRadioButton rbtnManuTorneo;
+    private javax.swing.JSpinner spnEntrada;
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaEstadios;
     private javax.swing.JTabbedPane tbdModificar;

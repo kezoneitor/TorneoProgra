@@ -308,7 +308,7 @@ public class Metodos {
                 if (aux.equipo.posicionTorneo == 0) {
                     auxAnt.sig = aux.sig;
                     return "Jugador eliminado";
-                }else{
+                } else {
                     return "El jugador esta en un torneo, no puede ser eliminado";
                 }
             }
@@ -548,8 +548,8 @@ public class Metodos {
     }
 
     // Insercion al final simple
-    public String InsertarTorneo(Administrador admin, String nombre, int[] premios) {
-        Torneo nuevo = new Torneo(admin, nombre, premios);
+    public String InsertarTorneo(Administrador admin, String nombre, int[] premios, int entrada) {
+        Torneo nuevo = new Torneo(admin, nombre, premios, entrada);
         if (inicioT == null) {
             inicioT = nuevo;
             return "Torneo insertado";
@@ -566,12 +566,13 @@ public class Metodos {
         return "Toneo insertado";
     }
 
-    public String modificarTorneo(Administrador admin, String nombre, String nombreN, int[] premios) {
+    public String modificarTorneo(Administrador admin, String nombre, String nombreN, int[] premios, int entrada) {
         Torneo aux = inicioT;
         while (aux != null) {
             if (aux.nombre.equals(nombre) & aux.admin.nombre.equals(admin.nombre)) {
                 aux.nombre = nombreN;
                 aux.Premio = premios;
+                aux.entrada = entrada;
                 return " Datos del Administrador modificados. ";
 
             }
@@ -642,7 +643,7 @@ public class Metodos {
     public String insertarPartidoTorneo(String nombre, Equipo equipoA, Equipo equipoB, Estadio estadio) {
         Torneo auxT = inicioT;
         equipoA.posicionTorneo = 16;
-        equipoB.posicionTorneo = 16;
+        equipoA.posicionTorneo = 16;
         Partidos nuevo = new Partidos(estadio, equipoA, equipoB);
 
         while (auxT != null) {
@@ -667,6 +668,51 @@ public class Metodos {
         return " NO existe nigun torneo. ";
     }
 
+    public String insertarPartidoTorneoCuartos(Torneo auxT, Equipo equipoA, Equipo equipoB, Estadio estadio) {
+        equipoA.posicionTorneo = 8;
+        equipoA.posicionTorneo = 8;
+        Partidos nuevo = new Partidos(estadio, equipoA, equipoB);
+        if (auxT.cuartosPA == null) {
+            auxT.cuartosPA = nuevo;
+            return "Partido insertado";
+        }
+        Partidos auxPA = auxT.cuartosPA;
+        while (auxPA.sig != null) {
+            auxPA = auxPA.sig;
+        }
+        auxPA.sig = nuevo;
+        return "Partido insertado";
+    }
+
+    public String insertarPartidoTorneoSemifinales(Torneo auxT, Equipo equipoA, Equipo equipoB, Estadio estadio) {
+        equipoA.posicionTorneo = 4;
+        equipoA.posicionTorneo = 4;
+        Partidos nuevo = new Partidos(estadio, equipoA, equipoB);
+        if (auxT.semifinalesPA == null) {
+            auxT.semifinalesPA = nuevo;
+            return "Partido insertado";
+        }
+        Partidos auxPA = auxT.semifinalesPA;
+        while (auxPA.sig != null) {
+            auxPA = auxPA.sig;
+        }
+        auxPA.sig = nuevo;
+        return "Partido insertado";
+    }
+
+    public String insertarPartidoTorneoFinal(Torneo auxT, Equipo equipoA, Equipo equipoB, Estadio estadio) {
+        equipoA.posicionTorneo = 2;
+        equipoA.posicionTorneo = 2;
+        Partidos nuevo = new Partidos(estadio, equipoA, equipoB);
+        if (auxT.finalPA == null) {
+            auxT.finalPA = nuevo;
+            return "Partido insertado";
+        }
+        nuevo.sig = auxT.finalPA;//
+        auxT.finalPA = nuevo;
+        return "Partido insertado";
+    }
+
 //-------------------------------------------METODOS PROGRA----------------------------------//
     public ArrayList<String> equiposRandom() {
         ArrayList<String> equipos = new ArrayList();
@@ -680,10 +726,10 @@ public class Metodos {
             }
             auxEq = auxEq.sig;
         }
-        if (equipos.size() < 32) {
+        if (equipos.size() < 16) {
             return null;
         }
-        while (equipos.size() != 32) {
+        while (equipos.size() != 16) {
             int idx = (int) (Math.random() * (equipos.size() - 1));
             equipos.remove(idx);
         }
@@ -703,8 +749,56 @@ public class Metodos {
             return "El equipo ya tiene entrenador y el entrenador ya tiene equipo";
         }
     }
-    
-    public void contratar(Entrenador entrenador, Jugador jugador, String estado){
-        
+
+    public Partidos buscarPartido(String nombreAdmin, String nombreTor, int i) {
+        Torneo auxT = buscarTorneo(nombreAdmin, nombreTor);
+        Partidos auxPAOct = auxT.SubPartidosA;
+        Partidos auxPACuar = auxT.cuartosPA;
+        Partidos auxPASemi = auxT.semifinalesPA;
+        Partidos auxPAFin = auxT.finalPA;
+        int j = 1;
+        if (i <= 8) {
+            while (auxPAOct != null) {
+                if (j == i) {
+                    return auxPAOct;
+                }
+                j++;
+                auxPAOct = auxPAOct.sig;
+            }
+        }
+        if (i >= 8 & i <= 12) {
+            while (auxPACuar != null) {
+                if (j == i) {
+                    return auxPACuar;
+                }
+                j++;
+                auxPACuar = auxPACuar.sig;
+            }
+        }
+        if (i >= 12 & i <= 14) {
+            while (auxPASemi != null) {
+                if (j == i) {
+                    return auxPASemi;
+                }
+                j++;
+                auxPASemi = auxPASemi.sig;
+            }
+        }
+        if (i == 15) {
+            return auxPAFin;
+        }
+        return null;
+    }
+
+    public String imprmirListaJugadores(Equipo equipo) {
+        String jugadores = "";
+        for (int i = 0; i < equipo.jugadores.size(); i++) {
+            jugadores += "Nombre: " + equipo.jugadores.get(i).nombre + ", ";
+            jugadores += "Apellido: " + equipo.jugadores.get(i).apellido + ", ";
+            jugadores += "Posición: " + equipo.jugadores.get(i).posicion + ", ";
+            jugadores += "Estado: " + equipo.jugadores.get(i).estado + ", ";
+            jugadores += "Precio: " + equipo.jugadores.get(i).precio + "\n";
+        }
+        return jugadores;
     }
 }
