@@ -13,6 +13,7 @@ public class Equipo {
     String[] camisa;
     int posicionTorneo;
     int goles;
+    int golesContra;
 
     //Punteros
     Equipo sig;
@@ -26,6 +27,7 @@ public class Equipo {
         this.camisa = camisa;
         this.posicionTorneo = 0;
         this.goles = 0;
+        this.golesContra = 0;
         this.sig = null;
         this.ant = null;
     }

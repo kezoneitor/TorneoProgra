@@ -14,6 +14,7 @@ public class Torneo {
     int cantPA;
     int entrada;
     boolean torneoActivo;
+    int dineroAdmin;
 
     public Torneo(Administrador admin, String nombre, int[] Premio, int entrada) {
         this.nombre = nombre;
@@ -26,6 +27,7 @@ public class Torneo {
         semifinalesPA = null;
         finalPA = null; 
         this.cantPA = 0;
+        this.dineroAdmin = 0;
         this.entrada = entrada;
         this.torneoActivo = true;
     }

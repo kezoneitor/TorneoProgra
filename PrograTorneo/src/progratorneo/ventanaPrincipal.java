@@ -85,6 +85,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         tbdPrincipal.setEnabledAt(3, false);
         tbdPrincipal.setEnabledAt(4, false);
         tbdPrincipal.setEnabledAt(5, false);
+        tbdPrincipal.setEnabledAt(6, false);
+        tbdPrincipal.setEnabledAt(7, false);
         tbdRegistrar.setEnabledAt(0, true);
         tbdRegistrar.setEnabledAt(1, false);
         tbdRegistrar.setEnabledAt(2, false);
@@ -297,31 +299,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
             auxEq = auxEq.sig;
         }
-    }
-
-    //LLenar la jTable con informacion
-    private void llenarTablaJugadores() {
-        tabla.addColumn("Nombre");
-        tabla.addColumn("Apellido");
-        tabla.addColumn("Habilidades");
-        tabla.addColumn("Precio");
-        tabla.addColumn("Posicion");
-        ArrayList<ArrayList> respaldo = data.Jugadores;
-        while (respaldo.size() != 0) {
-            Vector datos = new Vector();
-            int i = (int) (random() * (respaldo.size() - 1));
-            datos.addElement(respaldo.get(i).get(0));
-            datos.addElement(respaldo.get(i).get(1));
-            int[] habilidades = (int[]) respaldo.get(i).get(2);
-            String habi = "Fis: " + habilidades[0] + "  Def: " + habilidades[1] + "  Dri: " + habilidades[2] + "  Dis: " + habilidades[3];
-            datos.addElement(habi);
-            datos.addElement(respaldo.get(i).get(3));
-            datos.addElement(respaldo.get(i).get(4));
-            tabla.addRow(datos);
-
-            respaldo.remove(i);
-        }
-        jTable1.setModel(tabla);
     }
 
     private void llenarTablaEquipos() {
@@ -609,9 +586,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         btnAutoTorneo = new javax.swing.JButton();
         lblNombreTorneo = new javax.swing.JLabel();
         panelConsultas = new javax.swing.JPanel();
+        lblReporte1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        BtnGenerarJ = new javax.swing.JButton();
+        listaReportes = new javax.swing.JList<>();
+        lblReporte2 = new javax.swing.JLabel();
+        lblReporte3 = new javax.swing.JLabel();
+        lblReporte4 = new javax.swing.JLabel();
+        lblReporte5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -1970,7 +1951,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtNombreTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(spnEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(spnEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelTorneoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(panelTorneoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2641,31 +2622,45 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         panelConsultas.setEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Apellido", "Habilidades", "Precio", "Posicion"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        lblReporte1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte1.setText("Mostrar Equipo de un Jugador");
+        lblReporte1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporte1MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
 
-        BtnGenerarJ.setText("Generar J");
-        BtnGenerarJ.addMouseListener(new java.awt.event.MouseAdapter() {
+        jScrollPane1.setViewportView(listaReportes);
+
+        lblReporte2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte2.setText("Mostrar Jugadores de un Equipo");
+        lblReporte2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnGenerarJMouseClicked(evt);
+                lblReporte2MouseClicked(evt);
+            }
+        });
+
+        lblReporte3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte3.setText("Mostrar Entrenador de un Equipo");
+        lblReporte3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporte3MouseClicked(evt);
+            }
+        });
+
+        lblReporte4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte4.setText("Mostrar Equipo ganador de un torneo");
+        lblReporte4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporte4MouseClicked(evt);
+            }
+        });
+
+        lblReporte5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte5.setText("Mostrar Jugadores de un Precio");
+        lblReporte5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporte5MouseClicked(evt);
             }
         });
 
@@ -2676,23 +2671,35 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGroup(panelConsultasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelConsultasLayout.createSequentialGroup()
-                        .addComponent(BtnGenerarJ)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1305, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(lblReporte1)
+                    .addComponent(lblReporte2)
+                    .addComponent(lblReporte3)
+                    .addComponent(lblReporte4)
+                    .addComponent(lblReporte5))
+                .addGap(221, 221, 221)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(470, Short.MAX_VALUE))
         );
         panelConsultasLayout.setVerticalGroup(
             panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelConsultasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(BtnGenerarJ)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                .addGap(45, 45, 45))
+                .addGroup(panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConsultasLayout.createSequentialGroup()
+                        .addComponent(lblReporte1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReporte2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReporte3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReporte4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReporte5)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
         );
 
-        tbdPrincipal.addTab("tab3", panelConsultas);
+        tbdPrincipal.addTab("Reportes", panelConsultas);
 
         jLabel3.setText("Usuario actual: ");
 
@@ -2981,10 +2988,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
         verJugadorContratar();
     }//GEN-LAST:event_btnTablaContratarSigActionPerformed
-
-    private void BtnGenerarJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnGenerarJMouseClicked
-        llenarTablaJugadores();
-    }//GEN-LAST:event_BtnGenerarJMouseClicked
 
     private void cmbOpcionesTorneoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOpcionesTorneoItemStateChanged
         int index = cmbOpcionesTorneo.getSelectedIndex();
@@ -3614,7 +3617,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         tbdPrincipal.setEnabledAt(3, true);
                         tbdPrincipal.setEnabledAt(4, true);
                         tbdPrincipal.setEnabledAt(5, true);
-                        tbdPrincipal.setEnabledAt(6, false);
+                        tbdPrincipal.setEnabledAt(7, false);
                     } else {
                         showMessageDialog(null, "No se encontro usuario administrador");
                     }
@@ -3648,11 +3651,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         lblEstado.setText("Conectado");
                         btnLogin.setText("Logout");
                         //Habilitar los paneles para el Jugador
-                        tbdPrincipal.setEnabledAt(1, false);
-                        tbdPrincipal.setEnabledAt(2, false);
-                        tbdPrincipal.setEnabledAt(3, false);
-                        tbdPrincipal.setEnabledAt(4, false);
-                        tbdPrincipal.setEnabledAt(5, true);
+                        tbdPrincipal.setEnabledAt(6, true);
                     } else {
                         showMessageDialog(null, "No se encontro usuario jugador");
                     }
@@ -3677,6 +3676,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             tbdPrincipal.setEnabledAt(3, false);
             tbdPrincipal.setEnabledAt(4, false);
             tbdPrincipal.setEnabledAt(5, false);
+            tbdPrincipal.setEnabledAt(6, false);
+            tbdPrincipal.setEnabledAt(7, false);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -3770,8 +3771,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         int golA = (int) (Math.random() * 5);
                         int golB = (int) (Math.random() * 5);
                         if (golA != golB) {
-                            auxPA.equipoA.goles = auxPA.golesA = golA;
-                            auxPA.equipoB.goles = auxPA.golesB = golB;
+                            auxPA.equipoA.goles += golA;
+                            auxPA.golesA = golA;
+                            auxPA.equipoB.golesContra += golA;
+                            auxPA.equipoB.goles += golB;
+                            auxPA.golesB = golB;
+                            auxPA.equipoA.golesContra += golB;
+
                             flag = false;
                         }
 
@@ -3824,6 +3830,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             eq = false;
                         }
                         auxT.admin.dinero += dineroPartido * 0.75;
+                        auxT.dineroAdmin += dineroPartido * 0.75;
                     } else {
                         if (auxPA.golesA > auxPA.golesB) {
                             eqB = auxPA.equipoA;
@@ -3837,6 +3844,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             eq = true;
                         }
                         auxT.admin.dinero += dineroPartido * 0.75;
+                        auxT.dineroAdmin += dineroPartido * 0.75;
                         met.insertarPartidoTorneoCuartos(auxT, eqA, eqB, es);
                     }
                     auxPA = auxPA.sig;
@@ -3859,8 +3867,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         int golA = (int) (Math.random() * 5);
                         int golB = (int) (Math.random() * 5);
                         if (golA != golB) {
-                            auxPA.equipoA.goles = auxPA.golesA = golA;
-                            auxPA.equipoB.goles = auxPA.golesB = golB;
+                            auxPA.equipoA.goles += golA;
+                            auxPA.golesA = golA;
+                            auxPA.equipoB.golesContra += golA;
+                            auxPA.equipoB.goles += golB;
+                            auxPA.golesB = golB;
+                            auxPA.equipoA.golesContra += golB;
                             flag = false;
                         }
                         //Buscar los delanteros del equipoA
@@ -3911,6 +3923,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             eq = false;
                         }
                         auxT.admin.dinero += dineroPartido * 0.75;
+                        auxT.dineroAdmin += dineroPartido * 0.75;
                     } else {
                         if (auxPA.golesA > auxPA.golesB) {
                             eqB = auxPA.equipoA;
@@ -3924,6 +3937,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             eq = true;
                         }
                         auxT.admin.dinero += dineroPartido * 0.75;
+                        auxT.dineroAdmin += dineroPartido * 0.75;
                         met.insertarPartidoTorneoSemifinales(auxT, eqA, eqB, es);
                     }
                     auxPA = auxPA.sig;
@@ -3942,8 +3956,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         int golA = (int) (Math.random() * 5);
                         int golB = (int) (Math.random() * 5);
                         if (golA != golB) {
-                            auxPA.equipoA.goles = auxPA.golesA = golA;
-                            auxPA.equipoB.goles = auxPA.golesB = golB;
+                            auxPA.equipoA.goles += golA;
+                            auxPA.golesA = golA;
+                            auxPA.equipoB.golesContra += golA;
+                            auxPA.equipoB.goles += golB;
+                            auxPA.golesB = golB;
+                            auxPA.equipoA.golesContra += golB;
                             flag = false;
                         }
                         ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
@@ -3992,6 +4010,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             eq = false;
                         }
                         auxT.admin.dinero += dineroPartido * 0.75;
+                        auxT.dineroAdmin += dineroPartido * 0.75;
                     } else {
                         if (auxPA.golesA > auxPA.golesB) {
                             eqB = auxPA.equipoA;
@@ -4005,6 +4024,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             eq = true;
                         }
                         auxT.admin.dinero += dineroPartido * 0.75;
+                        auxT.dineroAdmin += dineroPartido * 0.75;
                         met.insertarPartidoTorneoFinal(auxT, eqA, eqB, es);
                     }
                     auxPA = auxPA.sig;
@@ -4019,8 +4039,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     int golA = (int) (Math.random() * 5);
                     int golB = (int) (Math.random() * 5);
                     if (golA != golB) {
-                        auxPA.equipoA.goles = auxPA.golesA = golA;
-                        auxPA.equipoB.goles = auxPA.golesB = golB;
+                        auxPA.equipoA.goles += golA;
+                            auxPA.golesA = golA;
+                            auxPA.equipoB.golesContra += golA;
+                            auxPA.equipoB.goles += golB;
+                            auxPA.golesB = golB;
+                            auxPA.equipoA.golesContra += golB;
                         flag = false;
                     }
                     ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
@@ -4066,6 +4090,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
                 }
                 auxT.admin.dinero += dineroPartido * 0.75;
+                auxT.dineroAdmin += dineroPartido * 0.75;
                 auxT.torneoActivo = false;
                 //Dar premios a los participantes del torneo
                 auxPA = auxT.SubPartidosA;
@@ -4148,7 +4173,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void rbtnAutoTorneoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAutoTorneoActionPerformed
         rbtnManuTorneo.setSelected(false);
-        btnAutoTorneo.setEnabled(true);
+        if (logeadoA != null) {
+            btnAutoTorneo.setEnabled(true);
+        }
     }//GEN-LAST:event_rbtnAutoTorneoActionPerformed
 
     private void lblPartido1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartido1MouseClicked
@@ -4206,6 +4233,58 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void lblPartidoEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPartidoEMouseClicked
         ventanaPartido(15);
     }//GEN-LAST:event_lblPartidoEMouseClicked
+
+    private void lblReporte1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte1MouseClicked
+        String nombreJugador = JOptionPane.showInputDialog(null, "Digite el nombre del Jugador");
+        String apellidoJugador = JOptionPane.showInputDialog(null, "Digite el apellido del Jugador");
+        Jugador jugador = met.buscarJugador(nombreJugador, apellidoJugador);
+        DefaultListModel lista = new DefaultListModel();
+        listaReportes.removeAll();
+        lista.addElement("Equipo: " + jugador.equipo.nombre);
+        listaReportes.setModel(lista);
+    }//GEN-LAST:event_lblReporte1MouseClicked
+
+    private void lblReporte2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte2MouseClicked
+        String nombreEquipo = JOptionPane.showInputDialog(null, "Digite el nombre del equipo");
+        Equipo equipo = met.buscarEquipo(nombreEquipo);
+        DefaultListModel lista = new DefaultListModel();
+        listaReportes.removeAll();
+        lista.addElement(met.imprmirListaJugadores(equipo));
+        listaReportes.setModel(lista);
+    }//GEN-LAST:event_lblReporte2MouseClicked
+
+    private void lblReporte3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte3MouseClicked
+        String nombreEquipo = JOptionPane.showInputDialog(null, "Digite el nombre del equipo");
+        Equipo equipo = met.buscarEquipo(nombreEquipo);
+        DefaultListModel lista = new DefaultListModel();
+        listaReportes.removeAll();
+        lista.addElement("Entrenador: " + equipo.entrenador.nombre +" "+ equipo.entrenador.apellido);
+        listaReportes.setModel(lista);
+    }//GEN-LAST:event_lblReporte3MouseClicked
+
+    private void lblReporte4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte4MouseClicked
+        String nombreEquipo = JOptionPane.showInputDialog(null, "Digite el nombre del torneo");
+        Torneo torneo = met.buscarTorneo(nombreEquipo);
+        DefaultListModel lista = new DefaultListModel();
+        listaReportes.removeAll();
+        String equipo;
+        if(torneo.finalPA.golesA > torneo.finalPA.golesB){
+            equipo = torneo.finalPA.equipoA.nombre;
+        }else{
+            equipo = torneo.finalPA.equipoB.nombre;
+        }
+        lista.addElement("Equipo ganador del torneo "+ torneo.nombre + ": " + equipo);
+        listaReportes.setModel(lista);
+    }//GEN-LAST:event_lblReporte4MouseClicked
+
+    private void lblReporte5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte5MouseClicked
+        int precio = String.valueOf(JOptionPane.showInputDialog(null, "Digite el nombre del equipo"));
+        Equipo equipo = met.buscarEquipo(nombreEquipo);
+        DefaultListModel lista = new DefaultListModel();
+        listaReportes.removeAll();
+        lista.addElement("Entrenador: " + equipo.entrenador.nombre +" "+ equipo.entrenador.apellido);
+        listaReportes.setModel(lista);
+    }//GEN-LAST:event_lblReporte5MouseClicked
 
     private void verJugadorContratar() {
         if (logeadoE != null) {
@@ -4280,7 +4359,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnGenerarJ;
     private javax.swing.JButton btnAsignarEntrenador;
     private javax.swing.JButton btnAutoTorneo;
     private javax.swing.JButton btnCrearTorneo;
@@ -4401,7 +4479,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblApellidoContratar;
     private javax.swing.JLabel lblBuscarModi;
     private javax.swing.JLabel lblBuscarTorneo;
@@ -4438,9 +4515,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecioModi;
     private javax.swing.JLabel lblPremios;
     private javax.swing.JLabel lblRefresh;
+    private javax.swing.JLabel lblReporte1;
+    private javax.swing.JLabel lblReporte2;
+    private javax.swing.JLabel lblReporte3;
+    private javax.swing.JLabel lblReporte4;
+    private javax.swing.JLabel lblReporte5;
     private javax.swing.JLabel lblSePre;
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JList<String> listEntrenadorAsig;
+    private javax.swing.JList<String> listaReportes;
     private javax.swing.JPanel panelAdmin;
     private javax.swing.JPanel panelAdminModi;
     private javax.swing.JPanel panelAsignarEntrenador;

@@ -546,6 +546,17 @@ public class Metodos {
         }
         return null;
     }
+    
+    public Torneo buscarTorneo(String nombreTorneo) {
+        Torneo aux = inicioT;
+        while (aux != null) {
+            if (aux.nombre.equals(nombreTorneo)) {
+                return aux;
+            }
+            aux = aux.sig;
+        }
+        return null;
+    }
 
     // Insercion al final simple
     public String InsertarTorneo(Administrador admin, String nombre, int[] premios, int entrada) {
@@ -767,6 +778,7 @@ public class Metodos {
             }
         }
         if (i >= 8 & i <= 12) {
+            i -= 8;
             while (auxPACuar != null) {
                 if (j == i) {
                     return auxPACuar;
@@ -776,6 +788,7 @@ public class Metodos {
             }
         }
         if (i >= 12 & i <= 14) {
+            i -= 12;
             while (auxPASemi != null) {
                 if (j == i) {
                     return auxPASemi;
@@ -785,6 +798,7 @@ public class Metodos {
             }
         }
         if (i == 15) {
+            i -= 14;
             return auxPAFin;
         }
         return null;
@@ -794,11 +808,12 @@ public class Metodos {
         String jugadores = "";
         for (int i = 0; i < equipo.jugadores.size(); i++) {
             jugadores += "Nombre: " + equipo.jugadores.get(i).nombre + ", ";
-            jugadores += "Apellido: " + equipo.jugadores.get(i).apellido + ", ";
-            jugadores += "Posición: " + equipo.jugadores.get(i).posicion + ", ";
-            jugadores += "Estado: " + equipo.jugadores.get(i).estado + ", ";
-            jugadores += "Precio: " + equipo.jugadores.get(i).precio + "\n";
+            jugadores += "\tApellido: " + equipo.jugadores.get(i).apellido + ", ";
+            jugadores += "\tPosición: " + equipo.jugadores.get(i).posicion + ", ";
+            int[] habi = equipo.jugadores.get(i).habilidades;
+            jugadores += "\tHabilidades( Fis: " + habi[0] + " Def: " + habi[1] + " Dri: " + habi[2] + "Dis: " + habi[3] + "\n";
         }
         return jugadores;
     }
+    
 }
