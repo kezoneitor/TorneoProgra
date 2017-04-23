@@ -593,6 +593,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         lblReporte3 = new javax.swing.JLabel();
         lblReporte4 = new javax.swing.JLabel();
         lblReporte5 = new javax.swing.JLabel();
+        lblReporte6 = new javax.swing.JLabel();
+        lblReporte7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblUsuarioActual = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -2664,6 +2666,22 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        lblReporte6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte6.setText("Mostrar Equipos de un Torneo");
+        lblReporte6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporte6MouseClicked(evt);
+            }
+        });
+
+        lblReporte7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblReporte7.setText("Mostrar Goleador");
+        lblReporte7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblReporte7MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelConsultasLayout = new javax.swing.GroupLayout(panelConsultas);
         panelConsultas.setLayout(panelConsultasLayout);
         panelConsultasLayout.setHorizontalGroup(
@@ -2675,10 +2693,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addComponent(lblReporte2)
                     .addComponent(lblReporte3)
                     .addComponent(lblReporte4)
-                    .addComponent(lblReporte5))
-                .addGap(221, 221, 221)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(470, Short.MAX_VALUE))
+                    .addComponent(lblReporte5)
+                    .addComponent(lblReporte6)
+                    .addComponent(lblReporte7))
+                .addGap(102, 102, 102)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(354, Short.MAX_VALUE))
         );
         panelConsultasLayout.setVerticalGroup(
             panelConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2695,8 +2715,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(lblReporte4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblReporte5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReporte6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReporte7)
+                        .addContainerGap(277, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)))
         );
 
         tbdPrincipal.addTab("Reportes", panelConsultas);
@@ -4040,11 +4064,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     int golB = (int) (Math.random() * 5);
                     if (golA != golB) {
                         auxPA.equipoA.goles += golA;
-                            auxPA.golesA = golA;
-                            auxPA.equipoB.golesContra += golA;
-                            auxPA.equipoB.goles += golB;
-                            auxPA.golesB = golB;
-                            auxPA.equipoA.golesContra += golB;
+                        auxPA.golesA = golA;
+                        auxPA.equipoB.golesContra += golA;
+                        auxPA.equipoB.goles += golB;
+                        auxPA.golesB = golB;
+                        auxPA.equipoA.golesContra += golB;
                         flag = false;
                     }
                     ArrayList<Jugador> delantero = buscarDelantero(auxPA.equipoA.jugadores);
@@ -4258,33 +4282,71 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         Equipo equipo = met.buscarEquipo(nombreEquipo);
         DefaultListModel lista = new DefaultListModel();
         listaReportes.removeAll();
-        lista.addElement("Entrenador: " + equipo.entrenador.nombre +" "+ equipo.entrenador.apellido);
+        lista.addElement("Entrenador: " + equipo.entrenador.nombre + " " + equipo.entrenador.apellido);
         listaReportes.setModel(lista);
     }//GEN-LAST:event_lblReporte3MouseClicked
 
     private void lblReporte4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte4MouseClicked
-        String nombreEquipo = JOptionPane.showInputDialog(null, "Digite el nombre del torneo");
-        Torneo torneo = met.buscarTorneo(nombreEquipo);
+        String nombreTorneo = JOptionPane.showInputDialog(null, "Digite el nombre del torneo");
+        Torneo torneo = met.buscarTorneo(nombreTorneo);
         DefaultListModel lista = new DefaultListModel();
         listaReportes.removeAll();
         String equipo;
-        if(torneo.finalPA.golesA > torneo.finalPA.golesB){
+        if (torneo.finalPA.golesA > torneo.finalPA.golesB) {
             equipo = torneo.finalPA.equipoA.nombre;
-        }else{
+        } else {
             equipo = torneo.finalPA.equipoB.nombre;
         }
-        lista.addElement("Equipo ganador del torneo "+ torneo.nombre + ": " + equipo);
+        lista.addElement("Equipo ganador del torneo " + torneo.nombre + ": " + equipo);
         listaReportes.setModel(lista);
     }//GEN-LAST:event_lblReporte4MouseClicked
 
     private void lblReporte5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte5MouseClicked
-        int precio = String.valueOf(JOptionPane.showInputDialog(null, "Digite el nombre del equipo"));
-        Equipo equipo = met.buscarEquipo(nombreEquipo);
+        String validar = JOptionPane.showInputDialog(null, "Digite el Precio");
+        if (esNumero(validar)) {
+            int precio = Integer.parseInt(validar);
+            ArrayList<Jugador> jugadores = met.buscarJugadorPrecio(precio, "=");
+            DefaultListModel lista = new DefaultListModel();
+            listaReportes.removeAll();
+            for (int i = 0; i < jugadores.size(); i++) {
+                int[] habi = jugadores.get(i).habilidades;
+                lista.addElement("Nombre: " + jugadores.get(i).nombre + " " + jugadores.get(i).apellido + ", Posición" + jugadores.get(i).posicion + ", Habilidades( Fis: " + habi[0] + " Def: " + habi[1] + " Dri: " + habi[2] + "Dis: " + habi[3]+")" + ", Estado: "+ jugadores.get(i).estado );
+            }
+            listaReportes.setModel(lista);
+        }else{
+            JOptionPane.showMessageDialog(null, "Digite un número porfavor");
+        }
+    }//GEN-LAST:event_lblReporte5MouseClicked
+
+    private void lblReporte6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte6MouseClicked
+        String nombreTorneo = JOptionPane.showInputDialog(null, "Digite el nombre del torneo");
+        Torneo torneo = met.buscarTorneo(nombreTorneo);
         DefaultListModel lista = new DefaultListModel();
         listaReportes.removeAll();
-        lista.addElement("Entrenador: " + equipo.entrenador.nombre +" "+ equipo.entrenador.apellido);
+        lista.addElement(met.imprimirEquiposTorneo(torneo));
         listaReportes.setModel(lista);
-    }//GEN-LAST:event_lblReporte5MouseClicked
+    }//GEN-LAST:event_lblReporte6MouseClicked
+
+    private void lblReporte7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReporte7MouseClicked
+        String nombreEquipo = JOptionPane.showInputDialog(null, "Digite el nombre del equipo");
+        Equipo equipo = met.buscarEquipo(nombreEquipo);
+       if(equipo != null){
+        Jugador goleador = met.buscarGoleador(equipo);
+        String eq;
+        if(goleador.equipo != null){
+            eq = goleador.equipo.nombre;
+        }else{
+            eq = "libre";
+        }
+        DefaultListModel lista = new DefaultListModel();
+        listaReportes.removeAll();
+        lista.addElement("Goleador: " + goleador.nombre + " " + goleador.apellido + ", Goles: " + goleador.goles + "Equipo: " + eq);
+        listaReportes.setModel(lista);
+       }else{
+           JOptionPane.showMessageDialog(null, "El equipo no existe");
+       }
+               
+    }//GEN-LAST:event_lblReporte7MouseClicked
 
     private void verJugadorContratar() {
         if (logeadoE != null) {
@@ -4520,6 +4582,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblReporte3;
     private javax.swing.JLabel lblReporte4;
     private javax.swing.JLabel lblReporte5;
+    private javax.swing.JLabel lblReporte6;
+    private javax.swing.JLabel lblReporte7;
     private javax.swing.JLabel lblSePre;
     private javax.swing.JLabel lblUsuarioActual;
     private javax.swing.JList<String> listEntrenadorAsig;

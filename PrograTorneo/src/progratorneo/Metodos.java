@@ -254,7 +254,7 @@ public class Metodos {
     }
 
     //buscar simple por precio
-    public ArrayList buscarJugadorPrecio(int precio, String signo) {
+    public ArrayList<Jugador> buscarJugadorPrecio(int precio, String signo) {
         ArrayList<Jugador> jugadores = new ArrayList();
         Jugador aux = inicioJ;
         while (aux != null) {
@@ -815,5 +815,27 @@ public class Metodos {
         }
         return jugadores;
     }
+    
+    public String imprimirEquiposTorneo(Torneo torneo){
+        String equipos = "";
+        Partidos auxPA = torneo.SubPartidosA;
+        while(auxPA != null){
+            equipos += "Equipo: " + auxPA.equipoA.nombre;
+            equipos += "\nEquipo: " + auxPA.equipoB.nombre;
+            auxPA = auxPA.sig;
+        }
+        return equipos;
+    }
+    
+    public Jugador buscarGoleador(Equipo equipo){
+        Jugador goleador = inicioJ;
+        for(int i = 0; i < equipo.jugadores.size();i++){
+            if(equipo.jugadores.get(i).goles > goleador.goles){
+                goleador = equipo.jugadores.get(i);
+            }
+        }
+        return goleador;
+    }
+    
     
 }
